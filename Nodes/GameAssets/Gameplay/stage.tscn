@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://dqp0tei13fhqm"]
+
+[ext_resource type="Script" path="res://Scripts/GameAssets/Gameplay/stage.gd" id="1_r24i5"]
+[ext_resource type="Shader" path="res://Assets/Shaders/ground.gdshader" id="2_78ebw"]
+[ext_resource type="Script" path="res://Scripts/GameAssets/Gameplay/stageData.gd" id="2_oe8fj"]
+[ext_resource type="Texture2D" uid="uid://0kyefr0mnpgn" path="res://Assets/Images/Backgrounds/grid.png" id="3_tvgrl"]
+
+[sub_resource type="Resource" id="Resource_bs5us"]
+script = ExtResource("2_oe8fj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tnxun"]
+shader = ExtResource("2_78ebw")
+shader_parameter/dir = Vector2(1, 0)
+shader_parameter/spd = 0.8
+
+[sub_resource type="Gradient" id="Gradient_pav81"]
+offsets = PackedFloat32Array()
+colors = PackedColorArray()
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bwsge"]
+gradient = SubResource("Gradient_pav81")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ae4re"]
+size = Vector2(332.5, 16.25)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aomfy"]
+shader = ExtResource("2_78ebw")
+shader_parameter/dir = Vector2(1, 0)
+shader_parameter/spd = 5.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_darrd"]
+size = Vector2(20, 713.875)
+
+[node name="stage" type="Node2D"]
+script = ExtResource("1_r24i5")
+debugStageData = SubResource("Resource_bs5us")
+debug = true
+
+[node name="bgTexture" type="TextureRect" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_tnxun")
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_bwsge")
+stretch_mode = 1
+
+[node name="ground" type="StaticBody2D" parent="."]
+position = Vector2(0, 731)
+scale = Vector2(4, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ground"]
+position = Vector2(158.25, -0.125)
+shape = SubResource("RectangleShape2D_ae4re")
+
+[node name="groundTexture" type="TextureRect" parent="ground"]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_aomfy")
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 325.0
+offset_bottom = 8.0
+texture = ExtResource("3_tvgrl")
+stretch_mode = 1
+
+[node name="marginLeft" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="marginLeft"]
+position = Vector2(-6, 346.063)
+shape = SubResource("RectangleShape2D_darrd")
+
+[node name="marginRight" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="marginRight"]
+position = Vector2(1285, 344.375)
+shape = SubResource("RectangleShape2D_darrd")

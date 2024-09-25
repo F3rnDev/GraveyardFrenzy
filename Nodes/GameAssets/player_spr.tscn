@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://cfkurp5csl4do"]
+
+[ext_resource type="Texture2D" uid="uid://xnndfffbxd4p" path="res://Assets/Images/Characters/skeleton.png" id="1_8tm1a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wya31"]
+atlas = ExtResource("1_8tm1a")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwl7u"]
+atlas = ExtResource("1_8tm1a")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uus52"]
+atlas = ExtResource("1_8tm1a")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0pfb"]
+atlas = ExtResource("1_8tm1a")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7rbd"]
+atlas = ExtResource("1_8tm1a")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8rkg"]
+atlas = ExtResource("1_8tm1a")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8s8wf"]
+atlas = ExtResource("1_8tm1a")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mw1sd"]
+atlas = ExtResource("1_8tm1a")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dtea3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wya31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwl7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uus52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0pfb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7rbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8rkg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8s8wf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mw1sd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="player_2d" type="AnimatedSprite2D"]
+texture_filter = 1
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_dtea3")

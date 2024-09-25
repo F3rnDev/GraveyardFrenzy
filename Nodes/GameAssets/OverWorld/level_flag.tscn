@@ -1,0 +1,151 @@
+[gd_scene load_steps=19 format=3 uid="uid://c4vek4qf63ci6"]
+
+[ext_resource type="Texture2D" uid="uid://cpuu1sj7sgx71" path="res://Assets/Images/Icons/flag-placeholder.png" id="1_3npxk"]
+[ext_resource type="Script" path="res://Scripts/GameAssets/OverWorld/level_flag.gd" id="1_08hjr"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_yste6"]
+viewport_path = NodePath("stageViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hjs1p"]
+viewport_path = NodePath("flagViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0iy3k"]
+size = Vector3(0.525, 1, 0.175)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_r8xys"]
+radius = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n341x"]
+atlas = ExtResource("1_3npxk")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n0o5x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n341x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlvpy"]
+atlas = ExtResource("1_3npxk")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5d4p"]
+atlas = ExtResource("1_3npxk")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sv4af"]
+atlas = ExtResource("1_3npxk")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwk36"]
+atlas = ExtResource("1_3npxk")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsqiv"]
+atlas = ExtResource("1_3npxk")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ux3ux"]
+atlas = ExtResource("1_3npxk")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vsla"]
+atlas = ExtResource("1_3npxk")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fydy4"]
+atlas = ExtResource("1_3npxk")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgvmo"]
+atlas = ExtResource("1_3npxk")
+region = Rect2(512, 128, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_85vti"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlvpy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5d4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sv4af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwk36")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qsqiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ux3ux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vsla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fydy4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgvmo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="LevelFlag" type="Node3D"]
+script = ExtResource("1_08hjr")
+
+[node name="stage" type="Sprite3D" parent="."]
+billboard = 1
+texture_filter = 0
+render_priority = -1
+texture = SubResource("ViewportTexture_yste6")
+
+[node name="flag" type="Sprite3D" parent="."]
+billboard = 1
+texture_filter = 0
+texture = SubResource("ViewportTexture_hjs1p")
+
+[node name="Collider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Collider"]
+shape = SubResource("BoxShape3D_0iy3k")
+
+[node name="Area" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area"]
+shape = SubResource("SphereShape3D_r8xys")
+
+[node name="stageViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(1280, 720)
+
+[node name="stage" type="AnimatedSprite2D" parent="stageViewport"]
+z_index = -1
+texture_filter = 1
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_n0o5x")
+
+[node name="flagViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(1280, 720)
+
+[node name="flag" type="AnimatedSprite2D" parent="flagViewport"]
+texture_filter = 1
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_85vti")
+frame_progress = 0.242851
+
+[connection signal="area_entered" from="Area" to="." method="_on_area_area_entered"]
+[connection signal="area_exited" from="Area" to="." method="_on_area_area_exited"]

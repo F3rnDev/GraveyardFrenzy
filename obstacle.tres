@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://3ifoloak3mav"]
+
+[ext_resource type="Texture2D" uid="uid://dhjn2k6ut4p7p" path="res://Assets/Images/Obstacles/obstacles.png" id="1_0food"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ala7"]
+atlas = ExtResource("1_0food")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxhgp"]
+atlas = ExtResource("1_0food")
+region = Rect2(32, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ala7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxhgp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 0.0
+}]

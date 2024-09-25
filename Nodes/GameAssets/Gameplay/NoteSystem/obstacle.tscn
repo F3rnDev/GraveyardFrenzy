@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjl6p6jbjcm2m"]
+
+[ext_resource type="SpriteFrames" uid="uid://3ifoloak3mav" path="res://obstacle.tres" id="1_txyb2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j48ch"]
+size = Vector2(17, 20)
+
+[node name="obstacle" type="AnimatedSprite2D" groups=["obstacle"]]
+texture_filter = 1
+scale = Vector2(5, 5)
+sprite_frames = ExtResource("1_txyb2")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+texture_filter = 1
+position = Vector2(0.500001, 6)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_j48ch")

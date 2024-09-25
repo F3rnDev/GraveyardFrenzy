@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bs0l0q8pk81ye"]
+
+[ext_resource type="PackedScene" uid="uid://cfkurp5csl4do" path="res://Nodes/GameAssets/player_spr.tscn" id="1_mx476"]
+[ext_resource type="Script" path="res://Scripts/GameAssets/OverWorld/player_overworld.gd" id="1_svtgb"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_q1gnw"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4rwp4"]
+size = Vector3(1, 0.774626, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bvxxu"]
+radius = 1.0
+
+[node name="player3D" type="CharacterBody3D" groups=["player"]]
+script = ExtResource("1_svtgb")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture_filter = 0
+texture = SubResource("ViewportTexture_q1gnw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.212312, 0)
+shape = SubResource("BoxShape3D_4rwp4")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(1280, 720)
+
+[node name="player_2d" parent="SubViewport" instance=ExtResource("1_mx476")]
+position = Vector2(640, 360)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.212312, 0)
+shape = SubResource("SphereShape3D_bvxxu")

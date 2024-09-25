@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://btbkur778pbwy"]
+
+[ext_resource type="Script" path="res://Scripts/Scenes/play_song_state.gd" id="1_rvoja"]
+[ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="2_57ly5"]
+[ext_resource type="PackedScene" uid="uid://5f1c7amy88s7" path="res://Nodes/GameAssets/note_strum.tscn" id="4_5yswb"]
+[ext_resource type="PackedScene" uid="uid://bqwt4i1tys03u" path="res://Nodes/Global/song.tscn" id="4_6ojtx"]
+
+[node name="PlayState" type="Node2D"]
+script = ExtResource("1_rvoja")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+zoom = Vector2(0.07, 0.07)
+
+[node name="Conductor" parent="." instance=ExtResource("2_57ly5")]
+
+[node name="Song" parent="." instance=ExtResource("4_6ojtx")]
+
+[node name="NoteStrum" parent="." instance=ExtResource("4_5yswb")]
+position = Vector2(259, 446)
+
+[node name="RenderedNotes" type="Node2D" parent="."]
+
+[connection signal="beatHit" from="Conductor" to="." method="_on_conductor_beat_hit"]
+[connection signal="stepHit" from="Conductor" to="." method="_on_conductor_step_hit"]

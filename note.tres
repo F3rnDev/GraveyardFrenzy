@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://cgk0i6shema3v"]
+
+[ext_resource type="Texture2D" uid="uid://40nlvtmsj55m" path="res://Assets/Images/NoteSkin/default.png" id="1_ri0tt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_om827"]
+atlas = ExtResource("1_ri0tt")
+region = Rect2(69, 0, 23, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xscf"]
+atlas = ExtResource("1_ri0tt")
+region = Rect2(92, 0, 23, 27)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_om827")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xscf")
+}],
+"loop": true,
+"name": &"holdEnd",
+"speed": 5.0
+}]

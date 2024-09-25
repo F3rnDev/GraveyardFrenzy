@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqwt4i1tys03u"]
+
+[ext_resource type="Script" path="res://Scripts/Global/Music/song.gd" id="1_7d882"]
+
+[node name="Song" type="Node"]
+script = ExtResource("1_7d882")

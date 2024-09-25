@@ -1,0 +1,198 @@
+[gd_scene load_steps=12 format=3 uid="uid://dv0phrrwdlicv"]
+
+[ext_resource type="Script" path="res://Scripts/Scenes/charting_state.gd" id="1_022yw"]
+[ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="2_g7eaq"]
+[ext_resource type="PackedScene" uid="uid://bqwt4i1tys03u" path="res://Nodes/Global/song.tscn" id="3_x8v7v"]
+[ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="4_d4mfj"]
+[ext_resource type="Texture2D" uid="uid://ds5mr3p6xsyhg" path="res://Assets/Images/arrowIcon.png" id="5_rivmg"]
+[ext_resource type="Texture2D" uid="uid://dkn2ms4x455qg" path="res://Assets/Images/playIcon.png" id="6_6ehde"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kbfbv"]
+size = Vector2(17, 221)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dqnvo"]
+bg_color = Color(0.772549, 0.772549, 0.772549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_4o7fu"]
+default_font = ExtResource("4_d4mfj")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0og24"]
+bg_color = Color(0, 0, 0, 0.337255)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j7dr4"]
+bg_color = Color(1, 1, 1, 0.262745)
+border_color = Color(1, 1, 1, 0.262745)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="ChartingState" type="Node2D"]
+script = ExtResource("1_022yw")
+gridX = 20
+gridY = 50
+gridSize = 60
+dragForce = 0.01
+minZoom = 1.0
+maxZoom = 0.5
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="Conductor" parent="." instance=ExtResource("2_g7eaq")]
+
+[node name="Song" parent="." instance=ExtResource("3_x8v7v")]
+
+[node name="StrumLine" type="ColorRect" parent="."]
+z_index = 1
+offset_right = 12.0
+offset_bottom = 217.0
+color = Color(0, 0, 0, 1)
+
+[node name="StrumArea" type="Area2D" parent="StrumLine"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StrumLine/StrumArea"]
+position = Vector2(6.5, 108.5)
+shape = SubResource("RectangleShape2D_kbfbv")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SelectSong" type="FileDialog" parent="CanvasLayer"]
+title = "Choose your song"
+initial_position = 1
+size = Vector2i(1280, 720)
+ok_button_text = "Open"
+mode_overrides_title = false
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.wav", "*.ogg", "*.mp3")
+show_hidden_files = true
+
+[node name="MusicInfoUI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -78.87
+offset_right = 40.0
+offset_bottom = -38.87
+
+[node name="Bg" type="Panel" parent="CanvasLayer/MusicInfoUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = 474.98
+offset_right = 1230.0
+offset_bottom = 672.949
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dqnvo")
+
+[node name="SongName" type="Label" parent="CanvasLayer/MusicInfoUI"]
+texture_filter = 1
+offset_left = 79.0
+offset_top = 517.795
+offset_right = 239.0
+offset_bottom = 543.797
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_d4mfj")
+text = "Song Name:"
+
+[node name="input" type="LineEdit" parent="CanvasLayer/MusicInfoUI/SongName"]
+layout_mode = 0
+offset_top = 22.775
+offset_right = 220.533
+offset_bottom = 53.775
+theme_override_fonts/font = ExtResource("4_d4mfj")
+
+[node name="SongBpm" type="Label" parent="CanvasLayer/MusicInfoUI"]
+texture_filter = 1
+offset_left = 347.0
+offset_top = 517.795
+offset_right = 507.0
+offset_bottom = 543.797
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_d4mfj")
+text = "BPM:"
+
+[node name="input" type="SpinBox" parent="CanvasLayer/MusicInfoUI/SongBpm"]
+layout_mode = 0
+offset_top = 22.775
+offset_right = 86.0
+offset_bottom = 53.775
+theme = SubResource("Theme_4o7fu")
+theme_override_icons/updown = ExtResource("5_rivmg")
+max_value = 1000.0
+alignment = 1
+
+[node name="SaveSong" type="Button" parent="CanvasLayer/MusicInfoUI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1060.0
+offset_top = 597.0
+offset_right = 1212.0
+offset_bottom = 644.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_d4mfj")
+text = "Save Song"
+
+[node name="LoadSong" type="Button" parent="CanvasLayer/MusicInfoUI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 828.0
+offset_top = 597.0
+offset_right = 1044.0
+offset_bottom = 644.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_d4mfj")
+text = "Load Song"
+
+[node name="Play Song" type="Button" parent="CanvasLayer"]
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -86.575
+offset_right = 20.0
+offset_bottom = -30.575
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_0og24")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j7dr4")
+action_mode = 0
+icon = ExtResource("6_6ehde")
+icon_alignment = 1
+
+[connection signal="mouse_entered" from="StrumLine/StrumArea" to="." method="_on_strum_area_mouse_entered"]
+[connection signal="mouse_exited" from="StrumLine/StrumArea" to="." method="_on_strum_area_mouse_exited"]
+[connection signal="file_selected" from="CanvasLayer/SelectSong" to="." method="_on_select_song_file_selected"]
+[connection signal="mouse_entered" from="CanvasLayer/MusicInfoUI/Bg" to="." method="_on_bg_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/MusicInfoUI/Bg" to="." method="_on_bg_mouse_exited"]
+[connection signal="text_changed" from="CanvasLayer/MusicInfoUI/SongName/input" to="." method="_on_input_text_changed"]
+[connection signal="value_changed" from="CanvasLayer/MusicInfoUI/SongBpm/input" to="." method="_on_input_value_changed"]
+[connection signal="button_down" from="CanvasLayer/MusicInfoUI/SaveSong" to="." method="_on_save_song_button_down"]
+[connection signal="button_down" from="CanvasLayer/Play Song" to="." method="_on_play_song_button_down"]
+[connection signal="mouse_entered" from="CanvasLayer/Play Song" to="." method="_on_play_song_mouse_entered"]

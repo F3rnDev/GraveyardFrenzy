@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=3 uid="uid://5f1c7amy88s7"]
+
+[ext_resource type="Script" path="res://Scripts/GameAssets/Gameplay/noteStrum.gd" id="1_l0spq"]
+[ext_resource type="Texture2D" uid="uid://40nlvtmsj55m" path="res://Assets/Images/NoteSkin/default.png" id="1_ngxhv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fvj87"]
+size = Vector2(126.255, 291)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ruq07"]
+atlas = ExtResource("1_ngxhv")
+region = Rect2(46, 0, 23, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur7ka"]
+atlas = ExtResource("1_ngxhv")
+region = Rect2(0, 0, 23, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vo3ah"]
+atlas = ExtResource("1_ngxhv")
+region = Rect2(23, 0, 23, 27)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0do0h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ruq07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur7ka")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vo3ah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ruq07")
+}],
+"loop": false,
+"name": &"note_press",
+"speed": 10.0
+}]
+
+[node name="NoteStrum" type="Node2D"]
+position = Vector2(670, 314)
+script = ExtResource("1_l0spq")
+debug = true
+
+[node name="StrumArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StrumArea"]
+position = Vector2(0, 80.5)
+shape = SubResource("RectangleShape2D_fvj87")
+
+[node name="StrumUp" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_0do0h")
+animation = &"idle"
+
+[node name="StrumDown" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 153.415)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_0do0h")
+animation = &"idle"
+
+[node name="debug" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="debug"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -308.0
+offset_top = -64.0
+offset_right = -196.0
+offset_bottom = 105.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="x" type="LineEdit" parent="debug/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+
+[node name="y" type="LineEdit" parent="debug/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+
+[node name="width" type="LineEdit" parent="debug/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+
+[node name="height" type="LineEdit" parent="debug/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
