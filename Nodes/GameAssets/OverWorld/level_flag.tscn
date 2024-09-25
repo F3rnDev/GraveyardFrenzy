@@ -13,7 +13,7 @@ viewport_path = NodePath("flagViewport")
 size = Vector3(0.525, 1, 0.175)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_r8xys"]
-radius = 1.0
+radius = 0.674613
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n341x"]
 atlas = ExtResource("1_3npxk")

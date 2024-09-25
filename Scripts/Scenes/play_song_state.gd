@@ -19,7 +19,7 @@ var totalNotesPlayed = 0
 
 var songOver = false
 
-#noteInputControl
+#noteInputControl, 2 lanes btw :D
 var noteInJudgement = [false, false]
 var activateHold = [false, false]
 
