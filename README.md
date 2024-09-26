@@ -9,7 +9,7 @@ Graveyard Frenzy is a rhythm game based on Muse Dash, Friday Night Funkin' and O
 
 The prototype version was made using HaxeFlixel and its repository can be found [here](https://github.com/F3rnDev/Frenesi-do-Cemiterio-Mundial)
 
-You can read the documentation of this project [here]() <!-- WHEN YOU MAKE IT PUBLIC REMEMBER TO ADD THE LINK-->
+You can read the documentation of this project [here](https://f3rndev.github.io/GraveyardFrenzy/#/)
 
 ## Project Status
 ![StatusSplashImage](./docs/images/Status.png)
