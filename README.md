@@ -16,7 +16,7 @@ You can read the documentation of this project [here](https://f3rndev.github.io/
 
 ![status](https://img.shields.io/badge/status-prototype-yellow) ![version](https://img.shields.io/badge/version-v0.0.1-blue)
 
-We're still in a prototype phase, but we're working hard to make it a full game. <!-- If you're interested in seeing the progress, you can check our roadmap [here](). --> <!-- Add roadmap in documantation-->
+We're still in a prototype phase, but we're working hard to make it a full game. If you're interested in seeing the progress, you can check our roadmap [here](https://f3rndev.github.io/GraveyardFrenzy/#/roadmap).
 
 ## Screenshots
 ![screnshot1](./docs/images/screenshots/prototype/screen1.png)

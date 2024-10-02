@@ -1,0 +1,17 @@
+:root {
+    --theme-color: #ff0000;
+    --base-background-color: black;
+    --base-font-family: 'Press Start 2P';
+    --base-font-size: 16px;
+
+    /* custom markdown styles */
+    --code-inline-background: #222222;
+
+    /* custom sidebar styles */
+    --sidebar-background: black;
+    --sidebar-width: 400px;
+    --sidebar-border-color: red;
+    --sidebar-toggle-background: red;
+    --sidebar-toggle-icon-color: white;
+    --sidebar-toggle-icon-width: 20px;
+}

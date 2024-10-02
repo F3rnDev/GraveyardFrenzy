@@ -1,0 +1,23 @@
+.creditsDivision {
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 20px;
+}
+
+.creditsInside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.creditsInside p
+{
+    margin: 5px;
+}
+
+.creditsDivision img
+{
+    width: 300px;
+    border: 25px solid transparent;
+    border-image: url('../../images/credits/portrait.png') 160 round;
+}

@@ -7,52 +7,19 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
+  <!-- Favicon -->
+  <link rel="icon" href="images/icons/skeleton.svg">
+
   <!-- Theme: Simple -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+  
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/68078e62e6.js" crossorigin="anonymous"></script>
 
-  <style>
-    :root {
-      --theme-color: #ff0000;
-      --base-background-color: black;
-      --base-font-family: 'Press Start 2P';
-      --base-font-size: 16px;
-
-      /* custom markdown styles */
-      --code-inline-background: #222222;
-
-      /* custom sidebar styles */
-      --sidebar-background: black;
-      --sidebar-width: 400px;
-      --sidebar-border-color: red;
-      --sidebar-toggle-background: red;
-      --sidebar-toggle-icon-color: white;
-      --sidebar-toggle-icon-width: 20px;
-    }
-
-    .creditsDivision {
-      display: grid;
-      grid-auto-flow: column;
-      grid-column-gap: 20px;
-    }
-
-    .creditsInside {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .creditsInside p
-    {
-      margin: 5px;
-    }
-
-    .creditsDivision img
-    {
-      width: 300px;
-      border: 25px solid transparent;
-      border-image: url('images/credits/portrait.png') 160 round;
-    }
-  </style>
+  <!--Page Styles-->
+  <link rel="stylesheet" href="scripts/css/theme.css">
+  <link rel="stylesheet" href="scripts/css/roadmap.css">
+  <link rel="stylesheet" href="scripts/css/credits.css">
 
 </head>
 <body>
@@ -62,8 +29,9 @@
       loadSidebar: true,
       enableSidebarCollapse: true,
       subMaxLevel: 2,
+      executeScript: true,
       name: 'Graveyard Frenzy',
-      repo: 'https://github.com/F3rnDev/GraveyardFrenzy'
+      repo: 'https://github.com/F3rnDev/GraveyardFrenzy',
     }
   </script>
   <!-- Docsify v4 -->
@@ -72,6 +40,10 @@
 
   <!-- docsify-themeable -->
   <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
+
+  <!-- Roadmap Plugin/Scripts -->
+  <script src="scripts/js/roadmap_plugin.js"></script>
+  <script src="scripts/js/roadmap.js"></script>
 
 </body>
 </html>
