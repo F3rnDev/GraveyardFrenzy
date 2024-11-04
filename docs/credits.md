@@ -11,7 +11,7 @@
             Main Developer, Designer, and Writer. He is the mind behind the project.
         </p>
         <p>
-            <blockquote>"I'm just a simple man, with his simple code."</blockquote>
+            <blockquote>"I'm a simple man. <br> I see bug in the code, i ignore bug in the code"</blockquote>
         </p>
     </div>
 </div>
