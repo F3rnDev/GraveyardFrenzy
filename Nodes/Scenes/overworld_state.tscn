@@ -1,22 +1,49 @@
-[gd_scene load_steps=18 format=3 uid="uid://davl6ku5b6pc1"]
+[gd_scene load_steps=25 format=3 uid="uid://davl6ku5b6pc1"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/overworld_state.gd" id="1_e5tjr"]
 [ext_resource type="PackedScene" uid="uid://bs0l0q8pk81ye" path="res://Nodes/GameAssets/OverWorld/player_3d.tscn" id="1_t37h2"]
 [ext_resource type="PackedScene" uid="uid://8081sbcix0p1" path="res://Nodes/GameAssets/OverWorld/overworld_camera.tscn" id="2_vrl82"]
 [ext_resource type="PackedScene" uid="uid://c4vek4qf63ci6" path="res://Nodes/GameAssets/OverWorld/level_flag.tscn" id="4_8rcnt"]
 [ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="5_3np8f"]
+[ext_resource type="Shader" path="res://Assets/Shaders/outline.gdshader" id="5_6b86p"]
 [ext_resource type="Texture2D" uid="uid://cxoin3fpwtumc" path="res://Assets/Images/Icons/playIconWhite.png" id="6_jygle"]
+[ext_resource type="Texture2D" uid="uid://dmy0adg2pokom" path="res://Assets/Images/Backgrounds/pixelartBox_Texture.png" id="6_qhyti"]
 [ext_resource type="Texture2D" uid="uid://duo1dhiutg60v" path="res://icon.svg" id="7_ic4ik"]
 [ext_resource type="PackedScene" uid="uid://bdmgvugm62gxj" path="res://Nodes/GameAssets/audioTransition.tscn" id="9_f2tw8"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5nwyk"]
-albedo_color = Color(0.764706, 0.764706, 0.764706, 1)
-metallic = 0.38
+[sub_resource type="Environment" id="Environment_mr30r"]
+background_mode = 2
 
-[sub_resource type="BoxMesh" id="BoxMesh_8q4y7"]
-material = SubResource("StandardMaterial3D_5nwyk")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3vxa"]
+render_priority = 0
+shader = ExtResource("5_6b86p")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hqafv"]
+next_pass = SubResource("ShaderMaterial_x3vxa")
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nmh0v"]
+material = SubResource("StandardMaterial3D_hqafv")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_davvo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cvk7r"]
+render_priority = 0
+shader = ExtResource("5_6b86p")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1yasi"]
+next_pass = SubResource("ShaderMaterial_cvk7r")
+shading_mode = 0
+albedo_texture = ExtResource("6_qhyti")
+uv1_scale = Vector3(3, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8q4y7"]
+material = SubResource("StandardMaterial3D_1yasi")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ttrch"]
 bg_color = Color(0, 0, 0, 1)
@@ -58,6 +85,7 @@ script = ExtResource("1_e5tjr")
 
 [node name="OverworldCamera" parent="." node_paths=PackedStringArray("playerRef") instance=ExtResource("2_vrl82")]
 transform = Transform3D(1, 0, 0, 0, 0.983571, 0.180519, 0, -0.180519, 0.983571, 0, 2.345, 12.671)
+environment = SubResource("Environment_mr30r")
 playerRef = NodePath("../player3D")
 minBounds = Vector2(-4, 0)
 maxBounds = Vector2(4, 13)
@@ -83,7 +111,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.054, 0.795)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Placeholder Scene/Ground"]
 transform = Transform3D(20, 0, 0, 0, 0.24, 0, 0, 0, 20, 0, 0, 0)
-mesh = SubResource("BoxMesh_8q4y7")
+mesh = SubResource("BoxMesh_nmh0v")
 skeleton = NodePath("../../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Placeholder Scene/Ground"]
@@ -167,8 +195,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 500.0
-offset_right = 500.0
 grow_horizontal = 2
 grow_vertical = 2
 

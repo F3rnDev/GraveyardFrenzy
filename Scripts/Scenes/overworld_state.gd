@@ -12,6 +12,7 @@ var selectedDiff
 func _ready():
 	instance = self
 	resetDiff()
+	resetSongUI()
 
 func _process(delta):
 	if inMenu:
@@ -51,6 +52,9 @@ func closeSongUI():
 	
 	var tween = $CanvasLayer/Control.create_tween()
 	tween.tween_property($CanvasLayer/Control, "position", Vector2(500, 0), 0.5).set_trans(Tween.TRANS_SINE)
+
+func resetSongUI():
+	$CanvasLayer/Control.position = Vector2(500, 0)
 
 func openSongUI(songName, songAuthor, songRange):
 	var songPath = "res://Assets/Songs/" + songName + "/" + songName
