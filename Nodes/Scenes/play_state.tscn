@@ -135,6 +135,7 @@ vertical_alignment = 1
 
 [node name="player" parent="." instance=ExtResource("2_qsmea")]
 position = Vector2(195, 630)
+fastFallMultiplier = 2.5
 
 [node name="WinScreen" type="CanvasLayer" parent="."]
 visible = false

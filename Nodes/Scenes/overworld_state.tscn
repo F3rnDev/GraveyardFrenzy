@@ -125,7 +125,7 @@ transform = Transform3D(-1, 1.06542e-08, -8.67711e-08, 0, 0.992546, 0.121869, 8.
 light_angular_distance = 3.84
 
 [node name="player3D" parent="." instance=ExtResource("1_t37h2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.393364, 7.40617)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.406)
 
 [node name="LevelFlag" parent="." instance=ExtResource("4_8rcnt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.353005, 0.20397, 5.77628)

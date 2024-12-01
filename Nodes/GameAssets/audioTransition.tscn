@@ -8,5 +8,6 @@ script = ExtResource("1_m28kk")
 defaultAudio = ExtResource("2_dn3fj")
 
 [node name="Audio1" type="AudioStreamPlayer" parent="."]
+volume_db = -16.421
 
 [node name="Audio2" type="AudioStreamPlayer" parent="."]

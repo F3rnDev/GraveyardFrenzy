@@ -1,8 +1,14 @@
 extends CharacterBody2D
 
+#simple movement var
 const SPEED = 500.0
 const jumpForce = 700.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+#morePhysics
+@export var fastFallMultiplier = 2.0
+@export var jumpBufferTime = 0.15
+var jumpBufferTimer = 0
 
 var isRunnin = false
 var initX:float
@@ -12,7 +18,7 @@ var flashTimer = Timer.new()
 signal hit
 
 func _ready():
-	$player_2d.play("default")
+	$player_2d.play("Walk(Placeholder)")
 	initX = global_position.x
 	
 	flashTimer.one_shot = false;
@@ -33,17 +39,25 @@ func setRunnin(run):
 		tweenPos.tween_property(self, "global_position:x", initX, 0.5)
 
 func _physics_process(delta):
+	#set fast fall multiplyer
+	var fastFall = 1
+	if velocity.y > 0:
+		fastFall = fastFallMultiplier
+	
 	if not is_on_floor():
-		velocity.y += gravity * delta
+		velocity.y += (gravity * fastFall * delta)
+	else:
+		velocity.y = 0
 	
 	if isRunnin:
-		InputMovement()
+		InputMovement(delta)
 	else:
 		velocity = Vector2(0,velocity.y)
 
 	move_and_slide()
 
-func InputMovement():
+func InputMovement(delta):
+	#Horizontal movement
 	var input_dir = Input.get_vector("Left", "Right", "Up", "Down")
 	var direction = (Vector2(input_dir.x, input_dir.y)).normalized()
 	if direction:
@@ -51,18 +65,28 @@ func InputMovement():
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
-		velocity.y -= jumpForce
+	#Set the jumpTimerBuffer (player jumps even if you've pressed it before touching the ground)
+	if Input.is_action_just_pressed("Jump"):
+		jumpBufferTimer = jumpBufferTime
 	
-	if Input.is_action_just_released("Jump") and velocity.y < -300:
-		velocity.y = -300
+	if jumpBufferTimer > 0:
+		jumpBufferTimer -= delta
+	
+	#JumpAction
+	if jumpBufferTimer > 0 and is_on_floor():
+		velocity.y -= jumpForce
+		jumpBufferTimer = 0
+	
+	#Hold jump functionality
+	if Input.is_action_just_released("Jump") and velocity.y < 0:
+		velocity.y = 0
 
 func colliding(area):	
 	if area.get_parent().is_in_group("obstacle") and isRunnin and $IFrames.is_stopped():
 		playerHit()
 
 func playerHit():
-	health -= 1
+	addOrSubHealth(-1)
 	hit.emit()
 	$IFrames.start()
 	flashTimer.start(0.1)
@@ -74,3 +98,9 @@ func flashPlayer():
 	else:
 		visible = !visible
 		flashTimer.start(0.1)
+
+func setHealth(setTo):
+	health = setTo
+
+func addOrSubHealth(setTo):
+	health += setTo
