@@ -15,3 +15,18 @@
     --sidebar-toggle-icon-color: white;
     --sidebar-toggle-icon-width: 20px;
 }
+
+.default-btn {
+    background-color: black;
+    color: white;
+    height: 50px;
+    border: 2px solid white;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.default-btn:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
