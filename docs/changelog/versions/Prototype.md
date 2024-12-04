@@ -13,6 +13,6 @@
 - Added tutorial song (Placeholder)
 
 ### Screenshots
-![](../../images/screenshots/prototype/screen1.png)
-![](../../images/screenshots/prototype/screen3.png)
-![](../../images/screenshots/prototype/screen4.png)
+![](../images/screenshots/prototype/screen1.png)
+![](../images/screenshots/prototype/screen3.png)
+![](../images/screenshots/prototype/screen4.png)
