@@ -196,9 +196,9 @@ func _process(delta):
 			changeSection()
 		
 		if $Conductor/Song.playing:
-			$"CanvasLayer/Play Song".icon = preload("res://Assets/Images/Icons/pauseIcon.png")
+			$"CanvasLayer/Play Song".icon = preload("res://Assets/Images/UI Images/pauseIcon.png")
 		else:
-			$"CanvasLayer/Play Song".icon = preload("res://Assets/Images/Icons/playIcon.png")
+			$"CanvasLayer/Play Song".icon = preload("res://Assets/Images/UI Images/playIcon.png")
 
 func GetXFromSongBeat():
 	return - (($Conductor.songPos / $Conductor.stepCrochet) * gridSize) + gridX

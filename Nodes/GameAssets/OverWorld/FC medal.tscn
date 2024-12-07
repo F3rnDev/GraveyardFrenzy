@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://drc1aravj0ept"]
+
+[ext_resource type="Texture2D" uid="uid://1cfmar0yaibs" path="res://Assets/Images/UI Images/FC UI (Placeholder).png" id="1_y5m0p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ek1y"]
+atlas = ExtResource("1_y5m0p")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jencm"]
+atlas = ExtResource("1_y5m0p")
+region = Rect2(20, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxv7d"]
+atlas = ExtResource("1_y5m0p")
+region = Rect2(40, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qss6e"]
+atlas = ExtResource("1_y5m0p")
+region = Rect2(60, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p68yn"]
+atlas = ExtResource("1_y5m0p")
+region = Rect2(80, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_et5o3"]
+atlas = ExtResource("1_y5m0p")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nk604"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ek1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jencm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxv7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qss6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p68yn")
+}],
+"loop": false,
+"name": &"HasFC",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_et5o3")
+}],
+"loop": true,
+"name": &"NoFC",
+"speed": 5.0
+}]
+
+[node name="FC medal" type="MarginContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_stretch_ratio = 0.0
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_nk604")
+animation = &"HasFC"

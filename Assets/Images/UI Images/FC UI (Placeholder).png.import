@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drd1yvsyy01bc"
-path="res://.godot/imported/pauseIcon.png-b5ebd4ec6784ce31358159afda8e72bf.ctex"
+uid="uid://1cfmar0yaibs"
+path="res://.godot/imported/FC UI (Placeholder).png-57898b1fa59d599d36250c801fff50e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Icons/pauseIcon.png"
-dest_files=["res://.godot/imported/pauseIcon.png-b5ebd4ec6784ce31358159afda8e72bf.ctex"]
+source_file="res://Assets/Images/UI Images/FC UI (Placeholder).png"
+dest_files=["res://.godot/imported/FC UI (Placeholder).png-57898b1fa59d599d36250c801fff50e1.ctex"]
 
 [params]
 

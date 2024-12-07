@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://c4vek4qf63ci6"]
 
-[ext_resource type="Texture2D" uid="uid://cpuu1sj7sgx71" path="res://Assets/Images/Icons/flag-placeholder.png" id="1_3npxk"]
+[ext_resource type="Texture2D" uid="uid://cpuu1sj7sgx71" path="res://Assets/Images/UI Images/flag-placeholder.png" id="1_3npxk"]
 [ext_resource type="Script" path="res://Scripts/GameAssets/OverWorld/level_flag.gd" id="1_08hjr"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_yste6"]

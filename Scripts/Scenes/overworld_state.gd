@@ -13,6 +13,7 @@ func _ready():
 	instance = self
 	resetDiff()
 	resetSongUI()
+	getRank()
 
 func _process(delta):
 	if inMenu:
@@ -83,8 +84,34 @@ func goToPlayState():
 	sceneManager.switchScene(playState, self)
 
 func getRank():
-	var placeholder = $"CanvasLayer/Control/bg/Placeholder Rank Image/Placeholder"
-	placeholder.text = "Placeholder Rank Image: " + SongRating.getSongRating(selectedSong, Difficulty.getAllDiffs()[selectedDiff])
+#	var placeholder = $"CanvasLayer/Control/bg/Placeholder Rank Image/Placeholder"
+#	placeholder.text = "Placeholder Rank Image: " + SongRating.getSongRating(selectedSong, Difficulty.getAllDiffs()[selectedDiff])
+	
+	var fullRank = SongRating.getSongRating(selectedSong, Difficulty.getAllDiffs()[selectedDiff])
+	
+	var RankingObj = $"CanvasLayer/Control/bg/SongRatings/SongRanking(Prototype)"
+	var FCMedalObj = $"CanvasLayer/Control/bg/SongRatings/FC medal/Sprite"
+	var NotCompletedObj = $"CanvasLayer/Control/bg/SongRatings/NotCompleted"
+	
+	var rank = fullRank
+	FCMedalObj.stop()
+	
+	#Check if you have a rank
+	if fullRank == "":
+		NotCompletedObj.visible = true
+		FCMedalObj.visible = false
+	else:
+		NotCompletedObj.visible = false
+		FCMedalObj.visible = true
+	
+	#Check if that rank is a FC
+	if "FC" in fullRank:
+		rank = fullRank.split("FC")[0]
+		FCMedalObj.play("HasFC")
+	else:
+		FCMedalObj.play("NoFC")
+	
+	RankingObj.text = rank
 
 func _on_diff_right_button_button_down():
 	changeDiff(1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://davl6ku5b6pc1"]
+[gd_scene load_steps=32 format=3 uid="uid://davl6ku5b6pc1"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/overworld_state.gd" id="1_e5tjr"]
 [ext_resource type="PackedScene" uid="uid://bs0l0q8pk81ye" path="res://Nodes/GameAssets/OverWorld/player_3d.tscn" id="1_t37h2"]
@@ -6,11 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://c4vek4qf63ci6" path="res://Nodes/GameAssets/OverWorld/level_flag.tscn" id="4_8rcnt"]
 [ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="5_3np8f"]
 [ext_resource type="Shader" path="res://Assets/Shaders/outline.gdshader" id="5_6b86p"]
-[ext_resource type="Texture2D" uid="uid://cxoin3fpwtumc" path="res://Assets/Images/Icons/playIconWhite.png" id="6_jygle"]
 [ext_resource type="Texture2D" uid="uid://du4eqluxewrf8" path="res://Assets/Images/Backgrounds/pixelartMetalGround_Texture.png" id="6_ljk8d"]
 [ext_resource type="Texture2D" uid="uid://dmy0adg2pokom" path="res://Assets/Images/Backgrounds/pixelartBox_Texture.png" id="6_qhyti"]
 [ext_resource type="Texture2D" uid="uid://duo1dhiutg60v" path="res://icon.svg" id="7_ic4ik"]
 [ext_resource type="PackedScene" uid="uid://bdmgvugm62gxj" path="res://Nodes/GameAssets/audioTransition.tscn" id="9_f2tw8"]
+[ext_resource type="Texture2D" uid="uid://cxoin3fpwtumc" path="res://Assets/Images/UI Images/playIconWhite.png" id="9_wwrwm"]
+[ext_resource type="PackedScene" uid="uid://drc1aravj0ept" path="res://Nodes/GameAssets/OverWorld/FC medal.tscn" id="10_ag2uv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ux3wl"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -334,7 +335,7 @@ offset_bottom = 211.01
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_euclm")
-icon = ExtResource("6_jygle")
+icon = ExtResource("9_wwrwm")
 flat = true
 expand_icon = true
 
@@ -351,7 +352,7 @@ offset_bottom = 246.545
 grow_vertical = 2
 rotation = 3.14159
 theme_override_styles/focus = SubResource("StyleBoxEmpty_uhbpo")
-icon = ExtResource("6_jygle")
+icon = ExtResource("9_wwrwm")
 flat = true
 expand_icon = true
 
@@ -381,7 +382,72 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_6uqnw")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_smh8p")
 text = "Play"
 
+[node name="SongRatings" type="Control" parent="CanvasLayer/Control/bg"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -116.425
+offset_right = 93.5001
+offset_bottom = 38.5734
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SongRanking(Prototype)" type="Label" parent="CanvasLayer/Control/bg/SongRatings"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_right = 25.0
+offset_bottom = 70.0
+grow_horizontal = 2
+theme_override_constants/line_spacing = 20
+theme_override_fonts/font = ExtResource("5_3np8f")
+theme_override_font_sizes/font_size = 50
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FC medal" parent="CanvasLayer/Control/bg/SongRatings" instance=ExtResource("10_ag2uv")]
+layout_mode = 1
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 0
+
+[node name="NotCompleted" type="Label" parent="CanvasLayer/Control/bg/SongRatings"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -216.0
+offset_top = 1.42664
+offset_right = 239.0
+offset_bottom = 54.4266
+grow_horizontal = 2
+grow_vertical = 0
+rotation = -0.375246
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_3np8f")
+theme_override_font_sizes/font_size = 30
+text = "NOT COMPLETED"
+horizontal_alignment = 1
+
 [node name="Placeholder Rank Image" type="TextureRect" parent="CanvasLayer/Control/bg"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
