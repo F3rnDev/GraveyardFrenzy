@@ -449,7 +449,7 @@ func calculateSongAccuracy(isHold = false):
 		totalNotesPlayed += 0.5
 	
 	curAccuracy = (notesHit / totalNotesPlayed) * 100
-	$"Placeholder Grp/Accuracy".text = "Accuracy: " + str(snapped(curAccuracy, 0.1)) + "%"
+	updateSongStats()
 #END
 
 #SONG CALCULATIONS
@@ -484,6 +484,9 @@ func endSong():
 func _on_player_hit():
 	$player/HealthPH.set_text("Health: " + str($player.health))
 #END
+
+func updateSongStats():
+	$"Placeholder Grp/SongStats".text = "Accuracy: " + str(snapped(curAccuracy, 0.1)) + "% | Misses: " + str(missedNotes.size())
 
 func debugCollision():
 	noteAreaDebug = !noteAreaDebug
