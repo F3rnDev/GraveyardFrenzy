@@ -48,8 +48,22 @@
   <script src="scripts/js/roadmap_plugin.js"></script>
   <script src="scripts/js/roadmap.js"></script>
 
-  <!-- Embed file plugin -->
-  <script src="//unpkg.com/docsify/lib/plugins/embed.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Seleciona todos os containers com o conteúdo embutido
+      const accordionContents = document.querySelectorAll('.accordionContent');
+
+      accordionContents.forEach(function(content) {
+          // Verifica se o conteúdo tem um título (primeiro <h1>, <h2>, etc.)
+          const title = content.querySelector('h1, h2, h3, h4, h5, h6');
+          
+          if (title) {
+              // Remove o título
+              title.style.display = 'none';
+          }
+      });
+    });
+  </script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-## Prototype (current)
+# Prototype (current) {docsify-ignore}
 ### Added
 - New overworld map (prototype)
 
@@ -13,6 +13,6 @@
 - Added tutorial song (Placeholder)
 
 ### Screenshots
-![](../images/screenshots/prototype/screen1.png)
-![](../images/screenshots/prototype/screen3.png)
-![](../images/screenshots/prototype/screen4.png)
+![](../../images/screenshots/prototype/screen1.png)
+![](../../images/screenshots/prototype/screen3.png)
+![](../../images/screenshots/prototype/screen4.png)

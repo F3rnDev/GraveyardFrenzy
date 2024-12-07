@@ -30,3 +30,61 @@
     color: black;
     cursor: pointer;
 }
+
+/*Accordion*/
+details {
+    overflow: hidden;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 10px;
+
+    transition: 0.3s;
+}
+
+details:hover
+{
+    background-color: white;
+}
+
+summary {
+    display: block; /* This hides the summary's ::marker pseudo-element */
+    color: white;
+    font-size: 20px;
+    
+    transition: 0.3s;
+}
+
+summary::-webkit-details-marker {
+    display: none; /* This also hides the ::marker pseudo-element, but in Safari */
+}
+
+details:hover summary
+{
+    color: black;
+}
+
+div.accordionContent { 
+    box-sizing: border-box;
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: max-height 400ms ease-out, border 0ms 400ms linear;
+
+    margin-bottom: 20px;
+}
+
+details[open] + div.accordionContent {
+    max-height: 2000px; /* Set a max-height value enough to show all the content */        
+    border-color: white;
+    transition: max-height 400ms ease-out, border 0ms linear;
+}
+
+details[open] span::before {
+    rotate: 90deg;
+    transition: rotate 200ms ease-out;
+}
+
+.accordionContent h1{
+    display: none;
+}

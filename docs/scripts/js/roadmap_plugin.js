@@ -7,8 +7,6 @@
         const regex = /\[roadmap-item\](.*?)\[roadmap-item\]/gs;
         
         let matches = html.match(regex);
-        
-        console.log(html);
         if (matches) {
           matches.forEach((match) => {
             const stepContent = match;
@@ -106,7 +104,11 @@
         next(html);
 
         var roadmapLine = document.querySelector('.roadmap-line');
-        roadmapLine.style.height = document.querySelector('.roadmap').clientHeight + 'px';
+
+        if(roadmapLine)
+        {
+          roadmapLine.style.height = document.querySelector('.roadmap').clientHeight + 'px';
+        }
       });
     };
   
