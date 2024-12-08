@@ -9,7 +9,7 @@
   [title]Prototype Release[title]
   [date]Dec 2024[date]
   [description]Releasing the first prototype of the game, and setting up the itch.io page.[description]
-  [progress]70[progress]
+  [progress]75[progress]
   [version]v0.0.1[version]
   [icon]fa-solid fa-rocket[icon]
 [roadmap-item]

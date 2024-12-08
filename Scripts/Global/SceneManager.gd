@@ -4,7 +4,7 @@ static var songDiff
 static var songName
 
 func _ready():
-	var firstScene = load("res://Nodes/Scenes/overworld_state.tscn")
+	var firstScene = load("res://Nodes/Scenes/intro.tscn")
 	DataLoader.loadData()
 	switchScene(firstScene)
 
@@ -20,11 +20,14 @@ func switchScene(sceneToAdd, sceneToDelete = null):
 		add_child(sceneNode)
 
 func _on_transition_faded(newScene, oldScene):
-	remove_child(oldScene)
 	var sceneNode = newScene.instantiate()
-	add_child(sceneNode)
+	setNewScene(sceneNode, oldScene)
 	
 	$transition.startFadeOut(sceneNode)
+
+func setNewScene(newScene, oldScene):
+	remove_child(oldScene)
+	add_child(newScene)
 
 func setSongProperties(curSong, curDiff):
 	songName = curSong
