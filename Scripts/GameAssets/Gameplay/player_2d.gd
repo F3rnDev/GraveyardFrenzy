@@ -58,7 +58,11 @@ func _physics_process(delta):
 
 func InputMovement(delta):
 	#Horizontal movement
-	var input_dir = Input.get_vector("Left", "Right", "Up", "Down")
+	var input_dir = Input.get_vector(
+		CInput.getInput("Left"), CInput.getInput("Right"), 
+		CInput.getInput("Up"), CInput.getInput("Down")
+	)
+	
 	var direction = (Vector2(input_dir.x, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * SPEED

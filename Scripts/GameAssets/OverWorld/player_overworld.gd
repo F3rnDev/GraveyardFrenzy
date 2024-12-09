@@ -47,15 +47,20 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-	if !OverworldRef.instance.inMenu:
-		InputMovement()
-
 	setAnimation()
 
 	move_and_slide()
 
-func InputMovement():
-	var input_dir = Input.get_vector("Left", "Right", "Up", "Down")
+func _input(event):
+	if !OverworldRef.instance.inMenu:
+		InputMovement(event)
+
+func InputMovement(event):
+	var input_dir = Input.get_vector(
+		CInput.getInput("Left"), CInput.getInput("Right"), 
+		CInput.getInput("Up"), CInput.getInput("Down")
+	)
+	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction:

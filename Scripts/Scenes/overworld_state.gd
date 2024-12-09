@@ -23,9 +23,9 @@ func controlUI():
 	if Input.is_action_just_pressed("Exit"):
 		closeSongUI()
 	
-	if Input.is_action_just_pressed("Right"):
+	if CInput.checkInput("Right", "justPressed"):
 		changeDiff(1)
-	elif Input.is_action_just_pressed("Left"):
+	elif CInput.checkInput("Left", "justPressed"):
 		changeDiff(-1)
 	
 	if Input.is_action_just_pressed("Confirm"):
