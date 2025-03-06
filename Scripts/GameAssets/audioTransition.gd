@@ -1,54 +1,62 @@
-extends Node
+extends AudioStreamPlayer
 
 @export var defaultAudio:AudioStream
+var defAudioPos #get the position of the default audio
 
-var curAudio = -1
 var songEndTime
 
+@onready var dummyPlayer = AudioStreamPlayer.new()
+var fading = false
+
+var queueSong = null
+
 func _ready():
-	setAudio(defaultAudio, null, true)
+	add_child(dummyPlayer)
+	
+	if defaultAudio != null:
+		stream = defaultAudio
+		play()
 
 func _process(delta):
-	var audioToChange = get_child(curAudio)
+	if fading:
+		volume_db -= 30*delta
+		dummyPlayer.volume_db += 30*delta
+		
+		if dummyPlayer.volume_db >= 0 or queueSong != null:
+			volume_db = dummyPlayer.volume_db
+			dummyPlayer.volume_db = -60
+			
+			stream = dummyPlayer.stream
+			play(dummyPlayer.get_playback_position())
+			
+			dummyPlayer.stop()
+			fading = false
 	
-	if audioToChange.playing and songEndTime != null and audioToChange.get_playback_position() >= songEndTime:
+	if queueSong != null and !fading:
+		setAudio(queueSong[0], queueSong[1])
+		queueSong = null
+	
+	if playing and songEndTime != null and get_playback_position() >= songEndTime:
 		setAudio(defaultAudio)
 
-func setAudio(stream, range = null, firstAudio = false):
+func setAudio(stream, range = null):
+	if fading:
+		queueSong = [stream, range]
+		return
+	
 	songEndTime = null
 	
-	curAudio = getCurAudio(curAudio + 1)
-	var audioToChange = get_child(curAudio)
+	dummyPlayer.volume_db = -60
+	dummyPlayer.stream = stream
+	dummyPlayer.play()
 	
-	var lastAudioPos
-	if stream == defaultAudio:
-		lastAudioPos = audioToChange.get_playback_position()
+	fading = true
 	
-	audioToChange.stream = stream
-	audioToChange.play()
+	if stream != defaultAudio and self.stream == defaultAudio:
+		defAudioPos = get_playback_position()
+	else:
+		dummyPlayer.seek(defAudioPos)
 	
 	if range:
-		audioToChange.seek(range[0])
+		dummyPlayer.seek(range[0])
 		songEndTime = range[1]
-	
-	if lastAudioPos:
-		audioToChange.seek(lastAudioPos)
-	
-	if !firstAudio:
-		audioToChange.volume_db = -80
-		audioTransition(audioToChange)
-
-func getCurAudio(change):
-	if change > 1: change = 0
-	elif change < 0: change = 1
-	
-	return change
-
-func audioTransition(audioPlayer):
-	var fadeOutAudio = get_child(getCurAudio(curAudio + 1))
-	
-	var fadeIn = create_tween()
-	fadeIn.tween_property(audioPlayer, "volume_db", 0, 2)
-	
-	var fadeOut = create_tween()
-	fadeOut.tween_property(fadeOutAudio, "volume_db", -80, 2)

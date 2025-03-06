@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://davl6ku5b6pc1"]
+[gd_scene load_steps=34 format=3 uid="uid://davl6ku5b6pc1"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/overworld_state.gd" id="1_e5tjr"]
 [ext_resource type="PackedScene" uid="uid://bs0l0q8pk81ye" path="res://Nodes/GameAssets/OverWorld/player_3d.tscn" id="1_t37h2"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://bdmgvugm62gxj" path="res://Nodes/GameAssets/audioTransition.tscn" id="9_f2tw8"]
 [ext_resource type="Texture2D" uid="uid://cxoin3fpwtumc" path="res://Assets/Images/UI Images/playIconWhite.png" id="9_wwrwm"]
 [ext_resource type="PackedScene" uid="uid://drc1aravj0ept" path="res://Nodes/GameAssets/OverWorld/FC medal.tscn" id="10_ag2uv"]
+[ext_resource type="PackedScene" uid="uid://dubm3sqga7eku" path="res://Nodes/GameAssets/Menu/pauseMenu.tscn" id="12_23loj"]
+[ext_resource type="AudioStream" uid="uid://dkra4wrgyuegq" path="res://Assets/Sounds/placeholder-background.mp3" id="14_mqa4q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ux3wl"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -474,7 +476,10 @@ offset_bottom = 30.0
 grow_horizontal = 2
 text = "Placeholder Rank Image: "
 
+[node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("12_23loj")]
+
 [node name="BackgroundMusic" parent="." instance=ExtResource("9_f2tw8")]
+defaultAudio = ExtResource("14_mqa4q")
 
 [connection signal="button_down" from="CanvasLayer/Control/bg/DiffRightButton" to="." method="_on_diff_right_button_button_down"]
 [connection signal="button_down" from="CanvasLayer/Control/bg/DiffLeftButton" to="." method="_on_diff_left_button_button_down"]

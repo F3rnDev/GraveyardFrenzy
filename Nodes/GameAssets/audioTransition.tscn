@@ -1,13 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdmgvugm62gxj"]
+[gd_scene load_steps=2 format=3 uid="uid://bdmgvugm62gxj"]
 
-[ext_resource type="Script" path="res://Scripts/GameAssets/audioTransition.gd" id="1_m28kk"]
-[ext_resource type="AudioStream" uid="uid://dkra4wrgyuegq" path="res://Assets/Sounds/placeholder-background.mp3" id="2_dn3fj"]
+[ext_resource type="Script" path="res://Scripts/GameAssets/audioTransition.gd" id="1_t2khw"]
 
-[node name="AudioTransition" type="Node"]
-script = ExtResource("1_m28kk")
-defaultAudio = ExtResource("2_dn3fj")
-
-[node name="Audio1" type="AudioStreamPlayer" parent="."]
-volume_db = -16.421
-
-[node name="Audio2" type="AudioStreamPlayer" parent="."]
+[node name="AudioTransition" type="AudioStreamPlayer"]
+script = ExtResource("1_t2khw")

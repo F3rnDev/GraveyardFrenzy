@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://btbkur778pbwy"]
+[gd_scene load_steps=11 format=3 uid="uid://btbkur778pbwy"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/play_song_state.gd" id="1_rvoja"]
 [ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="2_57ly5"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://5f1c7amy88s7" path="res://Nodes/GameAssets/Gameplay/NoteSystem/note_strum.tscn" id="4_5yswb"]
 [ext_resource type="PackedScene" uid="uid://bqwt4i1tys03u" path="res://Nodes/Global/song.tscn" id="4_6ojtx"]
 [ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="5_ag0vi"]
+[ext_resource type="PackedScene" uid="uid://dubm3sqga7eku" path="res://Nodes/GameAssets/Menu/pauseMenu.tscn" id="6_66vma"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1v232"]
 bg_color = Color(0, 0, 0, 1)
@@ -184,6 +185,10 @@ theme_override_fonts/font = ExtResource("5_ag0vi")
 theme_override_font_sizes/font_size = 42
 text = "RANK (FC)"
 horizontal_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("6_66vma")]
 
 [node name="Conductor" parent="." instance=ExtResource("2_57ly5")]
 

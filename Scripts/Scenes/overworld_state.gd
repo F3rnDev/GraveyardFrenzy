@@ -48,7 +48,7 @@ func resetDiff():
 
 func closeSongUI():
 	inMenu = false
-	if $BackgroundMusic.songEndTime != null:
+	if $BackgroundMusic.dummyPlayer.stream != $BackgroundMusic.defaultAudio:
 		$BackgroundMusic.setAudio($BackgroundMusic.defaultAudio)
 	
 	var tween = $CanvasLayer/Control.create_tween()
