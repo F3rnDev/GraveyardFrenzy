@@ -1,5 +1,9 @@
 extends Control
 
+@export_flags("Resume", "Main Menu", 
+"Overworld", "Exit") var menuOptions = 0
+
+var canPause = true
 var paused = false
 var selected = 0
 
@@ -17,10 +21,18 @@ func _ready():
 	normalBtn = $bg/Options.get_child(0).get_theme_stylebox("normal", "Button")
 	hoverBtn  = $bg/Options.get_child(0).get_theme_stylebox("hover", "Button")
 	
+	setMenuOptions()
 	selectOption(0)
 
+func setMenuOptions():
+	var options = $bg/Options.get_children()
+	
+	for i in range(options.size()):
+		if !bool(menuOptions & (1 << i)):
+			options[i].queue_free()
+
 func _input(event):
-	if event.is_action_pressed("Pause"):
+	if event.is_action_pressed("Pause") and canPause:
 		pauseGame()
 	
 	if paused:
@@ -73,12 +85,19 @@ func menuAction():
 	var curNode = self.get_parent().get_parent()
 	var sceneManager = curNode.get_parent()
 	
-	match selected:
-		1:
-			#CHANGE TO THE MAIN MENU
-			var mainMenu = load("res://Nodes/Scenes/overworld_state.tscn")
+	var options = $bg/Options.get_children()
+	var selected_option = options[selected].name if selected < options.size() else ""
+	
+	print(selected_option)
+	
+	match selected_option:
+		"Overworld":
+			var overworld = load("res://Nodes/Scenes/overworld_state.tscn")
+			sceneManager.switchScene(overworld, curNode)
+		"MainMenu":
+			var mainMenu = load("res://Nodes/Scenes/mainMenu.tscn")
 			sceneManager.switchScene(mainMenu, curNode)
-		2:
+		"Exit":
 			get_tree().quit()
 
 func _on_mouse_entered(option):

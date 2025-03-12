@@ -48,6 +48,7 @@ expand_margin_bottom = 5.0
 
 [node name="pauseMenu" type="Control"]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -169,7 +170,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_52elu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_52elu")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_lqi74")
 theme_override_styles/focus = SubResource("StyleBoxFlat_52elu")
-text = "Exit"
+text = "Quit Game"
 
 [connection signal="button_down" from="bg/Options/Resume" to="." method="_on_button_down"]
 [connection signal="mouse_entered" from="bg/Options/Resume" to="." method="_on_mouse_entered" binds= [0]]

@@ -477,6 +477,7 @@ grow_horizontal = 2
 text = "Placeholder Rank Image: "
 
 [node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("12_23loj")]
+menuOptions = 11
 
 [node name="BackgroundMusic" parent="." instance=ExtResource("9_f2tw8")]
 defaultAudio = ExtResource("14_mqa4q")

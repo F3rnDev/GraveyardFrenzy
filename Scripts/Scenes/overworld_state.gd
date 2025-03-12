@@ -48,6 +48,8 @@ func resetDiff():
 
 func closeSongUI():
 	inMenu = false
+	$CanvasLayer/pauseMenu.canPause = true
+	
 	if $BackgroundMusic.dummyPlayer.stream != $BackgroundMusic.defaultAudio:
 		$BackgroundMusic.setAudio($BackgroundMusic.defaultAudio)
 	
@@ -69,6 +71,8 @@ func openSongUI(songName, songAuthor, songRange):
 	resetDiff()
 	changeDiff(0)
 	inMenu = true
+	
+	$CanvasLayer/pauseMenu.canPause = false
 	
 	var tween = $CanvasLayer/Control.create_tween()
 	tween.tween_property($CanvasLayer/Control, "position", Vector2(0, 0), 0.5).set_trans(Tween.TRANS_SINE)
