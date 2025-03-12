@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cwdx48yoiqcfn"]
 
-[ext_resource type="Script" path="res://Scripts/Global/SceneManager.gd" id="1_6my6k"]
+[ext_resource type="Script" uid="uid://dnh5y64v1h7de" path="res://Scripts/Global/SceneManager.gd" id="1_6my6k"]
 [ext_resource type="PackedScene" uid="uid://1m3hyccwjti7" path="res://Nodes/GameAssets/transition.tscn" id="2_or02m"]
 
 [node name="SceneManager" type="Node"]

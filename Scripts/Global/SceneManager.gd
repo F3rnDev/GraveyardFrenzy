@@ -6,11 +6,14 @@ static var songName
 func _ready():
 	var firstScene = load("res://Nodes/Scenes/intro.tscn")
 	DataLoader.loadData()
+	DiscordManager.setUp()
 	switchScene(firstScene)
 
 func _process(delta):
 	if Input.is_key_pressed(KEY_CTRL) and Input.is_key_pressed(KEY_DELETE):
 		SongRating.eraseData()
+	
+	DiscordRPC.run_callbacks()
 
 func switchScene(sceneToAdd, sceneToDelete = null):
 	if sceneToDelete != null:

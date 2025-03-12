@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cu72gwutbffvu"]
 
 [ext_resource type="AudioStream" uid="uid://dx8v5yvj6bx2a" path="res://Assets/Sounds/metronome-85688.mp3" id="1_tpqlg"]
-[ext_resource type="Script" path="res://Scripts/Global/Music/metronome.gd" id="2_lnnyf"]
+[ext_resource type="Script" uid="uid://bjv38kluavh8r" path="res://Scripts/Global/Music/metronome.gd" id="2_lnnyf"]
 
 [node name="Metronome" type="AudioStreamPlayer"]
 stream = ExtResource("1_tpqlg")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://ban5hu62bqxg4"]
 
-[ext_resource type="Script" path="res://Scripts/Scenes/mainMenu.gd" id="1_6fukg"]
+[ext_resource type="Script" uid="uid://dfbe234mvr23o" path="res://Scripts/Scenes/mainMenu.gd" id="1_6fukg"]
 [ext_resource type="Texture2D" uid="uid://bd00opgb3ete1" path="res://Assets/Images/UI Images/LOGO.png" id="1_chxcg"]
 [ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="2_fi8h3"]
 
@@ -29,8 +29,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_76y8o"]
 _data = {
-"RESET": SubResource("Animation_57nu4"),
-"idle": SubResource("Animation_sqwh3")
+&"RESET": SubResource("Animation_57nu4"),
+&"idle": SubResource("Animation_sqwh3")
 }
 
 [sub_resource type="Animation" id="Animation_srke1"]
@@ -67,8 +67,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bo730"]
 _data = {
-"Label Appear": SubResource("Animation_srke1"),
-"RESET": SubResource("Animation_eoj40")
+&"Label Appear": SubResource("Animation_srke1"),
+&"RESET": SubResource("Animation_eoj40")
 }
 
 [node name="mainMenu" type="Control"]

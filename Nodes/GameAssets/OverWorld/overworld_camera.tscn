@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://8081sbcix0p1"]
 
-[ext_resource type="Script" path="res://Scripts/GameAssets/OverWorld/OverworldCamera.gd" id="1_vctlt"]
+[ext_resource type="Script" uid="uid://b763t1rm7re05" path="res://Scripts/GameAssets/OverWorld/OverworldCamera.gd" id="1_vctlt"]
 
 [node name="OverworldCamera" type="Camera3D"]
 script = ExtResource("1_vctlt")

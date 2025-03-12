@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cnip28q6trohy"]
 
 [ext_resource type="Texture2D" uid="uid://dfywm0sd45qjd" path="res://Assets/Images/UI Images/Controller.png" id="1_13ti2"]
-[ext_resource type="Script" path="res://Scripts/Scenes/intro.gd" id="1_ggskf"]
+[ext_resource type="Script" uid="uid://pcxlxkpt3lsv" path="res://Scripts/Scenes/intro.gd" id="1_ggskf"]
 [ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="2_vwnt4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6on4"]
@@ -37,7 +37,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kc0py"]
 _data = {
-"Intro": SubResource("Animation_d6wd7")
+&"Intro": SubResource("Animation_d6wd7")
 }
 
 [node name="intro" type="Control"]

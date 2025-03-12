@@ -39,9 +39,9 @@ func _process(delta):
 	if playing and songEndTime != null and get_playback_position() >= songEndTime:
 		setAudio(defaultAudio)
 
-func setAudio(stream, range = null):
+func setAudio(stream, audioRange = null):
 	if fading:
-		queueSong = [stream, range]
+		queueSong = [stream, audioRange]
 		return
 	
 	songEndTime = null
@@ -57,6 +57,6 @@ func setAudio(stream, range = null):
 	else:
 		dummyPlayer.seek(defAudioPos)
 	
-	if range:
-		dummyPlayer.seek(range[0])
-		songEndTime = range[1]
+	if audioRange:
+		dummyPlayer.seek(audioRange[0])
+		songEndTime = audioRange[1]

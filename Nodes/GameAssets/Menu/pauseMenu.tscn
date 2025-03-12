@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dubm3sqga7eku"]
 
-[ext_resource type="Script" path="res://Scripts/GameAssets/Menu/pauseMenu.gd" id="1_bfbrw"]
+[ext_resource type="Script" uid="uid://b84rowrw01jsm" path="res://Scripts/GameAssets/Menu/pauseMenu.gd" id="1_bfbrw"]
 [ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="1_wxyfu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcxyw"]
@@ -14,13 +14,13 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqi74"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52elu"]
+bg_color = Color(1, 1, 1, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
@@ -30,13 +30,13 @@ expand_margin_top = 5.0
 expand_margin_right = 10.0
 expand_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52elu"]
-bg_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqi74"]
+bg_color = Color(0, 0, 0, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
+border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
@@ -107,69 +107,69 @@ alignment = 1
 [node name="Resume" type="Button" parent="bg/Options"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_wxyfu")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_lqi74")
+theme_override_styles/focus = SubResource("StyleBoxFlat_52elu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_lqi74")
 theme_override_styles/hover = SubResource("StyleBoxFlat_52elu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_52elu")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_lqi74")
-theme_override_styles/focus = SubResource("StyleBoxFlat_52elu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lqi74")
 text = "Resume"
 
 [node name="MainMenu" type="Button" parent="bg/Options"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_wxyfu")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_lqi74")
+theme_override_styles/focus = SubResource("StyleBoxFlat_52elu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_lqi74")
 theme_override_styles/hover = SubResource("StyleBoxFlat_52elu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_52elu")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_lqi74")
-theme_override_styles/focus = SubResource("StyleBoxFlat_52elu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lqi74")
 text = "Main Menu"
 
 [node name="Overworld" type="Button" parent="bg/Options"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_wxyfu")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_lqi74")
+theme_override_styles/focus = SubResource("StyleBoxFlat_52elu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_lqi74")
 theme_override_styles/hover = SubResource("StyleBoxFlat_52elu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_52elu")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_lqi74")
-theme_override_styles/focus = SubResource("StyleBoxFlat_52elu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lqi74")
 text = "Overworld"
 
 [node name="Exit" type="Button" parent="bg/Options"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_wxyfu")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_lqi74")
+theme_override_styles/focus = SubResource("StyleBoxFlat_52elu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_lqi74")
 theme_override_styles/hover = SubResource("StyleBoxFlat_52elu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_52elu")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_lqi74")
-theme_override_styles/focus = SubResource("StyleBoxFlat_52elu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lqi74")
 text = "Quit Game"
 
 [connection signal="button_down" from="bg/Options/Resume" to="." method="_on_button_down"]

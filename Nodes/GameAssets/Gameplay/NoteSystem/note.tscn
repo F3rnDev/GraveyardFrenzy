@@ -2,7 +2,7 @@
 
 [ext_resource type="SpriteFrames" uid="uid://cgk0i6shema3v" path="res://note.tres" id="1_o2biw"]
 [ext_resource type="Texture2D" uid="uid://dqwknxvl1ns6k" path="res://Assets/Images/NoteSkin/noteHold.png" id="2_hovvm"]
-[ext_resource type="Script" path="res://Scripts/GameAssets/Gameplay/note.gd" id="2_r8e2k"]
+[ext_resource type="Script" uid="uid://c6gwvq45rb7u0" path="res://Scripts/GameAssets/Gameplay/note.gd" id="2_r8e2k"]
 
 [node name="Note" type="AnimatedSprite2D"]
 texture_filter = 1

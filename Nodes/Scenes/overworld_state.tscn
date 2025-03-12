@@ -1,11 +1,11 @@
 [gd_scene load_steps=34 format=3 uid="uid://davl6ku5b6pc1"]
 
-[ext_resource type="Script" path="res://Scripts/Scenes/overworld_state.gd" id="1_e5tjr"]
+[ext_resource type="Script" uid="uid://kah3lh5471xx" path="res://Scripts/Scenes/overworld_state.gd" id="1_e5tjr"]
 [ext_resource type="PackedScene" uid="uid://bs0l0q8pk81ye" path="res://Nodes/GameAssets/OverWorld/player_3d.tscn" id="1_t37h2"]
 [ext_resource type="PackedScene" uid="uid://8081sbcix0p1" path="res://Nodes/GameAssets/OverWorld/overworld_camera.tscn" id="2_vrl82"]
 [ext_resource type="PackedScene" uid="uid://c4vek4qf63ci6" path="res://Nodes/GameAssets/OverWorld/level_flag.tscn" id="4_8rcnt"]
 [ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="5_3np8f"]
-[ext_resource type="Shader" path="res://Assets/Shaders/outline.gdshader" id="5_6b86p"]
+[ext_resource type="Shader" uid="uid://byt6bmwvhrviq" path="res://Assets/Shaders/outline.gdshader" id="5_6b86p"]
 [ext_resource type="Texture2D" uid="uid://du4eqluxewrf8" path="res://Assets/Images/Backgrounds/pixelartMetalGround_Texture.png" id="6_ljk8d"]
 [ext_resource type="Texture2D" uid="uid://dmy0adg2pokom" path="res://Assets/Images/Backgrounds/pixelartBox_Texture.png" id="6_qhyti"]
 [ext_resource type="Texture2D" uid="uid://duo1dhiutg60v" path="res://icon.svg" id="7_ic4ik"]
@@ -91,9 +91,6 @@ corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uhbpo"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3a40y"]
-bg_color = Color(0, 0, 0, 0)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6uqnw"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 2
@@ -109,6 +106,9 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3a40y"]
+bg_color = Color(0, 0, 0, 0)
 
 [node name="OverworldState" type="Node3D"]
 script = ExtResource("1_e5tjr")
@@ -372,16 +372,16 @@ offset_right = 90.0
 offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_3np8f")
 theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_3a40y")
 theme_override_styles/hover = SubResource("StyleBoxFlat_6uqnw")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_smh8p")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3a40y")
 text = "Play"
 
 [node name="SongRatings" type="Control" parent="CanvasLayer/Control/bg"]

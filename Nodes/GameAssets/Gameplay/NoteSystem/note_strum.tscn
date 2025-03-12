@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://5f1c7amy88s7"]
 
-[ext_resource type="Script" path="res://Scripts/GameAssets/Gameplay/noteStrum.gd" id="1_l0spq"]
+[ext_resource type="Script" uid="uid://byodjkovoxjx4" path="res://Scripts/GameAssets/Gameplay/noteStrum.gd" id="1_l0spq"]
 [ext_resource type="Texture2D" uid="uid://40nlvtmsj55m" path="res://Assets/Images/NoteSkin/default.png" id="1_ngxhv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ruq07"]

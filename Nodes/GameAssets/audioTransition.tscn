@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bdmgvugm62gxj"]
 
-[ext_resource type="Script" path="res://Scripts/GameAssets/audioTransition.gd" id="1_t2khw"]
+[ext_resource type="Script" uid="uid://ctfwng5webv86" path="res://Scripts/GameAssets/audioTransition.gd" id="1_t2khw"]
 
 [node name="AudioTransition" type="AudioStreamPlayer"]
 script = ExtResource("1_t2khw")

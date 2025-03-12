@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://dqp0tei13fhqm"]
 
-[ext_resource type="Script" path="res://Scripts/GameAssets/Gameplay/stage.gd" id="1_r24i5"]
-[ext_resource type="Shader" path="res://Assets/Shaders/ground.gdshader" id="2_78ebw"]
-[ext_resource type="Script" path="res://Scripts/GameAssets/Gameplay/stageData.gd" id="2_oe8fj"]
+[ext_resource type="Script" uid="uid://d180m0p8uvfry" path="res://Scripts/GameAssets/Gameplay/stage.gd" id="1_r24i5"]
+[ext_resource type="Shader" uid="uid://c3fxs6y0ko435" path="res://Assets/Shaders/ground.gdshader" id="2_78ebw"]
+[ext_resource type="Script" uid="uid://ddjyovbufrd5k" path="res://Scripts/GameAssets/Gameplay/stageData.gd" id="2_oe8fj"]
 [ext_resource type="Texture2D" uid="uid://0kyefr0mnpgn" path="res://Assets/Images/Backgrounds/grid.png" id="3_tvgrl"]
 
 [sub_resource type="Resource" id="Resource_bs5us"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://dv0phrrwdlicv"]
 
-[ext_resource type="Script" path="res://Scripts/Scenes/charting_state.gd" id="1_022yw"]
+[ext_resource type="Script" uid="uid://7l2ik7r8g852" path="res://Scripts/Scenes/charting_state.gd" id="1_022yw"]
 [ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="2_g7eaq"]
 [ext_resource type="PackedScene" uid="uid://bqwt4i1tys03u" path="res://Nodes/Global/song.tscn" id="3_x8v7v"]
 [ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="4_d4mfj"]

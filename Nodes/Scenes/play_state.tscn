@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://btbkur778pbwy"]
 
-[ext_resource type="Script" path="res://Scripts/Scenes/play_song_state.gd" id="1_rvoja"]
+[ext_resource type="Script" uid="uid://dlw6ij2f3j5av" path="res://Scripts/Scenes/play_song_state.gd" id="1_rvoja"]
 [ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="2_57ly5"]
 [ext_resource type="PackedScene" uid="uid://cfxo2wixq1d5j" path="res://Nodes/GameAssets/Gameplay/player.tscn" id="2_qsmea"]
 [ext_resource type="PackedScene" uid="uid://dqp0tei13fhqm" path="res://Nodes/GameAssets/Gameplay/stage.tscn" id="3_q43hg"]

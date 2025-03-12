@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bs0l0q8pk81ye"]
 
 [ext_resource type="PackedScene" uid="uid://cfkurp5csl4do" path="res://Nodes/GameAssets/player_spr.tscn" id="1_mx476"]
-[ext_resource type="Script" path="res://Scripts/GameAssets/OverWorld/player_overworld.gd" id="1_svtgb"]
+[ext_resource type="Script" uid="uid://kjrqmoyfdtsp" path="res://Scripts/GameAssets/OverWorld/player_overworld.gd" id="1_svtgb"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_q1gnw"]
 viewport_path = NodePath("SubViewport")
