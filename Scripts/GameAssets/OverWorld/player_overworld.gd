@@ -9,6 +9,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var animatingXtra = false
 var waitForFrame = false
 
+var stopMovement = false
+
 func _ready():
 	add_child(idleTimer)
 	idleTimer.one_shot = true
@@ -52,7 +54,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _input(event):
-	if !OverworldRef.instance.inMenu:
+	if !OverworldRef.instance.inMenu and !stopMovement:
 		InputMovement(event)
 
 func InputMovement(event):

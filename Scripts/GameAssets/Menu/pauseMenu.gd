@@ -88,8 +88,6 @@ func menuAction():
 	var options = $bg/Options.get_children()
 	var selected_option = options[selected].name if selected < options.size() else ""
 	
-	print(selected_option)
-	
 	match selected_option:
 		"Overworld":
 			var overworld = load("res://Nodes/Scenes/overworld_state.tscn")

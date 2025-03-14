@@ -44,10 +44,15 @@ var noteAreaDebug = false
 #LOAD SCENE
 func _ready():
 	var song = getSong()
-	if song:
-		loadSong(song[0], Difficulty.getFileDiff(song[1]))
-	else:
-		loadSong("Tutorial", Difficulty.getFileDiff("Normal"))
+	if !song:
+		song = ["Tutorial", "Normal"]
+	
+	loadSong(song[0], Difficulty.getFileDiff(song[1]))
+	
+	DiscordManager.setData({
+		"details": "Playing",
+		"state": song[0] + " | " + song[1]
+	})
 	
 	$player/HealthPH.set_text("Health: " + str($player.health))
 	

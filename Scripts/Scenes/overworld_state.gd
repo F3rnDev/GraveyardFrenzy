@@ -9,15 +9,29 @@ static var instance
 
 var selectedDiff
 
+var debugCamera
+
 func _ready():
 	instance = self
 	resetDiff()
 	resetSongUI()
 	getRank()
+	
+	DiscordManager.setData({
+		"details":"In Overworld",
+		"state": "Prototype Area",
+		"large_image": "area_prototype",
+		"small_image": "char_skelly",
+		"large_image_text": "Prototype Area",
+		"small_image_text": "Playing as: Skeleton",
+	})
 
 func _process(delta):
 	if inMenu:
 		controlUI()
+	
+	$player3D.visible = !$OverworldCamera.debugCamera
+	$player3D.stopMovement = $OverworldCamera.debugCamera
 
 func controlUI():	
 	if Input.is_action_just_pressed("Exit"):
