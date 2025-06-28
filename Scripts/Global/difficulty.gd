@@ -1,6 +1,6 @@
 class_name Difficulty
 
-enum allDiff {Easy, Normal, Hard, Expert}
+enum allDiff {Easy, Normal, Hard}
 
 static func getAllDiffs() -> Array:
 	var array = []

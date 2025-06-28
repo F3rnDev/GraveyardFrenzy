@@ -17,6 +17,9 @@ var curAccuracy = 0
 var notesHit = 0
 var totalNotesPlayed = 0
 
+var healNotes = 0 #save amount of notesHit at the moment you lost health
+@export var healAmount = 20 #Amount off notes you need to hit after getting a heal
+
 var songOver = false
 
 #noteInputControl, 2 lanes btw :D
@@ -37,6 +40,10 @@ Input.is_action_just_released("StrumDown")]
 var curSection
 var isRunnerSection
 
+#gameOver
+var isGameOver = false
+@export var slowDownTime = 3.0
+
 #DEBUG
 var noteAreaDebug = false
 @export var physicsCollDebug = false
@@ -53,8 +60,6 @@ func _ready():
 		"details": "Playing",
 		"state": song[0] + " | " + song[1]
 	})
-	
-	$player/HealthPH.set_text("Health: " + str($player.health))
 	
 	if physicsCollDebug == true:
 		get_tree().set_debug_collisions_hint(physicsCollDebug)
@@ -152,7 +157,15 @@ func _physics_process(_delta):
 			var overWorld = load("res://Nodes/Scenes/overworld_state.tscn")
 			self.get_parent().switchScene(overWorld, self)
 		
+		if Input.is_action_just_pressed("Confirm") and isGameOver:
+			var restart = load("res://Nodes/Scenes/play_state.tscn")
+			self.get_parent().switchScene(restart, self)
+		
 		chartElementAction()
+		
+		#DEBUG gameOver
+		if Input.is_physical_key_pressed(KEY_R):
+			gameOver()
 #END
 
 #RUNNER SECTION CODE
@@ -217,8 +230,10 @@ func setSongLeft():
 func chartElementAction():	
 	for noteIndex in range(noteArray.size()):
 		move(noteIndex)
-		removeCheck(noteIndex)
-		noteControl(noteIndex)
+		
+		if !isGameOver:
+			removeCheck(noteIndex)
+			noteControl(noteIndex)
 	
 	if notesToRemove.size() > 0:
 		removeNotes()
@@ -382,6 +397,8 @@ func noteMiss(note, noteIndex, holdEnd):
 		note.getHold().modulate.a = 0.3
 	
 	calculateSongAccuracy(isHold)
+	
+	setHealNotes(0)
 
 func queueNoteForRemoval(noteIndex):
 	notesToRemove.append(noteIndex)
@@ -403,6 +420,8 @@ func noteHit(strumTime, isHold = false):
 	popupNoteScore(noteRating, timing, isHold)
 	
 	showTiming(timing, noteRating)
+	
+	healPlayer()
 
 func showTiming(timing, rating):
 	var textColor = Color.WHITE
@@ -473,6 +492,7 @@ func endSong():
 	songOver = true
 	$WinScreen.visible = true
 	$WinScreen/RankValue.text = SongRating.getRating(curAccuracy)
+	$CanvasLayer/bloodSplater.material.set_shader_parameter("cutoff", 0)
 	
 	var fullCombo = ""
 	
@@ -485,9 +505,6 @@ func endSong():
 		SongRating.setSongRating(song[0], song[1], SongRating.getRating(curAccuracy)+fullCombo)
 #END
 
-#UPDATE UI IF PLAYER IS HIT BY OBSTACLE
-func _on_player_hit():
-	$player/HealthPH.set_text("Health: " + str($player.health))
 #END
 
 func updateSongStats():
@@ -501,3 +518,78 @@ func debugCollision():
 	for note in $NoteGrp/RenderedNotes.get_children():
 		if note.has_method("setDebug"):
 			note.setDebug(noteAreaDebug)
+
+
+#ON PLAYER HIT
+func _on_player_hit() -> void:
+	$Camera2D.shake()
+	setHealNotes(0)
+	flashScreen(true)
+	
+	if $player.health <= 0:
+		gameOver()
+
+func flashScreen(hit:bool):
+	if hit:
+		$CanvasLayer/bloodSplater.material.set_shader_parameter("cutoff", 0.7)
+	
+	var tweenAmount = 0 if $player.health > 1 else 0.6
+	var tween = create_tween()
+	tween.tween_property($CanvasLayer/bloodSplater, "material:shader_parameter/cutoff", tweenAmount, 1.0)
+#END
+
+#HEAL Player
+func healPlayer():
+	healNotes += 1
+	
+	if healNotes >= healAmount and $player.health < 3:
+		setHealNotes(0)
+		$player.addOrSubHealth(1)
+		flashScreen(false)
+
+func setHealNotes(value):
+	healNotes = value
+
+#END
+
+#GameOver
+func gameOver():
+	if !isGameOver:
+		isGameOver = true
+		
+		#slow down music
+		var pitchTween = create_tween()
+		pitchTween.tween_property($Conductor/Song, "pitch_scale", 0.1, slowDownTime)
+		
+		#slow down ground
+		var stage = $stage
+		var groundTween = create_tween()
+		groundTween.tween_property(stage, "groundSpeed", 0.0, slowDownTime)
+		
+		#fade notes
+		var notes = $NoteGrp
+		var noteTween = create_tween()
+		noteTween.tween_property(notes, "modulate:a", 0.0, slowDownTime)
+		
+		#fade UI
+		var ui = $"Placeholder Grp"
+		var uiTween = create_tween()
+		uiTween.tween_property(ui, "modulate:a", 0.0, slowDownTime)
+		
+		#fade screen flash
+		var bloodSplater = $CanvasLayer/bloodSplater
+		var bloodTween = create_tween()
+		bloodTween.tween_property(bloodSplater, "material:shader_parameter/cutoff", 0.0, slowDownTime)
+		
+		#control player
+		$player.gameOverAnim()
+		
+		await get_tree().create_timer(slowDownTime).timeout
+		
+		$Conductor/Song.stop()
+		showGameOverText()
+
+func showGameOverText():
+	$CanvasLayer/gameOver.visible = true
+
+#END

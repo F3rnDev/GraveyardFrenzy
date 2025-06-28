@@ -17,6 +17,14 @@ var initX:float
 var flashTimer = Timer.new()
 signal hit
 
+var healthFlash = Timer.new()
+
+#gameOver
+var dead
+var deadRotateTween
+@export var deadFriction = 1000
+var deathAnimPlayed = false
+
 func _ready():
 	$player_2d.play("Walk(Placeholder)")
 	initX = global_position.x
@@ -24,6 +32,12 @@ func _ready():
 	flashTimer.one_shot = false;
 	flashTimer.connect("timeout", flashPlayer)
 	add_child(flashTimer)
+	
+	healthFlash.one_shot = false;
+	healthFlash.connect("timeout", flashHealth)
+	add_child(healthFlash)
+	
+	$Health.modulate.a = 0
 
 func _process(delta):
 	var overlap = $Area2D.get_overlapping_areas()
@@ -33,7 +47,7 @@ func _process(delta):
 func setRunnin(run):
 	isRunnin = run
 	
-	if global_position.x != initX and !isRunnin:
+	if global_position.x != initX and !isRunnin and !dead:
 		var tweenPos = create_tween()
 		tweenPos.set_ease(Tween.EASE_IN_OUT)
 		tweenPos.tween_property(self, "global_position:x", initX, 0.5)
@@ -49,10 +63,24 @@ func _physics_process(delta):
 	else:
 		velocity.y = 0
 	
-	if isRunnin:
+	if isRunnin and !dead:
 		InputMovement(delta)
-	else:
+	elif !isRunnin and !dead:
 		velocity = Vector2(0,velocity.y)
+	
+	if dead and is_on_floor():
+		deadRotateTween.kill()
+		rotation = 0.0
+		
+		if abs(velocity.x) > 10:
+			velocity.x = move_toward(velocity.x, 0, deadFriction*delta)
+			$player_2d.play("deathSlide")
+		elif abs(velocity.x) <= 10 and !deathAnimPlayed:
+			velocity.x = 0
+			$player_2d.play("deathFall")
+			deathAnimPlayed = true
+		
+		
 
 	move_and_slide()
 
@@ -92,19 +120,57 @@ func colliding(area):
 func playerHit():
 	addOrSubHealth(-1)
 	hit.emit()
-	$IFrames.start()
+	$IFrames.start()	
 	flashTimer.start(0.1)
 
 func flashPlayer():
 	if $IFrames.is_stopped():
-		visible = true;
+		$player_2d.visible = true;	
 		flashTimer.stop()
 	else:
-		visible = !visible
+		$player_2d.visible = !$player_2d.visible
 		flashTimer.start(0.1)
+
+func flashHealth():
+	if health > 1:
+		$Health.modulate = Color.WHITE
+		healthFlash.stop()
+	else:
+		$Health.modulate = Color.RED if $Health.modulate == Color.WHITE else Color.WHITE
+		healthFlash.start(0.5)
 
 func setHealth(setTo):
 	health = setTo
 
 func addOrSubHealth(setTo):
 	health += setTo
+	setHealthGraph()
+
+func setHealthGraph():
+	$Health.modulate.a = 1
+	
+	for i in range($Health.get_child_count()):
+		if health <= i:
+			$Health.get_child(i).play("NoLife")
+		else:
+			$Health.get_child(i).play("Life")
+	
+	var tween = create_tween()
+	
+	if health == 1:
+		healthFlash.start(0.5)
+		tween.tween_property($Health, "modulate:a", 1, 1.5)
+	else:
+		tween.tween_property($Health, "modulate:a", 0, 2.5)
+
+#GameOver
+func gameOverAnim():
+	dead = true
+	velocity = Vector2.ZERO
+	velocity += Vector2(jumpForce/2, -jumpForce)
+	
+	deadRotateTween = create_tween()
+	deadRotateTween.tween_property(self, "rotation", 90.0, 50.0)
+	
+	$Health.visible = false
+	move_and_slide()

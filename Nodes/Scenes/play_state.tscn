@@ -1,13 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://btbkur778pbwy"]
+[gd_scene load_steps=15 format=3 uid="uid://btbkur778pbwy"]
 
 [ext_resource type="Script" uid="uid://dlw6ij2f3j5av" path="res://Scripts/Scenes/play_song_state.gd" id="1_rvoja"]
 [ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="2_57ly5"]
 [ext_resource type="PackedScene" uid="uid://cfxo2wixq1d5j" path="res://Nodes/GameAssets/Gameplay/player.tscn" id="2_qsmea"]
+[ext_resource type="Script" uid="uid://dphrkrj2tbpee" path="res://Scripts/GameAssets/Gameplay/gameplayCamera.gd" id="3_8lnul"]
 [ext_resource type="PackedScene" uid="uid://dqp0tei13fhqm" path="res://Nodes/GameAssets/Gameplay/stage.tscn" id="3_q43hg"]
 [ext_resource type="PackedScene" uid="uid://5f1c7amy88s7" path="res://Nodes/GameAssets/Gameplay/NoteSystem/note_strum.tscn" id="4_5yswb"]
 [ext_resource type="PackedScene" uid="uid://bqwt4i1tys03u" path="res://Nodes/Global/song.tscn" id="4_6ojtx"]
 [ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="5_ag0vi"]
 [ext_resource type="PackedScene" uid="uid://dubm3sqga7eku" path="res://Nodes/GameAssets/Menu/pauseMenu.tscn" id="6_66vma"]
+[ext_resource type="Shader" uid="uid://br8w2h6npff8d" path="res://Assets/Shaders/bloodShader.gdshader" id="8_2vdfu"]
+[ext_resource type="Texture2D" uid="uid://uvtvbjc45uhp" path="res://Assets/Images/UI Images/borderTest.png" id="9_iwlib"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1v232"]
 bg_color = Color(0, 0, 0, 1)
@@ -28,6 +31,12 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iwlib"]
+shader = ExtResource("8_2vdfu")
+shader_parameter/cutoff = 0.0
+shader_parameter/smoothSize = 1.0
+shader_parameter/mask = ExtResource("9_iwlib")
+
 [node name="PlayState" type="Node2D"]
 script = ExtResource("1_rvoja")
 metadata/_edit_horizontal_guides_ = []
@@ -36,6 +45,7 @@ metadata/_edit_horizontal_guides_ = []
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(640, 360)
+script = ExtResource("3_8lnul")
 
 [node name="NoteGrp" type="Node2D" parent="."]
 
@@ -43,6 +53,10 @@ position = Vector2(640, 360)
 
 [node name="NoteStrum" parent="NoteGrp" groups=["noteStrum"] instance=ExtResource("4_5yswb")]
 position = Vector2(357, 457)
+
+[node name="player" parent="." instance=ExtResource("2_qsmea")]
+position = Vector2(195, 630)
+fastFallMultiplier = 4.5
 
 [node name="Placeholder Grp" type="Control" parent="."]
 layout_mode = 3
@@ -138,10 +152,6 @@ text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="player" parent="." instance=ExtResource("2_qsmea")]
-position = Vector2(195, 630)
-fastFallMultiplier = 4.5
-
 [node name="WinScreen" type="CanvasLayer" parent="."]
 visible = false
 
@@ -190,6 +200,44 @@ horizontal_alignment = 1
 
 [node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("6_66vma")]
 menuOptions = 13
+
+[node name="bloodSplater" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_iwlib")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)
+
+[node name="gameOver" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="gameOverText" type="Label" parent="CanvasLayer/gameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.0
+offset_top = -17.5
+offset_right = 176.0
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_ag0vi")
+theme_override_font_sizes/font_size = 26
+text = "GAME OVER
+
+Press ENTER to restart"
+horizontal_alignment = 1
 
 [node name="Conductor" parent="." instance=ExtResource("2_57ly5")]
 

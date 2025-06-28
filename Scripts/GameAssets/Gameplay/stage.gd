@@ -6,6 +6,10 @@ extends Node2D
 
 var stageData:StageData
 
+#ground
+var groundOffset := 0.0
+@export var groundSpeed := 5.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if debug:
@@ -13,6 +17,10 @@ func _ready():
 		setStage()
 	
 	print($bgTexture.texture)
+
+func _process(delta):
+	groundOffset += groundSpeed * delta
+	$ground/groundTexture.material.set_shader_parameter("offset", groundOffset)
 
 func setStage():
 	if stageData.background != null:

@@ -23,7 +23,7 @@ func _ready():
 		"large_image": "area_prototype",
 		"small_image": "char_skelly",
 		"large_image_text": "Prototype Area",
-		"small_image_text": "Playing as: Skeleton",
+		"small_image_text": "Playing as: Skeleton"
 	})
 
 func _process(delta):

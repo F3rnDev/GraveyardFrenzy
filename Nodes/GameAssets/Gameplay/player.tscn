@@ -1,37 +1,77 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfxo2wixq1d5j"]
+[gd_scene load_steps=8 format=3 uid="uid://cfxo2wixq1d5j"]
 
 [ext_resource type="Script" uid="uid://galgq4ogijvi" path="res://Scripts/GameAssets/Gameplay/player_2d.gd" id="1_wpa7j"]
 [ext_resource type="PackedScene" uid="uid://cfkurp5csl4do" path="res://Nodes/GameAssets/player_spr.tscn" id="2_iy8gb"]
-[ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="3_yf1k0"]
+[ext_resource type="Texture2D" uid="uid://bdsvdtnbu728u" path="res://Assets/Images/UI Images/Life.png" id="4_ui7l3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d05o4"]
 size = Vector2(91, 144)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ui7l3"]
+atlas = ExtResource("4_ui7l3")
+region = Rect2(0, 0, 9, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwcms"]
+atlas = ExtResource("4_ui7l3")
+region = Rect2(10, 0, 9, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0m876"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ui7l3")
+}],
+"loop": true,
+"name": &"Life",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwcms")
+}],
+"loop": true,
+"name": &"NoLife",
+"speed": 5.0
+}]
+
 [node name="player" type="CharacterBody2D"]
 texture_filter = 1
 script = ExtResource("1_wpa7j")
+deadFriction = 300
 
 [node name="player_2d" parent="." instance=ExtResource("2_iy8gb")]
-position = Vector2(3, -20)
+position = Vector2(0, -20)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(10.5, -5)
+position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_d05o4")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(10.5, -5)
+position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_d05o4")
 
 [node name="IFrames" type="Timer" parent="."]
 one_shot = true
 
-[node name="HealthPH" type="Label" parent="."]
+[node name="Health" type="Node2D" parent="."]
+position = Vector2(0, -143.8)
+scale = Vector2(6, 6)
+
+[node name="Heart 0" type="AnimatedSprite2D" parent="Health"]
 texture_filter = 1
-offset_left = -68.0
-offset_top = -127.0
-offset_right = 76.0
-offset_bottom = -101.0
-theme_override_fonts/font = ExtResource("3_yf1k0")
-text = "Health: ?"
+position = Vector2(-10, 0)
+sprite_frames = SubResource("SpriteFrames_0m876")
+animation = &"Life"
+
+[node name="Heart 1" type="AnimatedSprite2D" parent="Health"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_0m876")
+animation = &"Life"
+
+[node name="Heart 2" type="AnimatedSprite2D" parent="Health"]
+texture_filter = 1
+position = Vector2(10, 0)
+sprite_frames = SubResource("SpriteFrames_0m876")
+animation = &"Life"
