@@ -46,15 +46,18 @@ func controlUI():
 		goToPlayState()
 
 func changeDiff(change):
-	selectedDiff += change
-	
-	if selectedDiff < 0:
-		selectedDiff = Difficulty.getAllDiffs().size()-1
-	elif selectedDiff > Difficulty.getAllDiffs().size()-1:
-		selectedDiff = 0
+	#PLACEHOLDER, LOCK DIFFICULTY
+	if selectedSong != "Chicken":
+		selectedDiff += change
+		
+		if selectedDiff < 0:
+			selectedDiff = Difficulty.getAllDiffs().size()-1
+		elif selectedDiff > Difficulty.getAllDiffs().size()-1:
+			selectedDiff = 0
+	else:
+		resetDiff()
 	
 	$CanvasLayer/Control/bg/SongDiff.text = Difficulty.getAllDiffs()[selectedDiff]
-	
 	getRank()
 
 func resetDiff():

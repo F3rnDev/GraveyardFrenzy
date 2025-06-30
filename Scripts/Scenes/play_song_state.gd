@@ -52,7 +52,7 @@ var noteAreaDebug = false
 func _ready():
 	var song = getSong()
 	if !song:
-		song = ["Tutorial", "Normal"]
+		song = ["Chicken", "Normal"]
 	
 	loadSong(song[0], Difficulty.getFileDiff(song[1]))
 	
@@ -150,7 +150,7 @@ func _physics_process(_delta):
 		
 		setSongLeft()
 		
-		if $Conductor.songLeft == 0 and !$Conductor/Song.playing and !songOver:
+		if $Conductor.songLeft < 1 and !$Conductor/Song.playing and !songOver:
 			endSong()
 		
 		if Input.is_action_just_pressed("Confirm") and songOver:

@@ -29,6 +29,7 @@
             });
 
             stepDetails.current = stepContent.includes('[current]');
+            stepDetails.done = stepContent.includes('[done]');
     
             if (stepDetails.title) {
                 roadmapSteps.push(stepDetails);
@@ -47,6 +48,7 @@
         roadmapSteps.forEach((step) => {
 
           const isCurrent = step.current ? '-progress' : '';
+          const isDone = step.done
 
           var curIcon = `<i class="${step.icon || 'fa-solid fa-circle'}"></i>`;
           var displayStamp = '';

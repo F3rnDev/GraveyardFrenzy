@@ -130,9 +130,16 @@ light_angular_distance = 3.84
 [node name="player3D" parent="." instance=ExtResource("1_t37h2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.406)
 
-[node name="LevelFlag" parent="." instance=ExtResource("4_8rcnt")]
+[node name="LevelFlag - Tutorial" parent="." instance=ExtResource("4_8rcnt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.353005, 0.20397, 5.77628)
 songName = "Tutorial"
+songAuthor = "F3rn_Dev"
+songPlayMin = 20.0
+songPlayMax = 35.0
+
+[node name="LevelFlag - Chicken" parent="." instance=ExtResource("4_8rcnt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.64836, 0.20397, -2.36589)
+songName = "Chicken"
 songAuthor = "F3rn_Dev"
 songPlayMin = 20.0
 songPlayMax = 35.0

@@ -1,1 +1,614 @@
-{"bpm":120,"notes":[{"runnerSection":true,"sectionNotes":[]},{"runnerSection":true,"sectionNotes":[]},{"runnerSection":true,"sectionNotes":[]},{"runnerSection":true,"sectionNotes":[]},{"runnerSection":true,"sectionNotes":[]},{"runnerSection":true,"sectionNotes":[]},{"runnerSection":true,"sectionNotes":[]},{"runnerSection":true,"sectionNotes":[]},{"runnerSection":true,"sectionNotes":[[7680,1,0],[7920,1,0],[8160,0,0]]},{"runnerSection":false,"sectionNotes":[[8640,1,0],[8880,1,0],[9120,1,0]]},{"runnerSection":false,"sectionNotes":[]},{"runnerSection":false,"sectionNotes":[]},{"runnerSection":false,"sectionNotes":[[11520,1,0],[11760,0,0],[12120,1,0],[12240,0,0]]},{"runnerSection":false,"sectionNotes":[[12480,1,0],[12720,0,0],[13080,1,0],[13200,0,0],[13320,1,0]]},{"runnerSection":false,"sectionNotes":[[13440,1,0],[13680,0,0],[14040,1,0],[14160,0,0]]},{"runnerSection":false,"sectionNotes":[[14400,1,0],[14640,0,0],[15000,1,0],[15120,0,0],[15240,1,0]]},{"runnerSection":false,"sectionNotes":[[15360,1,0],[15600,0,0],[15960,1,0],[16080,0,0]]},{"runnerSection":false,"sectionNotes":[[16320,1,0],[16560,0,0],[16920,1,0],[17040,0,0],[17160,1,0]]},{"runnerSection":false,"sectionNotes":[[17280,1,0],[17520,0,0],[17880,1,0],[18000,0,0]]},{"runnerSection":false,"sectionNotes":[[18240,1,0],[18480,0,0],[18840,1,0],[18960,0,0],[19080,1,0]]},{"runnerSection":false,"sectionNotes":[[19200,1,0],[19440,0,0],[19800,1,0],[19920,0,0]]},{"runnerSection":false,"sectionNotes":[[20160,1,0],[20400,0,0],[20760,1,0],[20880,0,0],[21000,1,0]]},{"runnerSection":false,"sectionNotes":[[21120,1,0],[21360,0,0],[21720,1,0],[21840,0,0]]},{"runnerSection":false,"sectionNotes":[[22080,1,0],[22320,0,0],[22680,1,0],[22800,0,0],[22920,1,0]]}],"songName":"Tutorial"}
+{
+	"bpm": 120.0,
+	"notes": [
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					5760.0,
+					0.0,
+					0.0
+				],
+				[
+					6240.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					6720.0,
+					0.0,
+					0.0
+				],
+				[
+					7200.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					9600.0,
+					1.0,
+					0.0
+				],
+				[
+					9840.0,
+					1.0,
+					0.0
+				],
+				[
+					10080.0,
+					0.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					10560.0,
+					1.0,
+					0.0
+				],
+				[
+					10800.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": true,
+			"sectionNotes": [
+				[
+					11520.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": true,
+			"sectionNotes": [
+				[
+					12480.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": true,
+			"sectionNotes": [
+				[
+					13440.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": true,
+			"sectionNotes": [
+				[
+					14400.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": true,
+			"sectionNotes": [
+				[
+					15660.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": true,
+			"sectionNotes": [
+				[
+					16320.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": true,
+			"sectionNotes": [
+				[
+					17280.0,
+					1.0,
+					0.0
+				],
+				[
+					17880.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": true,
+			"sectionNotes": [
+				[
+					18240.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": true,
+			"sectionNotes": [
+				[
+					19200.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": true,
+			"sectionNotes": [
+				[
+					20160.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": true,
+			"sectionNotes": [
+				[
+					21120.0,
+					1.0,
+					0.0
+				],
+				[
+					21720.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": true,
+			"sectionNotes": [
+				[
+					22080.0,
+					1.0,
+					0.0
+				],
+				[
+					22800.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					24960.0,
+					0.0,
+					720.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					25920.0,
+					0.0,
+					720.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					28800.0,
+					0.0,
+					720.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					29760.0,
+					0.0,
+					240.0
+				],
+				[
+					30240.0,
+					1.0,
+					240.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					30720.0,
+					0.0,
+					720.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					32040.0,
+					1.0,
+					0.0
+				],
+				[
+					32160.0,
+					1.0,
+					0.0
+				],
+				[
+					32280.0,
+					0.0,
+					0.0
+				],
+				[
+					32400.0,
+					1.0,
+					0.0
+				],
+				[
+					32520.0,
+					0.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					32640.0,
+					0.0,
+					720.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					33600.0,
+					0.0,
+					240.0
+				],
+				[
+					34080.0,
+					1.0,
+					240.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					34560.0,
+					0.0,
+					720.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					35880.0,
+					0.0,
+					0.0
+				],
+				[
+					36000.0,
+					0.0,
+					0.0
+				],
+				[
+					36120.0,
+					1.0,
+					0.0
+				],
+				[
+					36240.0,
+					0.0,
+					0.0
+				],
+				[
+					36360.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					36480.0,
+					1.0,
+					720.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					37440.0,
+					1.0,
+					240.0
+				],
+				[
+					37920.0,
+					0.0,
+					240.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					38400.0,
+					1.0,
+					720.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					39360.0,
+					1.0,
+					240.0
+				],
+				[
+					39720.0,
+					0.0,
+					0.0
+				],
+				[
+					39840.0,
+					1.0,
+					0.0
+				],
+				[
+					39960.0,
+					0.0,
+					0.0
+				],
+				[
+					40200.0,
+					0.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					40320.0,
+					0.0,
+					720.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					41520.0,
+					1.0,
+					0.0
+				],
+				[
+					41760.0,
+					0.0,
+					300.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					42240.0,
+					0.0,
+					720.0
+				],
+				[
+					43080.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					43200.0,
+					0.0,
+					240.0
+				],
+				[
+					43560.0,
+					1.0,
+					0.0
+				],
+				[
+					43800.0,
+					1.0,
+					0.0
+				],
+				[
+					43920.0,
+					0.0,
+					0.0
+				],
+				[
+					44040.0,
+					0.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					44160.0,
+					0.0,
+					720.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": [
+				[
+					45120.0,
+					0.0,
+					0.0
+				],
+				[
+					45240.0,
+					0.0,
+					0.0
+				],
+				[
+					45360.0,
+					1.0,
+					0.0
+				],
+				[
+					45480.0,
+					1.0,
+					0.0
+				],
+				[
+					45600.0,
+					0.0,
+					0.0
+				],
+				[
+					45720.0,
+					0.0,
+					0.0
+				],
+				[
+					45840.0,
+					1.0,
+					0.0
+				],
+				[
+					45960.0,
+					1.0,
+					0.0
+				]
+			]
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		},
+		{
+			"runnerSection": false,
+			"sectionNotes": []
+		}
+	],
+	"songName": "Tutorial"
+}
