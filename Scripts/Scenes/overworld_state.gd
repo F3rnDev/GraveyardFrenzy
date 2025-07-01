@@ -79,7 +79,7 @@ func resetSongUI():
 func openSongUI(songName, songAuthor, songRange):
 	var songPath = "res://Assets/Songs/" + songName + "/" + songName
 	var songFile = FileSystem.getAudioFile(songPath)
-	$BackgroundMusic.setAudio(Audio.getAudio(songFile), songRange)
+	$BackgroundMusic.setAudio(load(songFile), songRange)
 	
 	$CanvasLayer/Control/bg/SongName.text = songName
 	$CanvasLayer/Control/bg/SongAuthor.text = "Composed by: " + songAuthor

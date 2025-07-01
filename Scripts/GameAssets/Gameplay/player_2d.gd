@@ -21,6 +21,7 @@ var healthFlash = Timer.new()
 
 #gameOver
 var dead
+var animatedDeath
 var deadRotateTween
 @export var deadFriction = 1000
 var deathAnimPlayed = false
@@ -68,7 +69,7 @@ func _physics_process(delta):
 	elif !isRunnin and !dead:
 		velocity = Vector2(0,velocity.y)
 	
-	if dead and is_on_floor():
+	if dead and is_on_floor() and animatedDeath:
 		deadRotateTween.kill()
 		rotation = 0.0
 		
@@ -79,8 +80,13 @@ func _physics_process(delta):
 			velocity.x = 0
 			$player_2d.play("deathFall")
 			deathAnimPlayed = true
+	
+	if dead and !animatedDeath:
+		velocity = Vector2.ZERO
+		velocity += Vector2(jumpForce/2, -jumpForce)
 		
-		
+		if !is_on_floor():
+			animatedDeath = true
 
 	move_and_slide()
 
@@ -114,7 +120,7 @@ func InputMovement(delta):
 		velocity.y = 0
 
 func colliding(area):	
-	if area.get_parent().is_in_group("obstacle") and isRunnin and $IFrames.is_stopped():
+	if area.get_parent().is_in_group("obstacle") and isRunnin and $IFrames.is_stopped() and !dead:
 		playerHit()
 
 func playerHit():
@@ -164,13 +170,12 @@ func setHealthGraph():
 		tween.tween_property($Health, "modulate:a", 0, 2.5)
 
 #GameOver
-func gameOverAnim():
+func killPlayer():
 	dead = true
-	velocity = Vector2.ZERO
-	velocity += Vector2(jumpForce/2, -jumpForce)
+	animatedDeath = false
+	deathAnimPlayed = false
 	
 	deadRotateTween = create_tween()
-	deadRotateTween.tween_property(self, "rotation", 90.0, 50.0)
+	deadRotateTween.tween_property(self, "rotation", deg_to_rad(90.0), 1.0)
 	
 	$Health.visible = false
-	move_and_slide()

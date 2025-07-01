@@ -52,7 +52,7 @@ var noteAreaDebug = false
 func _ready():
 	var song = getSong()
 	if !song:
-		song = ["Chicken", "Normal"]
+		song = ["Tutorial", "Normal"]
 	
 	loadSong(song[0], Difficulty.getFileDiff(song[1]))
 	
@@ -63,6 +63,10 @@ func _ready():
 	
 	if physicsCollDebug == true:
 		get_tree().set_debug_collisions_hint(physicsCollDebug)
+	
+	flashScreen(false)
+	
+	$CanvasLayer/pauseMenu.canPause = true
 
 func getSong():	
 	var sceneManager = self.get_parent()
@@ -522,6 +526,9 @@ func debugCollision():
 
 #ON PLAYER HIT
 func _on_player_hit() -> void:
+	if isGameOver:
+		return
+	
 	$Camera2D.shake()
 	setHealNotes(0)
 	flashScreen(true)
@@ -555,6 +562,7 @@ func setHealNotes(value):
 #GameOver
 func gameOver():
 	if !isGameOver:
+		$CanvasLayer/pauseMenu.canPause = false
 		isGameOver = true
 		
 		#slow down music
@@ -582,7 +590,7 @@ func gameOver():
 		bloodTween.tween_property(bloodSplater, "material:shader_parameter/cutoff", 0.0, slowDownTime)
 		
 		#control player
-		$player.gameOverAnim()
+		$player.killPlayer()
 		
 		await get_tree().create_timer(slowDownTime).timeout
 		
