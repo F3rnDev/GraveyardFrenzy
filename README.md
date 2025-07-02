@@ -22,10 +22,10 @@ You can read the documentation of this project [here](https://f3rndev.github.io/
 We're still in a prototype phase, but we're working hard to make it a full game. If you're interested in seeing the progress, you can check our roadmap [here](https://f3rndev.github.io/GraveyardFrenzy/#/roadmap).
 
 ## Screenshots
-![screnshot1](./docs/images/screenshots/prototype/screen1.png)
-![screnshot3](./docs/images/screenshots/prototype/screen2.png)
-![screnshot4](./docs/images/screenshots/prototype/screen3.png)
-![screnshot5](./docs/images/screenshots/prototype/screen4.png)
+![screnshot1](./docs/images/screenshots/0.0.1/screen1.png)
+![screnshot3](./docs/images/screenshots/0.0.1/screen2.png)
+![screnshot4](./docs/images/screenshots/0.0.1/screen3.png)
+![screnshot5](./docs/images/screenshots/0.0.1/screen4.png)
 
 ## Credits
 - [F3rn](https://github.com/F3rnDev) - Main Developer
