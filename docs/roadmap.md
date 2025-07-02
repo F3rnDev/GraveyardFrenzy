@@ -5,16 +5,17 @@
 <div class="roadmap-container"></div>
 <!--Release Prototype-->
 [roadmap-item]
-  [current]
+  [done]
   [title]Prototype Release[title]
   [date]Jul 2025[date]
   [description]Releasing the first prototype of the game, and setting up the itch.io page.[description]
-  [progress]95[progress]
+  [progress]100[progress]
   [version]v0.0.1[version]
   [icon]fa-solid fa-rocket[icon]
 [roadmap-item]
 <!--Patch Version 1-->
 [roadmap-item]
+  [current]
   [title]Patch v1[title]
   [date]Aug 2025[date]
   [description]Patch bugs found on the prototype release, add quality of life features.[description]

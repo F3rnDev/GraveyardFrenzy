@@ -8,7 +8,7 @@
             <u><strong>F3rn</strong></u>
         </p>
         <p>
-            Main Developer, Designer, and Writer. He is the mind behind the project.
+            Main Developer, Designer, and Writer. The mind behind the project.
         </p>
         <p>
             <blockquote>"I'm a simple man. <br> I see bug in the code, i ignore bug in the code"</blockquote>

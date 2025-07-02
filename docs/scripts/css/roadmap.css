@@ -7,12 +7,29 @@
     margin-top: 30px;
 }
 
+.done
+{
+  filter: brightness(40%);
+}
+
 .roadmap-line {
     min-width: 5px;
     background-color: white;
     border-radius: 5px;
-    transition: height 0.3s;
+    transition: height 0.01s;
     overflow: hidden;
+}
+
+.roadmap-line-done
+{
+  min-width: 5px;
+  height:150px;
+  background-color: white;
+  border-radius: 5px;
+  transition: height 0.01s;
+  overflow: hidden;
+
+  filter: brightness(40%);
 }
 
 .roadmap-icon, .roadmap-icon-progress {
@@ -29,6 +46,11 @@
     justify-content: center;
 
     left: 22px;
+}
+
+.roadmap-icon.done
+{
+  left: -27px;
 }
 
 .roadmap-icon-progress

@@ -41,14 +41,17 @@
 
         var roadmapHTML = `
         <div class="roadmap">
-          <div class="roadmap-line"></div>
-          <div>
+          <div class="roadmap-line">
+            <div class = "roadmap-line-done"></div>
+          </div>
+          
+        <div>
         `;
   
         roadmapSteps.forEach((step) => {
 
-          const isCurrent = step.current ? '-progress' : '';
-          const isDone = step.done
+          const isCurrent = step.current ? '-progress' : '';   
+          const isDone = step.done ? 'done' : '';       
 
           var curIcon = `<i class="${step.icon || 'fa-solid fa-circle'}"></i>`;
           var displayStamp = '';
@@ -63,6 +66,11 @@
             curIcon = `<img class="custom-icon" src="images/icons/skeleton.svg" data-no-zoom style="width: 40px; height: 40px;"/>`;
             displayStamp = `<span class="displayStamp">HERE</span>`;
           }
+          else if (step.done)
+          {
+            console.log(step.done);
+            curIcon = `<i class="fa-solid fa-flag"></i>`
+          }
 
           //check if the percentage is 100% or 0%
           var roadmapProgress = `<progress class="roadmap-ItemProgress roadmap-bar${isCurrent}" max='100' value='${step.progress}'></progress>`;
@@ -76,8 +84,8 @@
           }
 
           roadmapHTML += `
-          <div class="roadmap-content" id=${isCurrent}>
-            <div class="roadmap-icon${isCurrent}">
+          <div class="roadmap-content ${isDone}" id=${isCurrent}>
+            <div class="roadmap-icon${isCurrent} ${isDone}">
               ${curIcon}
             </div>
             <div class="roadmap-item${isCurrent}" onclick="selectStep(this);">
@@ -105,12 +113,14 @@
         html = html.replace('<div class="roadmap-container"></div>', roadmapHTML);
         next(html);
 
-        var roadmapLine = document.querySelector('.roadmap-line');
+        var roadmapLine = document.querySelector(`.roadmap-line`);
 
         if(roadmapLine)
         {
           roadmapLine.style.height = document.querySelector('.roadmap').clientHeight + 'px';
         }
+
+        updateRoadmapLineDone();
       });
     };
   
