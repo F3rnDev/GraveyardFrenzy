@@ -15,7 +15,6 @@ var normalBtn
 var hoverBtn
 
 func _ready():
-	maxOptions = $bg/Options.get_child_count()-1
 	$bg/Options.get_child(selected).grab_focus()
 	
 	normalBtn = $bg/Options.get_child(0).get_theme_stylebox("normal", "Button")
@@ -26,10 +25,16 @@ func _ready():
 
 func setMenuOptions():
 	var options = $bg/Options.get_children()
+	var menuCount = 0
 	
 	for i in range(options.size()):
 		if !bool(menuOptions & (1 << i)):
 			options[i].queue_free()
+		else:
+			menuCount += 1;
+	
+	maxOptions = menuCount-1
+	print(maxOptions)
 
 func _input(event):
 	if event.is_action_pressed("Pause") and canPause:

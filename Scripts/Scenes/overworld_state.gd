@@ -67,8 +67,10 @@ func closeSongUI():
 	inMenu = false
 	$CanvasLayer/pauseMenu.canPause = true
 	
-	if $BackgroundMusic.dummyPlayer.stream != $BackgroundMusic.defaultAudio:
-		$BackgroundMusic.setAudio($BackgroundMusic.defaultAudio)
+	var curClipID = $BackgroundMusic.get_stream_playback().get_current_clip_index()
+	var curClipName = $BackgroundMusic.stream.get_clip_name(curClipID)
+	if(curClipName != "Default"):
+		$BackgroundMusic.playDefaultAudio()
 	
 	var tween = $CanvasLayer/Control.create_tween()
 	tween.tween_property($CanvasLayer/Control, "position", Vector2(500, 0), 0.5).set_trans(Tween.TRANS_SINE)
@@ -76,10 +78,8 @@ func closeSongUI():
 func resetSongUI():
 	$CanvasLayer/Control.position = Vector2(500, 0)
 
-func openSongUI(songName, songAuthor, songRange):
-	var songPath = "res://Assets/Songs/" + songName + "/" + songName
-	var songFile = FileSystem.getAudioFile(songPath)
-	$BackgroundMusic.setAudio(load(songFile), songRange)
+func openSongUI(songName, songAuthor):
+	$BackgroundMusic.playSongAudio(songName)
 	
 	$CanvasLayer/Control/bg/SongName.text = songName
 	$CanvasLayer/Control/bg/SongAuthor.text = "Composed by: " + songAuthor

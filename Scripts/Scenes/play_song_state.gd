@@ -81,7 +81,7 @@ func loadSong(songToLoad, diff):
 	curSong = $Song.Song.new().loadSong(songToLoad, diff)
 	
 	if curSong != null:
-		var path = "res://Assets/Songs/" + curSong.songName + "/" + curSong.songName
+		var path = "res://Assets/Audio/Songs/" + curSong.songName + "/" + curSong.songName
 		$Conductor.setSong(path)
 		$Conductor.setBpm(curSong.bpm)
 		getAllSongNotes()

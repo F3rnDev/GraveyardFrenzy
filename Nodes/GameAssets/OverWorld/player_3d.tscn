@@ -30,9 +30,11 @@ size = Vector2i(1280, 720)
 
 [node name="player_2d" parent="SubViewport" instance=ExtResource("1_mx476")]
 position = Vector2(640, 360)
+animation = &"Walk(Placeholder)"
 
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.212312, 0)
+visible = false
 shape = SubResource("SphereShape3D_bvxxu")

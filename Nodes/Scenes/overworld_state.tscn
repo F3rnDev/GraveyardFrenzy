@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://davl6ku5b6pc1"]
+[gd_scene load_steps=33 format=3 uid="uid://davl6ku5b6pc1"]
 
 [ext_resource type="Script" uid="uid://kah3lh5471xx" path="res://Scripts/Scenes/overworld_state.gd" id="1_e5tjr"]
 [ext_resource type="PackedScene" uid="uid://bs0l0q8pk81ye" path="res://Nodes/GameAssets/OverWorld/player_3d.tscn" id="1_t37h2"]
@@ -9,11 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://du4eqluxewrf8" path="res://Assets/Images/Backgrounds/pixelartMetalGround_Texture.png" id="6_ljk8d"]
 [ext_resource type="Texture2D" uid="uid://dmy0adg2pokom" path="res://Assets/Images/Backgrounds/pixelartBox_Texture.png" id="6_qhyti"]
 [ext_resource type="Texture2D" uid="uid://duo1dhiutg60v" path="res://icon.svg" id="7_ic4ik"]
-[ext_resource type="PackedScene" uid="uid://bdmgvugm62gxj" path="res://Nodes/GameAssets/audioTransition.tscn" id="9_f2tw8"]
+[ext_resource type="PackedScene" uid="uid://bdmgvugm62gxj" path="res://Nodes/GameAssets/Audio/audioTransition.tscn" id="9_f2tw8"]
 [ext_resource type="Texture2D" uid="uid://cxoin3fpwtumc" path="res://Assets/Images/UI Images/playIconWhite.png" id="9_wwrwm"]
 [ext_resource type="PackedScene" uid="uid://drc1aravj0ept" path="res://Nodes/GameAssets/OverWorld/FC medal.tscn" id="10_ag2uv"]
 [ext_resource type="PackedScene" uid="uid://dubm3sqga7eku" path="res://Nodes/GameAssets/Menu/pauseMenu.tscn" id="12_23loj"]
-[ext_resource type="AudioStream" uid="uid://dkra4wrgyuegq" path="res://Assets/Sounds/placeholder-background.mp3" id="14_mqa4q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ux3wl"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -128,21 +127,17 @@ transform = Transform3D(-1, 1.06542e-08, -8.67711e-08, 0, 0.992546, 0.121869, 8.
 light_angular_distance = 3.84
 
 [node name="player3D" parent="." instance=ExtResource("1_t37h2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.406)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015, 7.406)
 
 [node name="LevelFlag - Tutorial" parent="." instance=ExtResource("4_8rcnt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.353005, 0.20397, 5.77628)
 songName = "Tutorial"
 songAuthor = "F3rn_Dev"
-songPlayMin = 20.0
-songPlayMax = 35.0
 
 [node name="LevelFlag - Chicken" parent="." instance=ExtResource("4_8rcnt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.64836, 0.20397, -2.36589)
 songName = "Chicken"
 songAuthor = "F3rn_Dev"
-songPlayMin = 20.0
-songPlayMax = 35.0
 
 [node name="Placeholder Scene" type="Node3D" parent="."]
 
@@ -487,7 +482,6 @@ text = "Placeholder Rank Image: "
 menuOptions = 11
 
 [node name="BackgroundMusic" parent="." instance=ExtResource("9_f2tw8")]
-defaultAudio = ExtResource("14_mqa4q")
 
 [connection signal="button_down" from="CanvasLayer/Control/bg/DiffRightButton" to="." method="_on_diff_right_button_button_down"]
 [connection signal="button_down" from="CanvasLayer/Control/bg/DiffLeftButton" to="." method="_on_diff_left_button_button_down"]

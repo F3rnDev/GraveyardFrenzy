@@ -37,14 +37,14 @@ func setupSongList():
 	
 	var selectedSongId = 0 #if the item is disabled, select next item
 	
-	var songArray = FileSystem.getFolderNames("res://Assets/Songs")
+	var songArray = FileSystem.getFolderNames("res://Assets/Audio/Songs")
 	for songId in range(songArray.size()):
 		$CanvasLayer/loadSongUI/ListSongs.add_item(songArray[songId])
 		
 		var isSongLoaded = []
 		var audioExtensions = [".mp3", ".wav", ".ogg"]
 		for ext in audioExtensions:
-			var filePath = "res://Assets/Songs/" + songArray[songId] + "/" + songArray[songId] + ext
+			var filePath = "res://Assets/Audio/Songs/" + songArray[songId] + "/" + songArray[songId] + ext
 			isSongLoaded.append(ResourceLoader.exists(filePath))
 		
 		if !isSongLoaded.has(true):
@@ -79,13 +79,13 @@ func _on_add_song_button_down():
 	$CanvasLayer/SelectSong.visible = true
 
 func _on_select_song_file_selected(path):
-	FileSystem.checkDirectory("res://Assets/Songs/", path.get_file().get_basename())
+	FileSystem.checkDirectory("res://Assets/Audio/Songs/", path.get_file().get_basename())
 	
 	var selectedFile = FileAccess.open(path, FileAccess.READ)	
 	var fileBuffer = selectedFile.get_buffer(selectedFile.get_length())
 	selectedFile.close()
 	
-	var savePath = "res://Assets/Songs/" + path.get_file().get_basename() + "/" + path.get_file()
+	var savePath = "res://Assets/Audio/Songs/" + path.get_file().get_basename() + "/" + path.get_file()
 	
 	var saveTo = FileAccess.open(savePath, FileAccess.WRITE)
 	saveTo.store_buffer(fileBuffer)
@@ -142,7 +142,7 @@ func loadSong(songToLoad, reloading = false, filePath = "", rawPath = ""):
 		
 		if !reloading:
 			if loadedResource:
-				var path = "res://Assets/Songs/" + curSong.songName + "/" + curSong.songName
+				var path = "res://Assets/Audio/Songs/" + curSong.songName + "/" + curSong.songName
 				$Conductor.setSong(path)
 			else:
 				$Conductor.setSong(rawPath, false)
@@ -350,7 +350,7 @@ func _on_input_value_changed(value):
 
 func _on_save_song_button_down():
 	if curSongName != "":			
-		FileSystem.renameSongFiles("res://Assets/Songs/", curSong.songName, curSongName)
+		FileSystem.renameSongFiles("res://Assets/Audio/Songs/", curSong.songName, curSongName)
 		
 		for diff in Difficulty.getAllDiffs():
 			var songLoaded = $Song.Song.new().loadSong(curSongName, Difficulty.getFileDiff(diff))

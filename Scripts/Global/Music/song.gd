@@ -12,14 +12,14 @@ class Song:
 	var bpm:float
 	
 	func saveSong(fileName, songData, fileDiff):
-		FileSystem.checkDirectory("res://Assets/Songs/", fileName)
+		FileSystem.checkDirectory("res://Assets/Audio/Songs", fileName)
 		
 		var jsonData = JSON.stringify(parseSong(songData))
-		var file = FileAccess.open("res://Assets/Songs/" + fileName + "/" + fileName + fileDiff + ".json", FileAccess.WRITE)
+		var file = FileAccess.open("res://Assets/Audio/Songs/" + fileName + "/" + fileName + fileDiff + ".json", FileAccess.WRITE)
 		file.store_string(jsonData)
 	
 	func loadSong(fileName, fileDiff):
-		var file = FileAccess.open("res://Assets/Songs/" + fileName + "/" + fileName + fileDiff + ".json", FileAccess.READ)
+		var file = FileAccess.open("res://Assets/Audio/Songs/" + fileName + "/" + fileName + fileDiff + ".json", FileAccess.READ)
 		var result
 		
 		if file == null:
