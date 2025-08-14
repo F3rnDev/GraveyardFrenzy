@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Graveyard Frenzy"
 config/version="0.0.1"
-run/main_scene="res://Nodes/Global/scene_manager.tscn"
+run/main_scene="uid://cwdx48yoiqcfn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="uid://ded56ig5vi5ky"
 config/windows_native_icon="res://test_icon.ico"
@@ -20,7 +20,6 @@ config/windows_native_icon="res://test_icon.ico"
 [autoload]
 
 CInput="*res://Scripts/Global/inputController.gd"
-DiscordRPCLoader="res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
 
 [display]
 
@@ -28,8 +27,7 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/mode=2
 window/stretch/mode="viewport"
-window/per_pixel_transparency/allowed=true
-window/vsync/vsync_mode=3
+window/vsync/vsync_mode=0
 
 [editor_plugins]
 

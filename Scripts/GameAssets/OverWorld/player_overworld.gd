@@ -59,7 +59,7 @@ func _input(event):
 	if !OverworldRef.instance.inMenu and !stopMovement:
 		InputMovement(event)
 
-func InputMovement(event):
+func InputMovement(_event):
 	var input_dir = Input.get_vector(
 		CInput.getInput("Left"), CInput.getInput("Right"), 
 		CInput.getInput("Up"), CInput.getInput("Down")

@@ -1,30 +1,107 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdmgvugm62gxj"]
+[gd_scene load_steps=7 format=3 uid="uid://bdmgvugm62gxj"]
 
 [ext_resource type="AudioStream" uid="uid://dkra4wrgyuegq" path="res://Assets/Audio/Sounds/placeholder-background.mp3" id="1_qois4"]
 [ext_resource type="Script" uid="uid://ctfwng5webv86" path="res://Scripts/GameAssets/Audio/audioTransition.gd" id="1_t2khw"]
 
-[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_76cba"]
-clip_count = 1
-clip_0/name = &"Default"
-clip_0/stream = ExtResource("1_qois4")
-clip_0/auto_advance = 1
-clip_0/next_clip = 0
-_transitions = {
-Vector2i(-1, -1): {
-"fade_beats": 1.0,
-"fade_mode": 3,
-"from_time": 0,
-"to_time": 2
-},
-Vector2i(0, -1): {
-"fade_beats": 1.0,
-"fade_mode": 3,
-"from_time": 0,
-"to_time": 1
+[sub_resource type="Animation" id="Animation_cdmui"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Audio 02:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-80.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
-[node name="AudioTransition" type="AudioStreamPlayer"]
-stream = SubResource("AudioStreamInteractive_76cba")
+[sub_resource type="Animation" id="Animation_u7n5b"]
+resource_name = "transition_01"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Audio 02:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -80.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_qois4"]
+resource_name = "transition_02"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Audio 02:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -80.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u7n5b"]
+_data = {
+&"RESET": SubResource("Animation_cdmui"),
+&"transition_01": SubResource("Animation_u7n5b"),
+&"transition_02": SubResource("Animation_qois4")
+}
+
+[node name="Audio 01" type="AudioStreamPlayer"]
 bus = &"Music"
 script = ExtResource("1_t2khw")
+defaultAudioStream = ExtResource("1_qois4")
+
+[node name="Audio 02" type="AudioStreamPlayer" parent="."]
+volume_db = -80.0
+
+[node name="TransitionAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_u7n5b")
+}

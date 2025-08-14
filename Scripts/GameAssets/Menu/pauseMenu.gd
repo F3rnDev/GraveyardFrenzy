@@ -14,6 +14,8 @@ var isMouse = false
 var normalBtn
 var hoverBtn
 
+signal pause()
+
 func _ready():
 	$bg/Options.get_child(selected).grab_focus()
 	
@@ -22,6 +24,9 @@ func _ready():
 	
 	setMenuOptions()
 	selectOption(0)
+	
+	if OS.has_feature("web") and get_node_or_null("bg/Options/Exit") != null:
+		$bg/Options/Exit.queue_free()
 
 func setMenuOptions():
 	var options = $bg/Options.get_children()
@@ -34,7 +39,6 @@ func setMenuOptions():
 			menuCount += 1;
 	
 	maxOptions = menuCount-1
-	print(maxOptions)
 
 func _input(event):
 	if event.is_action_pressed("Pause") and canPause:
@@ -53,6 +57,7 @@ func menuInput(event):
 		menuAction()
 
 func pauseGame():
+	pause.emit()
 	paused = !paused
 	visible = paused
 	get_tree().paused = paused
@@ -88,18 +93,18 @@ func menuAction():
 	pauseGame()
 	
 	var curNode = self.get_parent().get_parent()
-	var sceneManager = curNode.get_parent()
+	var sceneManager = curNode.get_parent().get_parent()
 	
 	var options = $bg/Options.get_children()
 	var selected_option = options[selected].name if selected < options.size() else ""
 	
 	match selected_option:
 		"Overworld":
-			var overworld = load("res://Nodes/Scenes/overworld_state.tscn")
-			sceneManager.switchScene(overworld, curNode)
+			var overworld = "res://Nodes/Scenes/overworld_state.tscn"
+			sceneManager.switchScene(overworld)
 		"MainMenu":
-			var mainMenu = load("res://Nodes/Scenes/mainMenu.tscn")
-			sceneManager.switchScene(mainMenu, curNode)
+			var mainMenu = "res://Nodes/Scenes/mainMenu.tscn"
+			sceneManager.switchScene(mainMenu)
 		"Exit":
 			get_tree().quit()
 

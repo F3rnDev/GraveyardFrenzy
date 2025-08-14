@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://o4ti301enk1m"]
+
+[ext_resource type="Script" uid="uid://dm7a6ewptv4fu" path="res://Scripts/Scenes/loading_screen.gd" id="1_duosb"]
+[ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="1_qpmnj"]
+
+[node name="LoadingScreen" type="CanvasLayer"]
+layer = 3
+script = ExtResource("1_duosb")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -326.0
+offset_top = -138.0
+offset_right = -26.0
+offset_bottom = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 25
+
+[node name="LoadingText" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_qpmnj")
+theme_override_font_sizes/font_size = 32
+text = "LOADING"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_qpmnj")

@@ -11,22 +11,20 @@ var selectedDiff
 
 var debugCamera
 
+@export var discInfo:DiscordInfo
+
 func _ready():
 	instance = self
 	resetDiff()
 	resetSongUI()
 	getRank()
-	
-	DiscordManager.setData({
-		"details":"In Overworld",
-		"state": "Prototype Area",
-		"large_image": "area_prototype",
-		"small_image": "char_skelly",
-		"large_image_text": "Prototype Area",
-		"small_image_text": "Playing as: Skeleton"
-	})
+	setRPCInfo()
 
-func _process(delta):
+func setRPCInfo():
+	if SceneManager.instance != null:
+		SceneManager.instance.updateDiscordRPCInfo(discInfo)
+
+func _process(_delta):
 	if inMenu:
 		controlUI()
 	
@@ -67,10 +65,7 @@ func closeSongUI():
 	inMenu = false
 	$CanvasLayer/pauseMenu.canPause = true
 	
-	var curClipID = $BackgroundMusic.get_stream_playback().get_current_clip_index()
-	var curClipName = $BackgroundMusic.stream.get_clip_name(curClipID)
-	if(curClipName != "Default"):
-		$BackgroundMusic.playDefaultAudio()
+	$BackgroundMusic.playDefaultAudio()
 	
 	var tween = $CanvasLayer/Control.create_tween()
 	tween.tween_property($CanvasLayer/Control, "position", Vector2(500, 0), 0.5).set_trans(Tween.TRANS_SINE)
@@ -98,11 +93,10 @@ func goToPlayState():
 	var songName = selectedSong
 	var songDiff = $CanvasLayer/Control/bg/SongDiff.text
 	
-	var playState = load("res://Nodes/Scenes/play_state.tscn")
+	var playState = "res://Nodes/Scenes/play_state.tscn"
 	
-	var sceneManager = self.get_parent()
-	sceneManager.setSongProperties(songName, songDiff)
-	sceneManager.switchScene(playState, self)
+	SceneManager.instance.setSongProperties(songName, songDiff)
+	SceneManager.instance.switchScene(playState)
 
 func getRank():
 #	var placeholder = $"CanvasLayer/Control/bg/Placeholder Rank Image/Placeholder"

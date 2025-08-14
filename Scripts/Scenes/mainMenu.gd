@@ -1,18 +1,23 @@
 extends Control
 
-func _ready():
-	var default = DiscordManager.default
-	default["details"] = "Navigating Menus"
-	DiscordManager.setData(default)
+@export var discInfo:DiscordInfo
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _ready() -> void:
+	if SceneManager.instance != null:
+		SceneManager.instance.updateDiscordRPCInfo(discInfo)
+
+func _process(_delta):
 	if Input.is_action_just_pressed("Confirm"):
-		var overworld = load("res://Nodes/Scenes/overworld_state.tscn")
-		var sceneManager = self.get_parent()
-		sceneManager.switchScene(overworld, self)
+		goToOverworld()
 
-func _input(event):
+func goToOverworld():
+	if SceneManager.instance != null:
+		var overworld = "res://Nodes/Scenes/overworld_state.tscn"
+		SceneManager.instance.switchScene(overworld)
+	else:
+		print("Error changing scene: Scene Manager is not present")
+
+func _input(_event):
 	var typeStr = "Enter"
 	
 	match CInput.curType:

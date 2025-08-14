@@ -1,18 +1,14 @@
 extends CanvasLayer
 
-signal faded(newScene, oldScene)
+signal faded(newScene)
 
-func startFadeIn(newScene, oldScene):
-	self.visible = true
+func startFadeIn(newScene):
 	$AnimationPlayer.play("ui_fadeIn")
 	await $AnimationPlayer.animation_finished
-	faded.emit(newScene, oldScene)
+	faded.emit(newScene)
 
 func startFadeOut(node):
-	var nodeName = str(node.name)
+	if node == null:
+		return
 	
-	get_parent().get_node(nodeName).process_mode = Node.PROCESS_MODE_DISABLED
 	$AnimationPlayer.play("ui_fadeOut")
-	await $AnimationPlayer.animation_finished
-	self.visible = false
-	get_parent().get_node(nodeName).process_mode = Node.PROCESS_MODE_INHERIT

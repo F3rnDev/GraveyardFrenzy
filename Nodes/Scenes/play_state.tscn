@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://btbkur778pbwy"]
+[gd_scene load_steps=17 format=3 uid="uid://btbkur778pbwy"]
 
 [ext_resource type="Script" uid="uid://dlw6ij2f3j5av" path="res://Scripts/Scenes/play_song_state.gd" id="1_rvoja"]
 [ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="2_57ly5"]
@@ -11,6 +11,17 @@
 [ext_resource type="PackedScene" uid="uid://dubm3sqga7eku" path="res://Nodes/GameAssets/Menu/pauseMenu.tscn" id="6_66vma"]
 [ext_resource type="Shader" uid="uid://br8w2h6npff8d" path="res://Assets/Shaders/bloodShader.gdshader" id="8_2vdfu"]
 [ext_resource type="Texture2D" uid="uid://uvtvbjc45uhp" path="res://Assets/Images/UI Images/borderTest.png" id="9_iwlib"]
+[ext_resource type="Script" uid="uid://ba4jb4xbatiil" path="res://Scripts/Global/DiscordRPC/DiscordInfo.gd" id="13_2q3pv"]
+
+[sub_resource type="Resource" id="Resource_r772e"]
+script = ExtResource("13_2q3pv")
+details = "Playing"
+state = "DynamicData"
+largeImageID = "char_skelly"
+smallImageID = ""
+largeImageText = ""
+smallImageText = ""
+metadata/_custom_type_script = "uid://ba4jb4xbatiil"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1v232"]
 bg_color = Color(0, 0, 0, 1)
@@ -39,6 +50,7 @@ shader_parameter/mask = ExtResource("9_iwlib")
 
 [node name="PlayState" type="Node2D"]
 script = ExtResource("1_rvoja")
+discInfo = SubResource("Resource_r772e")
 metadata/_edit_horizontal_guides_ = []
 
 [node name="stage" parent="." instance=ExtResource("3_q43hg")]
@@ -244,3 +256,4 @@ horizontal_alignment = 1
 [node name="Song" parent="." instance=ExtResource("4_6ojtx")]
 
 [connection signal="hit" from="player" to="." method="_on_player_hit"]
+[connection signal="pause" from="CanvasLayer/pauseMenu" to="." method="_on_pause_menu_pause"]

@@ -37,7 +37,6 @@ var just_released = [Input.is_action_just_released("StrumUp"),
 Input.is_action_just_released("StrumDown")]
 
 #Runner mechanic
-var curSection
 var isRunnerSection
 
 #gameOver
@@ -48,6 +47,15 @@ var isGameOver = false
 var noteAreaDebug = false
 @export var physicsCollDebug = false
 
+#DiscordRPC
+@export var discInfo:DiscordInfo
+
+#DiscordRPC
+func setRPCInfo(curSong):
+	if SceneManager.instance != null:
+		discInfo.state = curSong
+		SceneManager.instance.updateDiscordRPCInfo(discInfo)
+
 #LOAD SCENE
 func _ready():
 	var song = getSong()
@@ -56,24 +64,20 @@ func _ready():
 	
 	loadSong(song[0], Difficulty.getFileDiff(song[1]))
 	
-	DiscordManager.setData({
-		"details": "Playing",
-		"state": song[0] + " | " + song[1]
-	})
-	
 	if physicsCollDebug == true:
 		get_tree().set_debug_collisions_hint(physicsCollDebug)
 	
 	flashScreen(false)
 	
 	$CanvasLayer/pauseMenu.canPause = true
+	
+	setRPCInfo(song[0] + " | " + song[1])
 
 func getSong():	
-	var sceneManager = self.get_parent()
 	var songProperties
 	
-	if sceneManager.has_method("getSongProperties"):
-		songProperties = sceneManager.getSongProperties()
+	if SceneManager.instance.has_method("getSongProperties"):
+		songProperties = SceneManager.instance.getSongProperties()
 	
 	return songProperties
 
@@ -158,12 +162,10 @@ func _physics_process(_delta):
 			endSong()
 		
 		if Input.is_action_just_pressed("Confirm") and songOver:
-			var overWorld = load("res://Nodes/Scenes/overworld_state.tscn")
-			self.get_parent().switchScene(overWorld, self)
+			goToOverworld()
 		
 		if Input.is_action_just_pressed("Confirm") and isGameOver:
-			var restart = load("res://Nodes/Scenes/play_state.tscn")
-			self.get_parent().switchScene(restart, self)
+			restartLevel()
 		
 		chartElementAction()
 		
@@ -171,6 +173,21 @@ func _physics_process(_delta):
 		if Input.is_physical_key_pressed(KEY_R):
 			gameOver()
 #END
+
+#GO TO SCENES
+func goToOverworld():
+	if SceneManager.instance != null: 
+		var overWorld = "res://Nodes/Scenes/overworld_state.tscn"
+		SceneManager.instance.switchScene(overWorld)
+	else:
+		print("Error changing scene: Scene Manager is not present")
+
+func restartLevel():
+	if SceneManager.instance != null: 
+		var restart = "res://Nodes/Scenes/play_state.tscn"
+		SceneManager.instance.switchScene(restart)
+	else:
+		print("Error changing scene: Scene Manager is not present")
 
 #RUNNER SECTION CODE
 func calculateSongSection():
@@ -191,8 +208,8 @@ func calculateSongSection():
 	elif transitionToRhythm or (!isThisSectionRunner and transitionToNextSection):
 		setRunnerSection(false)
 
-func setRunnerSection(set):
-	isRunnerSection = set
+func setRunnerSection(setSection):
+	isRunnerSection = setSection
 	
 	if isRunnerSection:
 		$player.setRunnin(true)
@@ -540,7 +557,7 @@ func flashScreen(hit:bool):
 	if hit:
 		$CanvasLayer/bloodSplater.material.set_shader_parameter("cutoff", 0.7)
 	
-	var tweenAmount = 0 if $player.health > 1 else 0.6
+	var tweenAmount = 0.0 if $player.health > 1 else 0.6
 	var tween = create_tween()
 	tween.tween_property($CanvasLayer/bloodSplater, "material:shader_parameter/cutoff", tweenAmount, 1.0)
 #END
@@ -601,3 +618,7 @@ func showGameOverText():
 	$CanvasLayer/gameOver.visible = true
 
 #END
+
+#Pause music when pausing game
+func _on_pause_menu_pause() -> void:
+	$Conductor.playSong(false)

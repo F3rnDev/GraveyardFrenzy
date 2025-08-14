@@ -26,7 +26,7 @@ func checkSongClear():
 	if !clearedSong:
 		$flagViewport/flag.visible = false
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("Confirm") and enteredArea and !OverworldRef.instance.inMenu:
 		OverworldRef.instance.openSongUI(songName, songAuthor)
 
@@ -34,5 +34,5 @@ func _on_area_area_entered(area):
 	if area.get_parent().is_in_group("player"):
 		enteredArea = true
 
-func _on_area_area_exited(area):
+func _on_area_area_exited(_area):
 	enteredArea = false

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://rs8gma2g08a7"]
+
+[ext_resource type="Script" uid="uid://1sarc85dmwbo" path="res://Scripts/Global/DiscordRPC/DiscordLoader.gd" id="1_u0fdt"]
+[ext_resource type="Script" uid="uid://ba4jb4xbatiil" path="res://Scripts/Global/DiscordRPC/DiscordInfo.gd" id="2_8inlt"]
+
+[sub_resource type="Resource" id="Resource_8inlt"]
+script = ExtResource("2_8inlt")
+details = ""
+state = ""
+largeImageID = "char_skelly"
+smallImageID = ""
+largeImageText = ""
+smallImageText = ""
+metadata/_custom_type_script = "uid://ba4jb4xbatiil"
+
+[node name="DiscordLoader" type="Node"]
+script = ExtResource("1_u0fdt")
+defaultInfo = SubResource("Resource_8inlt")

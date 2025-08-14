@@ -4,7 +4,7 @@ extends Node
 #In the future, store the keybindings for the user :DDDDD
 enum Type {Keyboard, Ps4Controller, XboxController, SwitchController}
 
-var curType:Type = 0
+var curType:Type = Type.Keyboard
 
 func _input(event):	
 	if event.is_pressed:

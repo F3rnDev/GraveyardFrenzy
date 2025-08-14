@@ -96,9 +96,9 @@ theme_override_font_sizes/font_size = 20
 text = "This game is best played with a controller"
 
 [node name="Intro" type="AnimationPlayer" parent="."]
-autoplay = "Intro"
 libraries = {
-"": SubResource("AnimationLibrary_kc0py")
+&"": SubResource("AnimationLibrary_kc0py")
 }
+autoplay = "Intro"
 
 [connection signal="animation_finished" from="Intro" to="." method="_on_intro_animation_finished"]

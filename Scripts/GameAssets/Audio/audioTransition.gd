@@ -1,23 +1,47 @@
 extends AudioStreamPlayer
 
+@export var defaultAudioStream:AudioStream
+var defaultAudioPos = 0.0
+
+var activeAudio = self
+
 func _ready():
-	var songArray = FileSystem.getFolderNames("res://Assets/Audio/Songs")
-	
-	for song in songArray:
-		var songPath = "res://Assets/Audio/Songs/" + song + "/" + song
-		var songFile = FileSystem.getAudioFile(songPath)
-		var songStream = load(songFile)
-		
-		stream.set_clip_count(stream.get_clip_count() + 1)
-		stream.set_clip_name(stream.get_clip_count()-1, song)
-		stream.set_clip_stream(stream.get_clip_count()-1, songStream)
-		stream.set_clip_auto_advance(stream.get_clip_count()-1, 1)
-		stream.set_clip_auto_advance_next_clip(stream.get_clip_count()-1, 0)
-	
-	play()
+	if defaultAudioStream != null:
+		stream = defaultAudioStream
+		play()
 
 func playSongAudio(songName):
-	get_stream_playback().switch_to_clip_by_name(songName)
+	defaultAudioPos = get_playback_position()
+	
+	var songPath = "res://Assets/Audio/Songs/" + songName + "/" + songName
+	var songFile = FileSystem.getAudioFile(songPath)
+	var songStream = load(songFile)
+
+	createTransition(songStream, 0.0)
 
 func playDefaultAudio():
-	get_stream_playback().switch_to_clip(0)
+	if defaultAudioStream == null:
+		return
+	
+	createTransition(defaultAudioStream, defaultAudioPos)
+
+func createTransition(audioStream, position):
+	var audio01Tween = get_tree().create_tween()
+	var audio02Tween = get_tree().create_tween()
+	
+	if activeAudio == self:
+		$"Audio 02".stream = audioStream
+		$"Audio 02".play(position)
+		
+		audio01Tween.tween_property(self, "volume_db", -80.0, 2.0)
+		audio02Tween.tween_property($"Audio 02", "volume_db", 0.0, 2.0)
+		
+		activeAudio = $"Audio 02"
+	else:
+		stream = audioStream
+		play(position)
+		
+		audio01Tween.tween_property(self, "volume_db", 0.0, 2.0)
+		audio02Tween.tween_property($"Audio 02", "volume_db", -80.0, 2.0)
+		
+		activeAudio = self

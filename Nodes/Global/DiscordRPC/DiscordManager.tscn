@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://lx5dt7xwysu6"]
+
+[ext_resource type="Script" uid="uid://bc01au07q54kl" path="res://Scripts/Global/DiscordRPC/DiscordManager.gd" id="1_to1ti"]
+
+[node name="DiscordManager" type="Node"]
+script = ExtResource("1_to1ti")

@@ -18,6 +18,9 @@ var curStep = 0
 signal beatHit(position)
 signal stepHit(position)
 
+#Setting to web
+var startTime = 0.0
+
 func _ready():
 	setBpm(bpm)
 
@@ -31,8 +34,10 @@ func playSong(restart):
 		$Song.stop()
 	else:
 		$Song.play()
+		startTime = Time.get_ticks_msec()/1000.0
 		if !restart and floor(songPos) < floor($Song.stream.get_length()):
 			$Song.seek(songPos)
+			startTime -= songPos
 
 func setBpm(newBpm):
 	bpm = newBpm
@@ -50,11 +55,17 @@ func setSong(path, fileLoaded = true):
 
 func _process(delta):
 	if $Song.playing:
-		var songTime = $Song.get_playback_position() + AudioServer.get_time_since_last_mix()
-		songTime -= AudioServer.get_output_latency()
-		songPos = (float)((songTime) - offset)
+		var timeNow = Time.get_ticks_msec() / 1000.0
+		var clockTime = timeNow - startTime
 		
-		songLeft = songLength - $Song.get_playback_position()
+		if OS.has_feature("web"):
+			songPos = clockTime - offset
+		else:
+			var songTime = $Song.get_playback_position() + AudioServer.get_time_since_last_mix()
+			songTime -= AudioServer.get_output_latency()
+			songPos = (float)((songTime) - offset)
+		
+		songLeft = songLength - songPos
 		
 		updateBeat()
 
@@ -69,6 +80,3 @@ func updateBeat():
 		if lastBeat < curBeat:
 			emit_signal("beatHit", curBeat)
 			lastBeat = curBeat
-	
-	
-	

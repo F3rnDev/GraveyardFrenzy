@@ -36,10 +36,10 @@ class Song:
 			"notes": parseSection(song.notes)
 		}
 	
-	func parseSection(notes):
+	func parseSection(sectionNotes):
 		var notesArray = []
 		
-		for notesInSection in notes:
+		for notesInSection in sectionNotes:
 			var addToString = {
 				"sectionNotes": notesInSection.sectionNotes,
 				"runnerSection": notesInSection.runnerSection

@@ -1,8 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://ban5hu62bqxg4"]
+[gd_scene load_steps=13 format=3 uid="uid://ban5hu62bqxg4"]
 
 [ext_resource type="Script" uid="uid://dfbe234mvr23o" path="res://Scripts/Scenes/mainMenu.gd" id="1_6fukg"]
 [ext_resource type="Texture2D" uid="uid://bd00opgb3ete1" path="res://Assets/Images/UI Images/LOGO.png" id="1_chxcg"]
 [ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="2_fi8h3"]
+[ext_resource type="Script" uid="uid://ba4jb4xbatiil" path="res://Scripts/Global/DiscordRPC/DiscordInfo.gd" id="5_rujdd"]
+
+[sub_resource type="Resource" id="Resource_xdpb6"]
+script = ExtResource("5_rujdd")
+details = "Navigating Menus"
+state = ""
+largeImageID = "char_skelly"
+smallImageID = ""
+largeImageText = ""
+smallImageText = ""
+metadata/_custom_type_script = "uid://ba4jb4xbatiil"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gbefx"]
 bg_color = Color(0, 0, 0, 1)
@@ -79,6 +90,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6fukg")
+discInfo = SubResource("Resource_xdpb6")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -106,10 +118,10 @@ grow_vertical = 2
 texture = ExtResource("1_chxcg")
 
 [node name="LogoAnim" type="AnimationPlayer" parent="LOGO"]
-autoplay = "idle"
 libraries = {
-"": SubResource("AnimationLibrary_76y8o")
+&"": SubResource("AnimationLibrary_76y8o")
 }
+autoplay = "idle"
 
 [node name="Press Enter" type="Label" parent="."]
 layout_mode = 1
@@ -131,9 +143,9 @@ text = "- Press Enter to Begin -"
 horizontal_alignment = 1
 
 [node name="LabelAnim" type="AnimationPlayer" parent="Press Enter"]
-root_node = NodePath("../..")
-autoplay = "Label Appear"
 reset_on_save = false
+root_node = NodePath("../..")
 libraries = {
-"": SubResource("AnimationLibrary_bo730")
+&"": SubResource("AnimationLibrary_bo730")
 }
+autoplay = "Label Appear"

@@ -93,10 +93,11 @@ _data = {
 }
 
 [node name="transition" type="CanvasLayer"]
-visible = false
+process_mode = 3
 script = ExtResource("1_3kv42")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+process_mode = 3
 material = SubResource("ShaderMaterial_670d5")
 anchors_preset = 15
 anchor_right = 1.0
@@ -106,9 +107,11 @@ offset_bottom = 720.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, -1)
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
 libraries = {
 &"": SubResource("AnimationLibrary_i8s4h")
 }
