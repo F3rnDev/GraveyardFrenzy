@@ -67,7 +67,7 @@ script = ExtResource("3_8lnul")
 position = Vector2(357, 457)
 
 [node name="player" parent="." instance=ExtResource("2_qsmea")]
-position = Vector2(195, 630)
+position = Vector2(195, 631)
 fastFallMultiplier = 4.5
 
 [node name="Placeholder Grp" type="Control" parent="."]
@@ -255,5 +255,6 @@ horizontal_alignment = 1
 
 [node name="Song" parent="." instance=ExtResource("4_6ojtx")]
 
+[connection signal="notePressed" from="NoteGrp/NoteStrum" to="." method="_on_note_strum_note_pressed"]
 [connection signal="hit" from="player" to="." method="_on_player_hit"]
 [connection signal="pause" from="CanvasLayer/pauseMenu" to="." method="_on_pause_menu_pause"]

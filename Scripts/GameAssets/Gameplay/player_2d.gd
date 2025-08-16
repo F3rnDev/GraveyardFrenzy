@@ -11,7 +11,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jumpBufferTimer = 0
 
 var isRunnin = false
-var initX:float
+var initPos:Vector2
 
 @export var health:int = 3
 var flashTimer = Timer.new()
@@ -28,13 +28,13 @@ var deathAnimPlayed = false
 
 func _ready():
 	$player_2d.play("Walk(Placeholder)")
-	initX = global_position.x
+	initPos = global_position
 	
-	flashTimer.one_shot = false;
+	flashTimer.one_shot = false
 	flashTimer.connect("timeout", flashPlayer)
 	add_child(flashTimer)
 	
-	healthFlash.one_shot = false;
+	healthFlash.one_shot = false
 	healthFlash.connect("timeout", flashHealth)
 	add_child(healthFlash)
 	
@@ -48,10 +48,10 @@ func _process(delta):
 func setRunnin(run):
 	isRunnin = run
 	
-	if global_position.x != initX and !isRunnin and !dead:
+	if global_position.x != initPos.x and !isRunnin and !dead:
 		var tweenPos = create_tween()
-		tweenPos.set_ease(Tween.EASE_IN_OUT)
-		tweenPos.tween_property(self, "global_position:x", initX, 0.5)
+		tweenPos.set_ease(Tween.EASE_OUT)
+		tweenPos.tween_property(self, "global_position:x", initPos.x, 0.5)
 
 func _physics_process(delta):
 	#set fast fall multiplyer
@@ -59,6 +59,7 @@ func _physics_process(delta):
 	if velocity.y > 0:
 		fastFall = fastFallMultiplier
 	
+	#Gravity
 	if not is_on_floor():
 		velocity.y += (gravity * fastFall * delta)
 	else:
@@ -179,3 +180,12 @@ func killPlayer():
 	deadRotateTween.tween_property(self, "rotation", deg_to_rad(90.0), 1.0)
 	
 	$Health.visible = false
+
+#Set Player position based on strum input
+func setPlayerPosByStrum(note, strumPos):
+	var tweenPos = create_tween()
+	tweenPos.set_ease(Tween.EASE_OUT)
+	
+	var pos = strumPos.y
+	
+	tweenPos.tween_property(self, "global_position:y", pos, 0.1)

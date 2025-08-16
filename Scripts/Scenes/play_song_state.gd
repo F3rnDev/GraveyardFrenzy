@@ -76,7 +76,7 @@ func _ready():
 func getSong():	
 	var songProperties
 	
-	if SceneManager.instance.has_method("getSongProperties"):
+	if SceneManager.instance != null and SceneManager.instance.has_method("getSongProperties"):
 		songProperties = SceneManager.instance.getSongProperties()
 	
 	return songProperties
@@ -622,3 +622,9 @@ func showGameOverText():
 #Pause music when pausing game
 func _on_pause_menu_pause() -> void:
 	$Conductor.playSong(false)
+
+#AnimatePlayerPos
+func _on_note_strum_note_pressed(note: Variant) -> void:
+	if !isRunnerSection:
+		var pos = $NoteGrp/NoteStrum.get_node(note).global_position
+		$player.setPlayerPosByStrum(note, pos)

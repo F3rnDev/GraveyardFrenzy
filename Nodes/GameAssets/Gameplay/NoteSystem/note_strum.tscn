@@ -41,7 +41,6 @@ animations = [{
 }]
 
 [node name="NoteStrum" type="Node2D"]
-position = Vector2(670, 314)
 script = ExtResource("1_l0spq")
 
 [node name="StrumUp" type="AnimatedSprite2D" parent="."]

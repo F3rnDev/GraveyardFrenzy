@@ -63,7 +63,7 @@ scale = Vector2(6, 6)
 texture_filter = 1
 position = Vector2(-10, 0)
 sprite_frames = SubResource("SpriteFrames_0m876")
-animation = &"Life"
+animation = &"NoLife"
 
 [node name="Heart 1" type="AnimatedSprite2D" parent="Health"]
 texture_filter = 1
