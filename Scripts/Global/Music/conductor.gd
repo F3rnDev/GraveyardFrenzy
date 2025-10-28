@@ -1,5 +1,7 @@
 extends Node
 
+class_name Conductor
+
 var bpm = 120
 
 var crochet = (60.0 / bpm)

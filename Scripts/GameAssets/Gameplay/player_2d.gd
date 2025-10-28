@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+#Dependencies
+@export var conductor:Conductor
+
 #simple movement var
 const SPEED = 500.0
 const jumpForce = 700.0
@@ -13,6 +16,7 @@ var jumpBufferTimer = 0
 var isRunnin = false
 var initPos:Vector2
 
+#Health
 @export var health:int = 3
 var flashTimer = Timer.new()
 signal hit
@@ -20,11 +24,17 @@ signal hit
 var healthFlash = Timer.new()
 
 #gameOver
-var dead
-var animatedDeath
+var dead = false
+var animatedDeath = false
 var deadRotateTween
 @export var deadFriction = 1000
 var deathAnimPlayed = false
+
+#AnimateRhythmHit
+var animated = true
+var canNoHitAnimate = true
+var lastPressNote = null
+var isHoldingNote = false
 
 func _ready():
 	$player_2d.play("Walk(Placeholder)")
@@ -44,6 +54,8 @@ func _process(delta):
 	var overlap = $Area2D.get_overlapping_areas()
 	for area in overlap:
 		colliding(area)
+	
+	animate()
 
 func setRunnin(run):
 	isRunnin = run
@@ -60,8 +72,11 @@ func _physics_process(delta):
 		fastFall = fastFallMultiplier
 	
 	#Gravity
-	if not is_on_floor():
-		velocity.y += (gravity * fastFall * delta)
+	if animated:
+		if not is_on_floor():
+			velocity.y += gravity * fastFall * delta
+		else:
+			velocity.y = 0
 	else:
 		velocity.y = 0
 	
@@ -181,11 +196,121 @@ func killPlayer():
 	
 	$Health.visible = false
 
-#Set Player position based on strum input
-func setPlayerPosByStrum(note, strumPos):
-	var tweenPos = create_tween()
+#PLAYER HIT ANIMATION
+func validateNoHitAnim(note):
+	#Main Validations
+	var sameNote = (note == lastPressNote)
+	var downHit = (note == 1 and lastPressNote == 0)
+	var jumpUp = (note == 0 and lastPressNote == 1)
+	
+	#Ifs
+	# if on ground and not attacking down
+	var onGround = note == 1 and not downHit and not jumpUp
+	# if on air and not attacking down
+	var onAir = not is_on_floor() and not downHit and not jumpUp
+	
+	#Validate
+	return (sameNote or onGround or onAir)
+
+func setNoHitAnim(note, strumLine):
+	if !canNoHitAnimate:
+		return
+	
+	if validateNoHitAnim(note):
+		return
+	
+	var strumPos = strumLine.get_child(note).global_position
+	var downHit = (note == 1 and global_position.y < strumPos.y)
+	
+	setPlayerStrumPos(strumPos)
+	
+	animated = false
+	lastPressNote = note
+	$player_2d.stop()
+	
+	#PLAY ANIMATION
+	if downHit:
+		$player_2d.play("kickDown")
+	else:
+		$player_2d.play("jump")
+
+func setHitAnim(note, strumLine, hold=false):
+	canNoHitAnimate = false
+	
+	var strumPos = strumLine.get_child(note).global_position
+	var downHit = (note == 1 and global_position.y < strumPos.y)
+	
+	setPlayerStrumPos(strumPos)
+	
+	animated = false
+	lastPressNote = note
+	
+	if hold:
+		if !isHoldingNote:
+			isHoldingNote = true
+			#PlayHoldAnimation
+			$player_2d.play("Walk(Placeholder)")
+		
+		return
+	
+	$player_2d.stop()
+	
+	if isHoldingNote:
+		isHoldingNote = false
+		#PlayHoldEndAnimation
+		$player_2d.play("kickUp")
+		return
+	
+	#PLAY ANIMATION
+	if downHit:
+		print("here")
+		$player_2d.play("kickDown")
+	else:
+		#make rng
+		$player_2d.play("kickUp")
+
+func playHitAnimation(curNote):
+	pass
+
+var tweenPos:Tween
+func setPlayerStrumPos(pos):
+	tweenPos = create_tween()
 	tweenPos.set_ease(Tween.EASE_OUT)
+	tweenPos.set_trans(Tween.TRANS_BACK)
+
+	tweenPos.tween_property(self, "global_position:y", pos.y, 0.1)
+
+#ANIMATION
+func animate():
+	if !animated or dead:
+		return
 	
-	var pos = strumPos.y
+	lastPressNote = null
+	canNoHitAnimate = true
 	
-	tweenPos.tween_property(self, "global_position:y", pos, 0.1)
+	if is_on_floor():
+		playWalkAnimation()
+	else:
+		playAerialAnimation()
+
+func playWalkAnimation():
+	#check speed to run
+	$player_2d.play("Walk(Placeholder)")
+
+func playAerialAnimation():
+	var curAnimation = "jump" if isRunnin else "fall"
+	
+	if velocity.y > 0:
+		curAnimation = "fall"
+	
+	if curAnimation != $player_2d.animation:
+		$player_2d.play(curAnimation)
+
+#SIGNALS
+func _on_player_2d_animation_finished() -> void:
+	if !isRunnin or (isRunnin and ($player_2d.animation.contains("kick") or $player_2d.animation == "jump")):
+		animated = true
+
+
+func _on_animation_timer_timeout() -> void:
+	pass # Replace with function body.

@@ -168,6 +168,7 @@ func _physics_process(_delta):
 			restartLevel()
 		
 		chartElementAction()
+		playerInputAnimation()
 		
 		#DEBUG gameOver
 		if Input.is_physical_key_pressed(KEY_R):
@@ -237,6 +238,12 @@ func playerInput():
 
 	just_released = [Input.is_action_just_released("StrumUp"), 
 	Input.is_action_just_released("StrumDown")]
+
+func playerInputAnimation():
+	#AnimatePlayer If HePressed
+	var curPressed = just_pressed.find(true)
+	if curPressed != -1 and !isRunnerSection:
+		$player.setNoHitAnim(curPressed, $NoteGrp/NoteStrum)
 #END
 
 func setSongLeft():
@@ -364,6 +371,9 @@ func normalHit(noteIndex, noteData, isHold):
 	if !isHold and hit:
 		noteHit(noteArray[noteIndex][0])
 		queueNoteForRemoval(noteIndex)
+		
+		#animatePlayer
+		$player.setHitAnim(noteData, $NoteGrp/NoteStrum)
 	elif isHold and hit:
 		noteHit(noteArray[noteIndex][0], true)
 		activateHold[noteData] = true
@@ -382,6 +392,9 @@ func holdHit(noteIndex, noteData):
 		noteNode.getHoldEnd().global_position.x = noteNode.position.x + noteArray[noteIndex][2]
 		noteNode.modulate.a = 0.2
 		noteNode.setHold()
+		
+		#animatePlayer
+		$player.setHitAnim(noteData, $NoteGrp/NoteStrum, true)
 
 func holdRelease(noteIndex, noteData):
 	var noteNode = $NoteGrp/RenderedNotes.get_child(noteIndex)
@@ -401,6 +414,10 @@ func holdRelease(noteIndex, noteData):
 		noteHit(noteArray[noteIndex][0] + noteArray[noteIndex][2], true)
 		activateHold[noteData] = false
 		queueNoteForRemoval(noteIndex)
+		
+		#animatePlayer
+		$player.setHitAnim(noteData, $NoteGrp/NoteStrum)
+		
 	elif just_released[noteData] and !canRelease:
 		noteMiss(noteNode, noteIndex, holdEndNode)
 		activateHold[noteData] = false
@@ -622,9 +639,3 @@ func showGameOverText():
 #Pause music when pausing game
 func _on_pause_menu_pause() -> void:
 	$Conductor.playSong(false)
-
-#AnimatePlayerPos
-func _on_note_strum_note_pressed(note: Variant) -> void:
-	if !isRunnerSection:
-		var pos = $NoteGrp/NoteStrum.get_node(note).global_position
-		$player.setPlayerPosByStrum(note, pos)

@@ -37,6 +37,7 @@ animations = [{
 [node name="player" type="CharacterBody2D"]
 texture_filter = 1
 script = ExtResource("1_wpa7j")
+fastFallMultiplier = 1.5
 deadFriction = 300
 
 [node name="player_2d" parent="." instance=ExtResource("2_iy8gb")]
@@ -75,3 +76,9 @@ texture_filter = 1
 position = Vector2(10, 0)
 sprite_frames = SubResource("SpriteFrames_0m876")
 animation = &"Life"
+
+[node name="AnimationTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="animation_finished" from="player_2d" to="." method="_on_player_2d_animation_finished"]
+[connection signal="timeout" from="AnimationTimer" to="." method="_on_animation_timer_timeout"]
