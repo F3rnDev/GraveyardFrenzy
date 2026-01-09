@@ -64,7 +64,7 @@ script = ExtResource("3_8lnul")
 [node name="RenderedNotes" type="Node2D" parent="NoteGrp"]
 
 [node name="NoteStrum" parent="NoteGrp" groups=["noteStrum"] instance=ExtResource("4_5yswb")]
-position = Vector2(251.165, 457)
+position = Vector2(250, 457)
 
 [node name="player" parent="." node_paths=PackedStringArray("conductor") instance=ExtResource("2_qsmea")]
 position = Vector2(134.96, 631)

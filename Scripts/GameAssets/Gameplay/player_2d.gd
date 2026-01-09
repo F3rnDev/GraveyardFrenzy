@@ -36,6 +36,9 @@ var canNoHitAnimate = true
 var lastPressNote = null
 var isHoldingNote = false
 
+#Get last attack anim
+var lastAttackAnimation = ""
+
 func _ready():
 	$player_2d.play("Walk(Placeholder)")
 	initPos = global_position
@@ -230,7 +233,7 @@ func setNoHitAnim(note, strumLine):
 	
 	#PLAY ANIMATION
 	if downHit:
-		$player_2d.play("kickDown")
+		$player_2d.play("AttackDown")
 	else:
 		$player_2d.play("jump")
 
@@ -249,7 +252,7 @@ func setHitAnim(note, strumLine, hold=false):
 		if !isHoldingNote:
 			isHoldingNote = true
 			#PlayHoldAnimation
-			$player_2d.play("Walk(Placeholder)")
+			$player_2d.play("AttackHold")
 		
 		return
 	
@@ -258,19 +261,25 @@ func setHitAnim(note, strumLine, hold=false):
 	if isHoldingNote:
 		isHoldingNote = false
 		#PlayHoldEndAnimation
-		$player_2d.play("kickUp")
+		$player_2d.play("Attack01")
 		return
 	
 	#PLAY ANIMATION
 	if downHit:
-		print("here")
-		$player_2d.play("kickDown")
+		$player_2d.play("AttackDown")
 	else:
-		#make rng
-		$player_2d.play("kickUp")
+		playHitAnimation()
 
-func playHitAnimation(curNote):
-	pass
+func playHitAnimation():
+	var allAnim = $player_2d.sprite_frames.get_animation_names()
+	var attackAnimations = []
+	
+	for animation:String in allAnim:
+		if animation.begins_with("Attack0") and animation != $player_2d.animation:
+			attackAnimations.append(animation)
+	
+	var rng = randi_range(0, attackAnimations.size()-1)
+	$player_2d.play(attackAnimations[rng])
 
 var tweenPos:Tween
 func setPlayerStrumPos(pos):
@@ -308,7 +317,7 @@ func playAerialAnimation():
 
 #SIGNALS
 func _on_player_2d_animation_finished() -> void:
-	if !isRunnin or (isRunnin and ($player_2d.animation.contains("kick") or $player_2d.animation == "jump")):
+	if !isRunnin or (isRunnin and ($player_2d.animation.contains("Attack") or $player_2d.animation == "jump")):
 		animated = true
 
 
