@@ -29,5 +29,5 @@ func setStage():
 	if stageData.ground != null:
 		$ground/groundTexture.texture = stageData.ground
 
-func getStage(stageKey): #this func will get the stage file and load. MAKE A STAGE FILE SYSTEM
+func getStage(_stageKey): #this func will get the stage file and load. MAKE A STAGE FILE SYSTEM
 	pass

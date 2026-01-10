@@ -39,6 +39,10 @@ var isHoldingNote = false
 #Get last attack anim
 var lastAttackAnimation = ""
 
+#Tweens
+var runninTransitionTween: Tween
+var rythmMovementTween:Tween
+
 func _ready():
 	$player_2d.play("Walk(Placeholder)")
 	initPos = global_position
@@ -53,7 +57,7 @@ func _ready():
 	
 	$Health.modulate.a = 0
 
-func _process(delta):
+func _process(_delta):
 	var overlap = $Area2D.get_overlapping_areas()
 	for area in overlap:
 		colliding(area)
@@ -61,12 +65,20 @@ func _process(delta):
 	animate()
 
 func setRunnin(run):
+	if isRunnin == run:
+		return
+	
 	isRunnin = run
 	
 	if global_position.x != initPos.x and !isRunnin and !dead:
-		var tweenPos = create_tween()
-		tweenPos.set_ease(Tween.EASE_OUT)
-		tweenPos.tween_property(self, "global_position:x", initPos.x, 0.5)
+		runninTransitionTween = create_tween()
+		runninTransitionTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		runninTransitionTween.tween_property(self, "global_position:x", initPos.x, 0.5)
+		
+		$player_2d.play("Hold")
+		animated = false
+		await runninTransitionTween.finished
+		animated = true
 
 func _physics_process(delta):
 	#set fast fall multiplyer
@@ -281,13 +293,13 @@ func playHitAnimation():
 	var rng = randi_range(0, attackAnimations.size()-1)
 	$player_2d.play(attackAnimations[rng])
 
-var tweenPos:Tween
-func setPlayerStrumPos(pos):
-	tweenPos = create_tween()
-	tweenPos.set_ease(Tween.EASE_OUT)
-	tweenPos.set_trans(Tween.TRANS_BACK)
 
-	tweenPos.tween_property(self, "global_position:y", pos.y, 0.1)
+func setPlayerStrumPos(pos):
+	rythmMovementTween = create_tween()
+	rythmMovementTween.set_ease(Tween.EASE_OUT)
+	rythmMovementTween.set_trans(Tween.TRANS_BACK)
+
+	rythmMovementTween.tween_property(self, "global_position:y", pos.y, 0.1)
 
 #ANIMATION
 func animate():
@@ -303,8 +315,16 @@ func animate():
 		playAerialAnimation()
 
 func playWalkAnimation():
-	#check speed to run
-	$player_2d.play("Walk(Placeholder)")
+	var curAnim = "Walk(Placeholder)"
+	
+	if isRunnin:
+		if velocity.x > 0:
+			curAnim = "Run"
+		elif velocity.x < 0:
+			curAnim = "Hold"
+	
+	if $player_2d.animation != curAnim:
+		$player_2d.play(curAnim)
 
 func playAerialAnimation():
 	var curAnimation = "jump" if isRunnin else "fall"
@@ -319,7 +339,6 @@ func playAerialAnimation():
 func _on_player_2d_animation_finished() -> void:
 	if !isRunnin or (isRunnin and ($player_2d.animation.contains("Attack") or $player_2d.animation == "jump")):
 		animated = true
-
 
 func _on_animation_timer_timeout() -> void:
 	pass # Replace with function body.

@@ -55,7 +55,7 @@ func setSong(path, fileLoaded = true):
 	
 	songLength = $Song.stream.get_length()
 
-func _process(delta):
+func _process(_delta):
 	if $Song.playing:
 		var timeNow = Time.get_ticks_msec() / 1000.0
 		var clockTime = timeNow - startTime

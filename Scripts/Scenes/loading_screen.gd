@@ -11,7 +11,7 @@ func load(path:String):
 	loadPath = path
 	ResourceLoader.load_threaded_request(path)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not loadPath:
 		return
 	

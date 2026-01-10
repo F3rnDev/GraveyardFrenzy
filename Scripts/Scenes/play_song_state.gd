@@ -51,9 +51,9 @@ var noteAreaDebug = false
 @export var discInfo:DiscordInfo
 
 #DiscordRPC
-func setRPCInfo(curSong):
+func setRPCInfo(songStr):
 	if SceneManager.instance != null:
-		discInfo.state = curSong
+		discInfo.state = songStr
 		SceneManager.instance.updateDiscordRPCInfo(discInfo)
 
 #LOAD SCENE
@@ -362,7 +362,6 @@ func getHoldInput(noteIndex, noteData):
 		normalHit(noteIndex, noteData, true)
 
 func normalHit(noteIndex, noteData, isHold):
-	var noteNode = $NoteGrp/RenderedNotes.get_child(noteIndex)
 	var hit = false
 	
 	if just_pressed[noteData]:
@@ -487,7 +486,7 @@ func showTiming(timing, rating):
 	$"Placeholder Grp/Score/Timing".text = timingText + " ms" + timingDesc
 	$"Placeholder Grp/Score/Timing".set("theme_override_colors/font_color", textColor)
 
-func popupNoteScore(rating, timing, isHold = false):
+func popupNoteScore(rating, _timing, isHold = false):
 	#update the scoreGraphic, still a placeholder
 	$"Placeholder Grp/Score".text = rating[0].to_upper() + rating.substr(1,-1)
 	
