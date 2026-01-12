@@ -436,6 +436,9 @@ func noteMiss(note, noteIndex, holdEnd):
 	calculateSongAccuracy(isHold)
 	
 	setHealNotes(0)
+	
+	#Player animation
+	$player.playMissAnimation()
 
 func queueNoteForRemoval(noteIndex):
 	notesToRemove.append(noteIndex)

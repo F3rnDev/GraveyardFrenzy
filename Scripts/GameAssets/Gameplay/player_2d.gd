@@ -87,7 +87,7 @@ func _physics_process(delta):
 		fastFall = fastFallMultiplier
 	
 	#Gravity
-	if animated:
+	if animated or dead or isRunnin:
 		if not is_on_floor():
 			velocity.y += gravity * fastFall * delta
 		else:
@@ -159,6 +159,10 @@ func playerHit():
 	hit.emit()
 	$IFrames.start()	
 	flashTimer.start(0.1)
+	
+	#Animate player
+	animated = false
+	$player_2d.play("Hit")
 
 func flashPlayer():
 	if $IFrames.is_stopped():
@@ -335,10 +339,32 @@ func playAerialAnimation():
 	if curAnimation != $player_2d.animation:
 		$player_2d.play(curAnimation)
 
+func playMissAnimation():
+	animated = false
+	isHoldingNote = false
+	$player_2d.stop()
+	
+	var animationToPlay = "Miss01"
+	if $player_2d.animation != "AttackHold":
+		animationToPlay = getRandomMiss()
+	
+	$player_2d.play(animationToPlay)
+
+func getRandomMiss():
+	var allAnim = $player_2d.sprite_frames.get_animation_names()
+	var missAnimations = []
+	
+	for animation:String in allAnim:
+		if animation.begins_with("Miss0"):
+			missAnimations.append(animation)
+	
+	var rng = randi_range(0, missAnimations.size()-1)
+	
+	return missAnimations[rng]
+
 #SIGNALS
 func _on_player_2d_animation_finished() -> void:
-	if !isRunnin or (isRunnin and ($player_2d.animation.contains("Attack") or $player_2d.animation == "jump")):
-		animated = true
+	animated = true
 
 func _on_animation_timer_timeout() -> void:
 	pass # Replace with function body.
