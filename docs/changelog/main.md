@@ -8,8 +8,7 @@ All notable changes in the current/unreleased version of the project will be doc
 </details>
 <div class="accordionContent">
 
-<!-- ![](versions/0.0.2.md ':include') -->
-Work in Progress
+![](versions/0.0.2.md ':include')
 
 </div>
 
