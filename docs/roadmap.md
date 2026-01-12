@@ -26,7 +26,7 @@
 <!--Patch Version 2-->
 [roadmap-item]
   [title]Patch v2[title]
-  [date]Jul 2025[date]
+  [date]Jul 2026[date]
   [description]Patch bugs and add new content to the game.[description]
   [progress]0[progress]
   [version]v0.0.3[version]
@@ -44,7 +44,7 @@
 <!--Major Prototype Release-->
 [roadmap-item]
   [title]Major Release[title]
-  [date]Nov 2026[date]
+  [date]Feb 2027[date]
   [description]Rework the menus and finish the first Area of the game[description]
   [progress]0[progress]
   [version]v0.1.0[version]
