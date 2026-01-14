@@ -77,8 +77,4 @@ position = Vector2(10, 0)
 sprite_frames = SubResource("SpriteFrames_0m876")
 animation = &"Life"
 
-[node name="AnimationTimer" type="Timer" parent="."]
-wait_time = 0.5
-
 [connection signal="animation_finished" from="player_2d" to="." method="_on_player_2d_animation_finished"]
-[connection signal="timeout" from="AnimationTimer" to="." method="_on_animation_timer_timeout"]

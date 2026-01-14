@@ -561,7 +561,7 @@ func debugCollision():
 
 
 #ON PLAYER HIT
-func _on_player_hit() -> void:
+func _on_player_hurt() -> void:
 	if isGameOver:
 		return
 	
@@ -572,8 +572,8 @@ func _on_player_hit() -> void:
 	if $player.health <= 0:
 		gameOver()
 
-func flashScreen(hit:bool):
-	if hit:
+func flashScreen(hurt:bool):
+	if hurt:
 		$CanvasLayer/bloodSplater.material.set_shader_parameter("cutoff", 0.7)
 	
 	var tweenAmount = 0.0 if $player.health > 1 else 0.6
