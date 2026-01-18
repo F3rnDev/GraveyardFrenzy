@@ -1,0 +1,117 @@
+[gd_scene load_steps=16 format=3 uid="uid://c26ebm8jkqym0"]
+
+[ext_resource type="Texture2D" uid="uid://dsfaxo1t616tq" path="res://Assets/Images/Particles/particleHit-Placeholder.png" id="1_bhv11"]
+[ext_resource type="Script" uid="uid://ci41r12se6km1" path="res://Scripts/GameAssets/Particles/note_hit_particle.gd" id="2_bhv11"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhv11"]
+atlas = ExtResource("1_bhv11")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wf7a7"]
+atlas = ExtResource("1_bhv11")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o56w2"]
+atlas = ExtResource("1_bhv11")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0a5sj"]
+atlas = ExtResource("1_bhv11")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfqxf"]
+atlas = ExtResource("1_bhv11")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0e0iy"]
+atlas = ExtResource("1_bhv11")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlapy"]
+atlas = ExtResource("1_bhv11")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luuvb"]
+atlas = ExtResource("1_bhv11")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t70ru"]
+atlas = ExtResource("1_bhv11")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vav0c"]
+atlas = ExtResource("1_bhv11")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr2qr"]
+atlas = ExtResource("1_bhv11")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmuhq"]
+atlas = ExtResource("1_bhv11")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhv11"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhv11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wf7a7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o56w2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0a5sj")
+}],
+"loop": false,
+"name": &"Hit01",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vfqxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0e0iy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlapy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_luuvb")
+}],
+"loop": false,
+"name": &"Hit02",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t70ru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vav0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr2qr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vmuhq")
+}],
+"loop": false,
+"name": &"Hit03",
+"speed": 24.0
+}]
+
+[node name="NoteHitParticle" type="AnimatedSprite2D"]
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_bhv11")
+animation = &"Hit01"
+frame = 3
+frame_progress = 1.0
+offset = Vector2(0, -1)
+script = ExtResource("2_bhv11")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

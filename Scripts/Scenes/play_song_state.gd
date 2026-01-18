@@ -22,6 +22,9 @@ var healNotes = 0 #save amount of notesHit at the moment you lost health
 
 var songOver = false
 
+#Combo
+var noteCombo = 0 #Represents the amount of notes hit in succession
+
 #noteInputControl, 2 lanes btw :D
 var noteInJudgement = [false, false]
 var activateHold = [false, false]
@@ -368,13 +371,13 @@ func normalHit(noteIndex, noteData, isHold):
 		hit = true
 	
 	if !isHold and hit:
-		noteHit(noteArray[noteIndex][0])
+		noteHit(noteArray[noteIndex][0], noteData)
 		queueNoteForRemoval(noteIndex)
 		
 		#animatePlayer
 		$player.setHitAnim(noteData, $NoteGrp/NoteStrum)
 	elif isHold and hit:
-		noteHit(noteArray[noteIndex][0], true)
+		noteHit(noteArray[noteIndex][0], noteData, true)
 		activateHold[noteData] = true
 
 func holdHit(noteIndex, noteData):
@@ -394,6 +397,19 @@ func holdHit(noteIndex, noteData):
 		
 		#animatePlayer
 		$player.setHitAnim(noteData, $NoteGrp/NoteStrum, true)
+		
+		#Rotate strum
+		var rotationTween:Tween = create_tween()
+		
+		if noteData == 0.0:
+			rotationTween.tween_property($NoteGrp, "rotation_degrees", 1, 0.2)
+		else:
+			rotationTween.tween_property($NoteGrp, "rotation_degrees", -1, 0.2)
+		
+		#Camera tween
+		var cameraTween:Tween = create_tween()
+		var cameraFinal = Vector2(1.01, 1.01)
+		cameraTween.tween_property($Camera2D, "zoom", cameraFinal, 0.2)
 
 func holdRelease(noteIndex, noteData):
 	var noteNode = $NoteGrp/RenderedNotes.get_child(noteIndex)
@@ -410,12 +426,21 @@ func holdRelease(noteIndex, noteData):
 	
 	#updateInfo
 	if just_released[noteData] and canRelease or noteDiff < -50:
-		noteHit(noteArray[noteIndex][0] + noteArray[noteIndex][2], true)
+		noteHit(noteArray[noteIndex][0] + noteArray[noteIndex][2], noteData, true, true)
 		activateHold[noteData] = false
 		queueNoteForRemoval(noteIndex)
 		
 		#animatePlayer
 		$player.setHitAnim(noteData, $NoteGrp/NoteStrum)
+		
+		#Reset hold rotation
+		var rotationTween:Tween = create_tween()
+		rotationTween.tween_property($NoteGrp, "rotation_degrees", 0, 0.2)
+		
+		#Reset camera
+		var cameraTween:Tween = create_tween()
+		var cameraFinal = Vector2(1.0, 1.0)
+		cameraTween.tween_property($Camera2D, "zoom", cameraFinal, 0.2)
 		
 	elif just_released[noteData] and !canRelease:
 		noteMiss(noteNode, noteIndex, holdEndNode)
@@ -432,10 +457,24 @@ func noteMiss(note, noteIndex, holdEnd):
 		isHold = true
 		holdEnd.modulate.a = 0.3
 		note.getHold().modulate.a = 0.3
+		
+		#removeHoldParticle
+		$NoteGrp/NoteStrum.removeHoldParticle(noteArray[noteIndex][1])
+		
+		#Reset hold rotation
+		var rotationTween:Tween = create_tween()
+		rotationTween.tween_property($NoteGrp, "rotation_degrees", 0, 0.2)
+		
+		#Reset camera
+		var cameraTween:Tween = create_tween()
+		var cameraFinal = Vector2(1.0, 1.0)
+		cameraTween.tween_property($Camera2D, "zoom", cameraFinal, 0.2)
 	
 	calculateSongAccuracy(isHold)
 	
 	setHealNotes(0)
+	
+	noteCombo = 0
 	
 	#Player animation
 	$player.playMissAnimation()
@@ -445,7 +484,7 @@ func queueNoteForRemoval(noteIndex):
 #END
 
 #PROCESS HIT, AND GIVE RATING (UPDATE ACC)
-func noteHit(strumTime, isHold = false):
+func noteHit(strumTime, noteData, isHold = false, isHoldRelease = false):
 	var timing = (GetSongPosFromX(strumTime) - $Conductor.songPos) * 1000
 	var timingAbs = abs(timing)
 	var noteRating
@@ -462,6 +501,23 @@ func noteHit(strumTime, isHold = false):
 	showTiming(timing, noteRating)
 	
 	healPlayer()
+	
+	noteCombo += 1
+	
+	#Spawn hit particle
+	if isHold:
+		if !isHoldRelease:
+			$NoteGrp/NoteStrum.spawnHoldParticle(noteData, noteRating)
+		else:
+			$NoteGrp/NoteStrum.removeHoldParticle(noteData)
+	
+	$NoteGrp/NoteStrum.spawnParticle(noteData, noteRating)
+	
+	
+	$NoteGrp/NoteStrum.playHitAnimation(noteData, noteRating == "perfect", isHoldRelease)
+	$Camera2D.shake($Camera2D.ShakeTypes.NOTEHIT, 18.0, 2.0)
+	
+	$Audio/NoteHitSounds.playAudio()
 
 func showTiming(timing, rating):
 	var textColor = Color.WHITE
@@ -640,4 +696,5 @@ func showGameOverText():
 
 #Pause music when pausing game
 func _on_pause_menu_pause() -> void:
-	$Conductor.playSong(false)
+	if !songOver:
+		$Conductor.playSong(false)

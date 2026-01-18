@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bdsvdtnbu728u" path="res://Assets/Images/UI Images/Life.png" id="4_ui7l3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d05o4"]
-size = Vector2(91, 144)
+size = Vector2(91, 146.125)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ui7l3"]
 atlas = ExtResource("4_ui7l3")
@@ -42,15 +42,18 @@ deadFriction = 300
 
 [node name="player_2d" parent="." instance=ExtResource("2_iy8gb")]
 position = Vector2(0, -20)
+animation = &"Walk(Placeholder)"
+frame = 2
+frame_progress = 0.311398
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
+position = Vector2(0, -4.0625)
 shape = SubResource("RectangleShape2D_d05o4")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -5)
+position = Vector2(0, -4.875)
 shape = SubResource("RectangleShape2D_d05o4")
 
 [node name="IFrames" type="Timer" parent="."]
