@@ -108,7 +108,7 @@ animations = [{
 [node name="NoteHitParticle" type="AnimatedSprite2D"]
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_bhv11")
-animation = &"Hit01"
+animation = &"Hit03"
 frame = 3
 frame_progress = 1.0
 offset = Vector2(0, -1)

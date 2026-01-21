@@ -469,6 +469,9 @@ func noteMiss(note, noteIndex, holdEnd):
 		var cameraTween:Tween = create_tween()
 		var cameraFinal = Vector2(1.0, 1.0)
 		cameraTween.tween_property($Camera2D, "zoom", cameraFinal, 0.2)
+		
+		#Stop Hold Audio
+		$Audio/NoteHoldHitSound.stopAudio()
 	
 	calculateSongAccuracy(isHold)
 	
@@ -508,8 +511,14 @@ func noteHit(strumTime, noteData, isHold = false, isHoldRelease = false):
 	if isHold:
 		if !isHoldRelease:
 			$NoteGrp/NoteStrum.spawnHoldParticle(noteData, noteRating)
+			
+			#Stop Hold Audio
+			$Audio/NoteHoldHitSound.playAudio()
 		else:
 			$NoteGrp/NoteStrum.removeHoldParticle(noteData)
+			
+			#Stop Hold Audio
+			$Audio/NoteHoldHitSound.stopAudio()
 	
 	$NoteGrp/NoteStrum.spawnParticle(noteData, noteRating)
 	
@@ -517,7 +526,7 @@ func noteHit(strumTime, noteData, isHold = false, isHoldRelease = false):
 	$NoteGrp/NoteStrum.playHitAnimation(noteData, noteRating == "perfect", isHoldRelease)
 	$Camera2D.shake($Camera2D.ShakeTypes.NOTEHIT, 18.0, 2.0)
 	
-	$Audio/NoteHitSounds.playAudio()
+	$Audio/NoteHitSounds.playAudio(noteData)
 
 func showTiming(timing, rating):
 	var textColor = Color.WHITE

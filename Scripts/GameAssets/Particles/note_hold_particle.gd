@@ -5,3 +5,5 @@ extends GPUParticles2D
 
 func setTexture(isPerfect:bool = false):
 	texture = perfectTex if isPerfect else normalTex
+	
+	$AnimatedSprite2D.modulate = Color.RED if isPerfect else Color.WHITE

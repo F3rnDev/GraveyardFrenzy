@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://caqltnjrrrndi"]
+[gd_scene load_steps=18 format=3 uid="uid://caqltnjrrrndi"]
 
 [ext_resource type="Texture2D" uid="uid://dm42ok81fwrbi" path="res://Assets/Images/Particles/particleHold.png" id="1_n8rg2"]
 [ext_resource type="Script" uid="uid://p5k3syr8ivp2" path="res://Scripts/GameAssets/Particles/note_hold_particle.gd" id="2_ki5ry"]
 [ext_resource type="Texture2D" uid="uid://bn8mqi7pd6kqc" path="res://Assets/Images/Particles/particleHoldPerfect.png" id="3_0nqda"]
+[ext_resource type="Texture2D" uid="uid://bh6183swyv7v2" path="res://Assets/Images/Particles/particleHoldAnimatio.png" id="4_0svel"]
 
 [sub_resource type="Curve" id="Curve_0nqda"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.505618), 0.0, 0.0, 0, 0]
@@ -46,6 +47,42 @@ scale_min = 3.0
 scale_max = 4.0
 scale_curve = SubResource("CurveTexture_0nqda")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0svel"]
+atlas = ExtResource("4_0svel")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2sssd"]
+atlas = ExtResource("4_0svel")
+region = Rect2(9, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fk0f3"]
+atlas = ExtResource("4_0svel")
+region = Rect2(18, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovkkw"]
+atlas = ExtResource("4_0svel")
+region = Rect2(27, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7akkl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0svel")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2sssd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fk0f3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovkkw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
 [node name="NoteHoldParticle" type="GPUParticles2D"]
 amount = 15
 texture = ExtResource("1_n8rg2")
@@ -54,3 +91,8 @@ process_material = SubResource("ParticleProcessMaterial_0nqda")
 script = ExtResource("2_ki5ry")
 normalTex = ExtResource("1_n8rg2")
 perfectTex = ExtResource("3_0nqda")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7akkl")
+autoplay = "default"
+frame_progress = 0.817966
