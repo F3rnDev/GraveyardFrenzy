@@ -8,6 +8,8 @@ enum notePress {StrumUp, StrumDown}
 signal notePressed(note)
 signal noteReleased(note)
 
+var loadHoldParticleInstance:GPUParticles2D
+
 func setDebug(active):
 	$judment.editor_only = !active
 
@@ -16,7 +18,17 @@ func _ready():
 		get_node(curNote).play("idle")
 		get_node(curNote).frame = 1
 	
+	loadHoldParticles()
 	addHoldParticles()
+
+#instantiate it behind background, so game won't stutter (specially in web build)
+func loadHoldParticles():
+	loadHoldParticleInstance = noteHoldParticle.instantiate()
+	loadHoldParticleInstance.emitting = true
+	loadHoldParticleInstance.visible = true
+	loadHoldParticleInstance.z_index = -1
+	
+	add_child(loadHoldParticleInstance)
 
 func addHoldParticles():
 	for curNote in notePress:
@@ -42,15 +54,13 @@ func spawnParticle(noteData:int, rating:String):
 	var particleInstance = noteHitParticle.instantiate()
 	particleInstance.global_position = strumHit.global_position
 	
-	match rating:
-		"perfect":
-			particleInstance.isPerfectHit = true
-		"good":
-			particleInstance.isPerfectHit = false
-		_:
-			return
+	particleInstance.isPerfectHit = rating == "perfect"
 	
 	get_tree().current_scene.add_child(particleInstance)
+	
+	#Remove particle load
+	if is_instance_valid(loadHoldParticleInstance):
+		loadHoldParticleInstance.queue_free()
 
 func spawnHoldParticle(noteData:int, rating:String):
 	var strumHit:AnimatedSprite2D = get_child(noteData)
