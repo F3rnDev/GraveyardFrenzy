@@ -6,7 +6,7 @@ extends AudioStreamPlayer
 #IDEA: Define specific hitsounds to the chart, aaaaand to a specific note
 # Example: "I want this specific note to play a synth when the player hits", and so on
 
-func playAudio(noteData):
+func playAudio(_noteData):
 	stream = defaultHitSound
 	pitch_scale = randf_range(0.9, 1.1)
 	

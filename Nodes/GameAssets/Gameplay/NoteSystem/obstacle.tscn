@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjl6p6jbjcm2m"]
+[gd_scene load_steps=4 format=3 uid="uid://cjl6p6jbjcm2m"]
 
 [ext_resource type="SpriteFrames" uid="uid://3ifoloak3mav" path="res://obstacle.tres" id="1_txyb2"]
+[ext_resource type="Script" uid="uid://hvybtvh55oun" path="res://Scripts/GameAssets/Gameplay/obstacle.gd" id="2_ty154"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j48ch"]
 size = Vector2(17, 20)
@@ -9,11 +10,18 @@ size = Vector2(17, 20)
 texture_filter = 1
 scale = Vector2(5, 5)
 sprite_frames = ExtResource("1_txyb2")
+animation = &"cactus"
+script = ExtResource("2_ty154")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 texture_filter = 1
 position = Vector2(0.500001, 6)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_j48ch")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, 5.6)
+scale = Vector2(1.2, 0.94)
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

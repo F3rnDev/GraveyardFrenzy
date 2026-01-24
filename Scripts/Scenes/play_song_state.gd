@@ -136,16 +136,11 @@ func addNote(note):
 	$NoteGrp/RenderedNotes.add_child(instance)
 
 func addObs(obs):
-	var instance = preload("res://Nodes/GameAssets/Gameplay/NoteSystem/obstacle.tscn").instantiate()
+	var instance:Obstacle = preload("res://Nodes/GameAssets/Gameplay/NoteSystem/obstacle.tscn").instantiate()
 	instance.position.x = 3000
 	instance.z_index = 1
 	instance.position.y = $NoteGrp/NoteStrum.position.y + (obs[1] * $NoteGrp/NoteStrum/StrumDown.position.y) + 10
-	instance.play("default")
-
-	if obs[1] == 0:
-		instance.frame = 1;
-	else:
-		instance.frame = 0;
+	instance.setObstacleType("cactus")
 
 	$NoteGrp/RenderedNotes.add_child(instance)
 #END
@@ -461,6 +456,9 @@ func noteMiss(note, noteIndex, holdEnd):
 		#removeHoldParticle
 		$NoteGrp/NoteStrum.removeHoldParticle(noteArray[noteIndex][1])
 		
+		#Stop Hold Audio
+		$Audio/NoteHoldHitSound.stopAudio()
+		
 		#Reset hold rotation
 		var rotationTween:Tween = create_tween()
 		rotationTween.tween_property($NoteGrp, "rotation_degrees", 0, 0.2)
@@ -469,9 +467,6 @@ func noteMiss(note, noteIndex, holdEnd):
 		var cameraTween:Tween = create_tween()
 		var cameraFinal = Vector2(1.0, 1.0)
 		cameraTween.tween_property($Camera2D, "zoom", cameraFinal, 0.2)
-		
-		#Stop Hold Audio
-		$Audio/NoteHoldHitSound.stopAudio()
 	
 	calculateSongAccuracy(isHold)
 	

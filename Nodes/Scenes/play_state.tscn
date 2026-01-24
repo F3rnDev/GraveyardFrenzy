@@ -268,6 +268,7 @@ defaultHitSound = ExtResource("13_bdkql")
 
 [node name="NoteHoldHitSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("15_rjkny")
+bus = &"Sound Effects"
 script = ExtResource("16_qjike")
 
 [connection signal="hurt" from="player" to="." method="_on_player_hurt"]
