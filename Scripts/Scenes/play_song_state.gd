@@ -476,6 +476,10 @@ func noteMiss(note, noteIndex, holdEnd):
 	
 	#Player animation
 	$player.playMissAnimation()
+	
+	#Play miss sound
+	$Audio/MissNoteSound.pitch_scale = randf_range(0.8, 1.2)
+	$Audio/MissNoteSound.play()
 
 func queueNoteForRemoval(noteIndex):
 	notesToRemove.append(noteIndex)

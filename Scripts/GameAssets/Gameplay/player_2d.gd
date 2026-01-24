@@ -42,6 +42,9 @@ var missAnimations = []
 var hitAnimations = []
 var lastHitOrMissIndex := -1
 
+#SoundSfx
+var jumpedPlayed = false
+
 #Initial setup
 func _ready():
 	$player_2d.play("Walk(Placeholder)")
@@ -73,6 +76,7 @@ func setupTimers():
 func _process(_delta):
 	checkCollision()
 	animate()
+	playRunnerSfx()
 
 func checkCollision():
 	var overlap = $Area2D.get_overlapping_areas()
@@ -208,6 +212,10 @@ func playerHurt():
 	#Animate player
 	animated = false
 	$player_2d.play("Hurt")
+	
+	#PlaySound
+	$Audio/Hurt.pitch_scale = randf_range(0.8, 1.2)
+	$Audio/Hurt.play()
 
 func flashPlayer():
 	if $IFrames.is_stopped():
@@ -297,6 +305,10 @@ func setNoHitAnim(note, strumLine):
 		$player_2d.play("AttackDown")
 	else:
 		$player_2d.play("jump")
+	
+	#PLAY SOUND
+	$Audio/NoHitAndJumpSound.pitch_scale = 1.2 if note == 0 else 1.0
+	$Audio/NoHitAndJumpSound.play()
 
 func setHitAnim(note, strumLine, hold=false):
 	canNoHitAnimate = false
@@ -341,6 +353,7 @@ func setPlayerStrumPos(pos):
 #ANIMATION
 func animate():
 	if !animated or dead:
+		$player_2d.speed_scale = 1.0
 		return
 	
 	lastPressNote = null
@@ -396,6 +409,52 @@ func getRandomHitOrMissAnimation(animType: String = "Hit") -> String:
 
 	lastHitOrMissIndex = index
 	return curAnimations[index]
+
+#SOUND EFFECTS
+func playRunnerSfx():
+	var stopAnim = $player_2d.animation != "Hold" and $player_2d.animation != "deathSlide"
+	if stopAnim and $Audio/Stop.playing:
+		$Audio/Stop.stop()
+	
+	if $player_2d.animation != "Run" and $Audio/Run.playing:
+		$Audio/Run.stop()
+	
+	if $player_2d.animation != "jump":
+		jumpedPlayed = false
+	
+	if !isRunnin:
+		return
+	
+	match $player_2d.animation:
+		"jump":
+			playJumpSound()
+		"Hold":
+			playHoldSound()
+		"Run":
+			playRunSound()
+		"deathSlide":
+			playHoldSound()
+
+func playRunSound():
+	if $Audio/Run.playing:
+		return
+	
+	$Audio/Run.play()
+
+func playJumpSound():
+	if jumpedPlayed:
+		return
+	
+	$Audio/NoHitAndJumpSound.pitch_scale = 1.2
+	$Audio/NoHitAndJumpSound.play()
+	
+	jumpedPlayed = true
+
+func playHoldSound():
+	if $Audio/Stop.playing:
+		return
+	
+	$Audio/Stop.play()
 
 #SIGNALS
 func _on_player_2d_animation_finished() -> void:
