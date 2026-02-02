@@ -1,0 +1,29 @@
+[gd_resource type="AnimatedTexture" load_steps=6 format=3 uid="uid://dlwvg2areyos5"]
+
+[ext_resource type="Texture2D" uid="uid://7ubcl2e2o6um" path="res://Assets/Images/UI Images/Main Menu/Buttons-Sheet.png" id="1_desyv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2swqs"]
+atlas = ExtResource("1_desyv")
+region = Rect2(80, 0, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7u5e"]
+atlas = ExtResource("1_desyv")
+region = Rect2(160, 0, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_moq7u"]
+atlas = ExtResource("1_desyv")
+region = Rect2(240, 0, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68wun"]
+atlas = ExtResource("1_desyv")
+region = Rect2(320, 0, 80, 16)
+
+[resource]
+frames = 4
+frame_0/texture = SubResource("AtlasTexture_2swqs")
+frame_1/texture = SubResource("AtlasTexture_t7u5e")
+frame_1/duration = 1.0
+frame_2/texture = SubResource("AtlasTexture_moq7u")
+frame_2/duration = 1.0
+frame_3/texture = SubResource("AtlasTexture_68wun")
+frame_3/duration = 1.0

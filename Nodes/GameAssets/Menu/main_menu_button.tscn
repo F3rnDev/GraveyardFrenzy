@@ -1,0 +1,277 @@
+[gd_scene load_steps=38 format=3 uid="uid://b241beaq0i0ub"]
+
+[ext_resource type="Texture2D" uid="uid://7ubcl2e2o6um" path="res://Assets/Images/UI Images/Main Menu/Buttons-Sheet.png" id="1_4vrpm"]
+[ext_resource type="Script" uid="uid://d32bibvvw7tqs" path="res://Scripts/GameAssets/Menu/MainMenu/main_menu_button.gd" id="1_g7qtm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g7qtm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yq7o0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fan6i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p1hkf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ommro"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d44vh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mbavh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kee7l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t3kgu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bqmji"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sph2y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7qtm"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(0, 0, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yq7o0"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(81, 0, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fan6i"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(162, 0, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1hkf"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(243, 0, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ommro"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(324, 0, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aj12y"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(0, 51, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_msev4"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(81, 51, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ta4xn"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(162, 51, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0txv5"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(243, 51, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6cxb"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(324, 51, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d44vh"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(0, 17, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbavh"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(81, 17, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kee7l"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(162, 17, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3kgu"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(243, 17, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqmji"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(324, 17, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sph2y"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(0, 34, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nnqaw"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(81, 34, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6awv"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(162, 34, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w6nja"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(243, 34, 80, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4v88"]
+atlas = ExtResource("1_4vrpm")
+region = Rect2(324, 34, 80, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8f83e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7qtm")
+}],
+"loop": false,
+"name": &"AdventureIdle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yq7o0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fan6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1hkf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ommro")
+}],
+"loop": false,
+"name": &"AdventureSelected",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aj12y")
+}],
+"loop": false,
+"name": &"ExitIdle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_msev4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ta4xn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0txv5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6cxb")
+}],
+"loop": false,
+"name": &"ExitSelected",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d44vh")
+}],
+"loop": false,
+"name": &"FreeplayIdle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbavh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kee7l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3kgu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqmji")
+}],
+"loop": false,
+"name": &"FreeplaySelected",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sph2y")
+}],
+"loop": false,
+"name": &"OptionsIdle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnqaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6awv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w6nja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4v88")
+}],
+"loop": false,
+"name": &"OptionsSelected",
+"speed": 15.0
+}]
+
+[sub_resource type="Animation" id="Animation_yq7o0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_g7qtm"]
+resource_name = "bop"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(0.25, 0.267944, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fan6i"]
+_data = {
+&"RESET": SubResource("Animation_yq7o0"),
+&"bop": SubResource("Animation_g7qtm")
+}
+
+[node name="MainMenuButton" type="Button"]
+custom_minimum_size = Vector2(80, 16)
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_g7qtm")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_yq7o0")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_fan6i")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_p1hkf")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ommro")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_d44vh")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mbavh")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_kee7l")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_t3kgu")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_bqmji")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sph2y")
+script = ExtResource("1_g7qtm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(40, 8)
+sprite_frames = SubResource("SpriteFrames_8f83e")
+animation = &"FreeplayIdle"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fan6i")
+}
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

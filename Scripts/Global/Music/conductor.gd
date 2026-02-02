@@ -8,6 +8,7 @@ var crochet = (60.0 / bpm)
 var stepCrochet = crochet/4.0
 var offset = 0
 
+var lastSongPos = 0 #Check if music looped
 var songPos = 0
 var songLength = 0
 var songLeft = 0
@@ -75,10 +76,16 @@ func _process(_delta):
 func updateBeat():
 	curStep = floor((songPos) / stepCrochet)
 	
+	if curStep < lastStep:
+		lastStep = -1
+	
 	if lastStep < curStep:
 		lastStep = curStep
 		emit_signal("stepHit", curStep)
 		curBeat = floor(curStep/4)
+		
+		if curBeat < lastBeat:
+			lastBeat = -1
 		
 		if lastBeat < curBeat:
 			emit_signal("beatHit", curBeat)

@@ -46,6 +46,7 @@ static func getFolderNames(path):
 	return songArray
 
 static func getAudioFile(path) -> String:
+	print(path)
 	var exts = [".mp3", ".wav", ".ogg"]
 	var file
 	

@@ -8,5 +8,4 @@ script = ExtResource("1_5kq6m")
 
 [node name="Song" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_gay04")
-volume_db = -4.694
 bus = &"Music"
