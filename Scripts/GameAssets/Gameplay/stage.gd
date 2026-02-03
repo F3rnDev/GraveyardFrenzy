@@ -15,8 +15,6 @@ func _ready():
 	if debug:
 		stageData = debugStageData
 		setStage()
-	
-	print($bgTexture.texture)
 
 func _process(delta):
 	groundOffset += groundSpeed * delta
