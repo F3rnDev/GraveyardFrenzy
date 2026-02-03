@@ -5,7 +5,8 @@
 ***
 
 ## Download
-- [Get the latest build from itch.io](https://f3rndev.itch.io/graveyard-frenzy)
+- [Play the game on itch.io](https://f3rndev.itch.io/graveyard-frenzy)
+- [Download the source code](https://github.com/F3rnDev/GraveyardFrenzy/releases/tag/v0.0.1-01)
 
 ## About
 Graveyard Frenzy is a rhythm game based on Muse Dash, Friday Night Funkin' and OSU!Mania. It was first developed as a college project, in which we had to make a GCD (Game Concept Document) using a random name generator. The name we got was "Frenesi do Cemitério Mundial" (World cemetery frenzy in English).
