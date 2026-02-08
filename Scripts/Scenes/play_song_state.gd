@@ -5,6 +5,7 @@ class_name PlayState
 #UI
 @onready var gameplayUI = $UIGrp
 @onready var progressBar = $UIGrp/ProgressBar
+@onready var comboCounter = $UIGrp/ComboCounter
 @onready var popupRating = preload("res://Nodes/GameAssets/Gameplay/popup_note.tscn")
 var debugNoteTiming = false
 
@@ -217,13 +218,14 @@ func setRunnerSection(setSection):
 	isRunnerSection = setSection
 	
 	if isRunnerSection:
-		$player.setRunnin(true)
 		var tween = create_tween()
 		tween.tween_property($NoteGrp/NoteStrum, "modulate:a", 0, 0.2)
 	else:
-		$player.setRunnin(false)
 		var tween = create_tween()
 		tween.tween_property($NoteGrp/NoteStrum, "modulate:a", 1, 0.2)
+	
+	$player.setRunnin(isRunnerSection)
+	comboCounter.setRunnerSection(isRunnerSection)
 #END
 
 #GET INPUT
@@ -480,6 +482,7 @@ func noteMiss(note, noteIndex, holdEnd):
 	setHealNotes(0)
 	
 	noteCombo = 0
+	comboCounter.updateCounter(noteCombo)
 	
 	#Player animation
 	$player.playMissAnimation()
@@ -511,6 +514,7 @@ func noteHit(strumTime, noteData, isHold = false, isHoldRelease = false):
 	healPlayer()
 	
 	noteCombo += 1
+	comboCounter.updateCounter(noteCombo)
 	
 	#Spawn hit particle
 	if isHold:
@@ -568,7 +572,8 @@ func calculateSongAccuracy(isHold = false):
 		totalNotesPlayed += 0.5
 	
 	curAccuracy = (notesHit / totalNotesPlayed) * 100
-	updateSongStats()
+	
+	progressBar.setSongUIData(curAccuracy, missedNotes.size())
 #END
 
 #SONG CALCULATIONS
@@ -601,10 +606,6 @@ func endSong():
 #END
 
 #END
-
-func updateSongStats():
-	$"Placeholder Grp/SongStats".text = "Accuracy: " + str(snapped(curAccuracy, 0.1)) + "% | Misses: " + str(missedNotes.size())
-
 func debugCollision():
 	noteAreaDebug = !noteAreaDebug
 	
@@ -701,3 +702,5 @@ func _on_pause_menu_pause() -> void:
 func _on_conductor_beat_hit(position: Variant) -> void:
 	progressBar.playBob()
 	progressBar.updateSongTime($Conductor.songPos)
+	
+	comboCounter.playBop()
