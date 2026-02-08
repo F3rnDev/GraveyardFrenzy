@@ -2,6 +2,12 @@ extends Node2D
 
 class_name PlayState
 
+#UI
+@onready var gameplayUI = $UIGrp
+@onready var progressBar = $UIGrp/ProgressBar
+@onready var popupRating = preload("res://Nodes/GameAssets/Gameplay/popup_note.tscn")
+var debugNoteTiming = false
+
 var noteArray = []
 var notesToRemove = []
 var curSong
@@ -93,7 +99,7 @@ func loadSong(songToLoad, diff):
 		$Conductor.setBpm(curSong.bpm)
 		getAllSongNotes()
 		$Conductor.playSong(false)
-		$"Placeholder Grp/ProgressBar".max_value = $Conductor.songLength
+		progressBar.setSongTime($Conductor.songLength)
 
 func getAllSongNotes():
 	for section in curSong.notes:
@@ -225,6 +231,7 @@ func _input(event):
 	var justPressed = event.is_pressed() and not event.is_echo()
 	if Input.is_physical_key_pressed(KEY_F1) and justPressed:
 		debugCollision()
+		debugNoteTiming = !debugNoteTiming
 
 func playerInput():
 	#gameInput
@@ -245,12 +252,12 @@ func playerInputAnimation():
 #END
 
 func setSongLeft():
-	$"Placeholder Grp/ProgressBar".value = $Conductor.songPos
+	pass
 	
-	var songSeconds = str(int($Conductor.songLeft) % 60).pad_zeros(2)
-	var songMinutes = str(int($Conductor.songLeft) / 60).pad_zeros(2)
-	
-	$"Placeholder Grp/ProgressBar/Label".text = songMinutes + ":" + songSeconds
+	#var songSeconds = str(int($Conductor.songLeft) % 60).pad_zeros(2)
+	#var songMinutes = str(int($Conductor.songLeft) / 60).pad_zeros(2)
+	#
+	#$"Placeholder Grp/ProgressBar/Label".text = songMinutes + ":" + songSeconds
 
 #CHARTACTION
 func chartElementAction():	
@@ -498,9 +505,8 @@ func noteHit(strumTime, noteData, isHold = false, isHoldRelease = false):
 	else:
 		noteRating = "perfect";
 	
-	popupNoteScore(noteRating, timing, isHold)
-	
-	showTiming(timing, noteRating)
+	setNoteScore(noteRating, timing, isHold)
+	popupNoteScore(noteData, noteRating, timing)
 	
 	healPlayer()
 	
@@ -527,35 +533,20 @@ func noteHit(strumTime, noteData, isHold = false, isHoldRelease = false):
 	
 	$Audio/NoteHitSounds.playAudio(noteData)
 
-func showTiming(timing, rating):
-	var textColor = Color.WHITE
-	var timingDesc = ""
-	var timingText = str(snapped(abs(timing), 0.01))
+func popupNoteScore(noteLane, rating, timing):
+	var popupInstance:PopupScore = popupRating.instantiate()
 	
-	#DEFINE TEXT COLOR
-	match rating:
-		"bad":
-			textColor = Color.RED
-		"good":
-			textColor = Color.YELLOW
-		"perfect":
-			textColor = Color.GREEN
+	#Get lane pos
+	var laneObj:AnimatedSprite2D = $NoteGrp/NoteStrum.get_child(noteLane)
+	var lanePos = laneObj.global_position
 	
-	#CHECK IF TIMING IS EARLY OR LATE
-	if timing > 60:
-		timingDesc = "\n(too early)"
-	elif timing < -60:
-		timingDesc = "\n(too late)"
-	else:
-		""
-	
-	#UPDATE TEXT
-	$"Placeholder Grp/Score/Timing".text = timingText + " ms" + timingDesc
-	$"Placeholder Grp/Score/Timing".set("theme_override_colors/font_color", textColor)
+	#SetPos and spawn
+	gameplayUI.add_child(popupInstance)
+	popupInstance.setPopup(lanePos, rating, timing, debugNoteTiming)
 
-func popupNoteScore(rating, _timing, isHold = false):
+func setNoteScore(rating, _timing, isHold = false):
 	#update the scoreGraphic, still a placeholder
-	$"Placeholder Grp/Score".text = rating[0].to_upper() + rating.substr(1,-1)
+	#$"Placeholder Grp/Score".text = rating[0].to_upper() + rating.substr(1,-1)
 	
 	match rating:
 		"bad":
@@ -706,3 +697,7 @@ func showGameOverText():
 func _on_pause_menu_pause() -> void:
 	if !songOver:
 		$Conductor.playSong(false)
+
+func _on_conductor_beat_hit(position: Variant) -> void:
+	progressBar.playBob()
+	progressBar.updateSongTime($Conductor.songPos)

@@ -1,0 +1,141 @@
+[gd_scene load_steps=10 format=3 uid="uid://b56mjxn66qqny"]
+
+[ext_resource type="Texture2D" uid="uid://htjbv4h2twhg" path="res://Assets/Images/UI Images/Gameplay/Perfect.png" id="1_4to2p"]
+[ext_resource type="Script" uid="uid://bfm0tu10032uo" path="res://Scripts/GameAssets/Gameplay/popup_note.gd" id="2_38h3k"]
+[ext_resource type="Texture2D" uid="uid://cq5moaafenrv1" path="res://Assets/Images/UI Images/Gameplay/Bad.png" id="2_f5imb"]
+[ext_resource type="Texture2D" uid="uid://dd31bckvbsqf5" path="res://Assets/Images/UI Images/Gameplay/Good.png" id="3_jnjbt"]
+[ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="5_x2tnk"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4to2p"]
+load_path = "res://.godot/imported/Perfect.png-94512fa4f7b903cacb478c947265829d.ctex"
+
+[sub_resource type="Animation" id="Animation_38h3k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Graphic:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Graphic:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4to2p"]
+resource_name = "spawn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7),
+"transitions": PackedFloat32Array(1, 1.8025, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Graphic:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.7),
+"transitions": PackedFloat32Array(0.25, 1.41421, 2.07053, 1),
+"update": 0,
+"values": [Vector2(0, 200), Vector2(0, 0), Vector2(0, 0), Vector2(0, -50)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Graphic:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1.68179, 1),
+"update": 0,
+"values": [Vector2(1, 2), Vector2(5, 3), Vector2(4, 5), Vector2(5, 5), Vector2(5, 5), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_38h3k"]
+_data = {
+&"RESET": SubResource("Animation_38h3k"),
+&"spawn": SubResource("Animation_4to2p")
+}
+
+[node name="PopupNote" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 47.0
+offset_bottom = 12.0
+script = ExtResource("2_38h3k")
+yOffset = 120
+xOffset = 230.0
+noteTextures = Dictionary[String, Texture]({
+"bad": ExtResource("2_f5imb"),
+"good": ExtResource("3_jnjbt"),
+"perfect": ExtResource("1_4to2p")
+})
+
+[node name="Graphic" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = -50.0
+offset_right = 47.0
+offset_bottom = -38.0
+pivot_offset = Vector2(23.5, 6)
+texture = SubResource("CompressedTexture2D_4to2p")
+stretch_mode = 5
+
+[node name="spawnAnim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_38h3k")
+}
+
+[node name="Timing" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -5.5
+offset_top = 20.0
+offset_right = 174.5
+offset_bottom = 53.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_x2tnk")
+horizontal_alignment = 1
+
+[connection signal="animation_finished" from="spawnAnim" to="." method="_on_spawn_anim_animation_finished"]

@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://b37lvuyciljet" path="res://Scripts/GameAssets/Menu/MainMenu/main_menu_spikes.gd" id="3_8m1jc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8m1jc"]
+resource_local_to_scene = true
 shader = ExtResource("1_obinv")
 shader_parameter/dir = Vector2(0.01, 0)
 shader_parameter/offset = 0.0

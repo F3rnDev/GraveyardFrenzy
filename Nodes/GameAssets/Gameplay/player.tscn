@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cfxo2wixq1d5j"]
+[gd_scene load_steps=13 format=3 uid="uid://cfxo2wixq1d5j"]
 
 [ext_resource type="Script" uid="uid://galgq4ogijvi" path="res://Scripts/GameAssets/Gameplay/player_2d.gd" id="1_wpa7j"]
 [ext_resource type="PackedScene" uid="uid://cfkurp5csl4do" path="res://Nodes/GameAssets/player_spr.tscn" id="2_iy8gb"]
@@ -10,6 +10,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d05o4"]
 size = Vector2(91, 146.125)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lkxj8"]
+size = Vector2(56, 71)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ui7l3"]
 atlas = ExtResource("4_ui7l3")
@@ -55,8 +58,9 @@ shape = SubResource("RectangleShape2D_d05o4")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -4.875)
-shape = SubResource("RectangleShape2D_d05o4")
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_lkxj8")
+debug_color = Color(0.957321, 0.197166, 0.169435, 0.42)
 
 [node name="IFrames" type="Timer" parent="."]
 one_shot = true

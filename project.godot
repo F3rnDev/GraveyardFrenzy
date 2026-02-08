@@ -14,6 +14,7 @@ config/name="Graveyard Frenzy"
 config/version="0.0.1"
 run/main_scene="uid://cwdx48yoiqcfn"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="uid://ded56ig5vi5ky"
 config/windows_native_icon="res://test_icon.ico"
 

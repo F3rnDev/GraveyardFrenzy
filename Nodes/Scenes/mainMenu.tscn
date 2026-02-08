@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ban5hu62bqxg4"]
+[gd_scene load_steps=27 format=3 uid="uid://ban5hu62bqxg4"]
 
 [ext_resource type="Script" uid="uid://dfbe234mvr23o" path="res://Scripts/Scenes/mainMenu.gd" id="1_6fukg"]
 [ext_resource type="Texture2D" uid="uid://bd00opgb3ete1" path="res://Assets/Images/UI Images/LOGO.png" id="1_chxcg"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://jpk1thltm81y" path="res://Nodes/GameAssets/Menu/main_menu_spikes.tscn" id="4_rqmlg"]
 [ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="5_oli08"]
 [ext_resource type="Script" uid="uid://ba4jb4xbatiil" path="res://Scripts/Global/DiscordRPC/DiscordInfo.gd" id="5_rujdd"]
+[ext_resource type="Shader" uid="uid://c3fxs6y0ko435" path="res://Assets/Shaders/ground.gdshader" id="9_44m5e"]
 [ext_resource type="PackedScene" uid="uid://b241beaq0i0ub" path="res://Nodes/GameAssets/Menu/main_menu_button.tscn" id="11_fr1cp"]
 
 [sub_resource type="Resource" id="Resource_xdpb6"]
@@ -120,67 +121,219 @@ _data = {
 &"RESET": SubResource("Animation_eoj40")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j6tyu"]
+resource_local_to_scene = true
+shader = ExtResource("9_44m5e")
+shader_parameter/dir = Vector2(0.01, 0)
+shader_parameter/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fr1cp"]
+resource_local_to_scene = true
+shader = ExtResource("9_44m5e")
+shader_parameter/dir = Vector2(0.01, 0)
+shader_parameter/offset = 6.25
+
 [sub_resource type="Animation" id="Animation_oli08"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("OpeningScreen/LOGO:position")
+tracks/0/path = NodePath("MenuOptions/AnimationContainer:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(198.5, 120)]
+"update": 1,
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("OpeningScreen/Press Enter:position")
+tracks/1/path = NodePath("MenuOptions/Options:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(400, 580)]
+"values": [Vector2(600, -1280)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("MenuOptions/AnimationContainer:visible")
+tracks/2/path = NodePath("ParticleDown:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("MenuOptions/Options:position")
+tracks/3/path = NodePath("OpeningScreen/SpikeUP:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(600, -1280)]
+"values": [Vector2(0, -155)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ParticleDown:emitting")
+tracks/4/path = NodePath("OpeningScreen/SpikeDOWN:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 632)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MenuOptions:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("OpeningScreen:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("MenuOptions/Options:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, 5)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("ParticleUp:emitting")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("OpeningScreen/LOGO:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("OpeningScreen/Press Enter:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_rujdd"]
+resource_name = "toMainMenu"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"transitionEnd"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MenuOptions/AnimationContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MenuOptions/Options:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5, 1.2, 1.5, 1.6),
+"transitions": PackedFloat32Array(0.267944, 1, 1, 1),
+"update": 0,
+"values": [Vector2(600, -1280), Vector2(600, 300), Vector2(600, 300), Vector2(870, 300)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ParticleDown:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MenuOptions/AnimationContainer/MainMenuPicture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn"
+}]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -189,10 +342,10 @@ tracks/5/path = NodePath("OpeningScreen/SpikeUP:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(0.378929, 1, 1.8025, 1),
 "update": 0,
-"values": [Vector2(0, -155)]
+"values": [Vector2(0, -155), Vector2(0, 150), Vector2(0, 150), Vector2(0, -300)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -201,10 +354,10 @@ tracks/6/path = NodePath("OpeningScreen/SpikeDOWN:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(0.353554, 1, 1.8025, 1),
 "update": 0,
-"values": [Vector2(0, 635)]
+"values": [Vector2(0, 632), Vector2(0, 310), Vector2(0, 310), Vector2(0, 800)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -225,10 +378,10 @@ tracks/8/path = NodePath("OpeningScreen:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true]
+"values": [true, false]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -237,10 +390,10 @@ tracks/9/path = NodePath("MenuOptions/Options:scale")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.5, 1.2, 1.5, 1.6, 2),
+"transitions": PackedFloat32Array(1.41422, 0.258816, 1.8025, 0.297302, 1),
 "update": 0,
-"values": [Vector2(5, 5)]
+"values": [Vector2(5, 5), Vector2(3, 3), Vector2(2, 2), Vector2(6, 6), Vector2(5, 5)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
@@ -252,171 +405,31 @@ tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_rujdd"]
-resource_name = "toMainMenu"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("OpeningScreen/LOGO:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(3.14189, 1),
-"update": 0,
-"values": [Vector2(198.5, 120), Vector2(198.5, 800)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"transitionEnd"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("OpeningScreen/Press Enter:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1.68179, 1),
-"update": 0,
-"values": [Vector2(400, 580), Vector2(400, 1500)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("MenuOptions/AnimationContainer:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("MenuOptions/Options:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.5, 1.2, 1.5, 1.6),
-"transitions": PackedFloat32Array(0.267944, 1, 1, 1),
-"update": 0,
-"values": [Vector2(600, -1280), Vector2(600, 300), Vector2(600, 300), Vector2(870, 300)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ParticleDown:emitting")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
 "values": [false]
-}
-tracks/6/type = "method"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("MenuOptions/AnimationContainer/MainMenuPicture")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(1.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"spawn"
-}]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("OpeningScreen/SpikeUP:position")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(2, 1),
-"update": 0,
-"values": [Vector2(0, -155), Vector2(0, -250)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("OpeningScreen/SpikeDOWN:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(2.07053, 1),
-"update": 0,
-"values": [Vector2(0, 635), Vector2(0, 750)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("MenuOptions:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("OpeningScreen:visible")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("MenuOptions/Options:scale")
+tracks/11/path = NodePath("OpeningScreen/LOGO:visible")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0.5, 1.2, 1.5, 1.6, 2),
-"transitions": PackedFloat32Array(1.41422, 0.258816, 1.8025, 0.297302, 1),
-"update": 0,
-"values": [Vector2(5, 5), Vector2(3, 3), Vector2(2, 2), Vector2(6, 6), Vector2(5, 5)]
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("ParticleUp:emitting")
+tracks/12/path = NodePath("OpeningScreen/Press Enter:visible")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oli08"]
@@ -516,17 +529,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SpikeUP" parent="OpeningScreen" instance=ExtResource("4_rqmlg")]
-layout_mode = 0
-offset_top = -155.0
-offset_bottom = -107.0
-
-[node name="SpikeDOWN" parent="OpeningScreen" instance=ExtResource("4_rqmlg")]
-layout_mode = 0
-offset_top = 635.0
-offset_bottom = 683.0
-flip_v = true
-
 [node name="LOGO" type="TextureRect" parent="OpeningScreen"]
 texture_filter = 1
 layout_mode = 1
@@ -577,6 +579,60 @@ libraries = {
 &"": SubResource("AnimationLibrary_bo730")
 }
 autoplay = "Label Appear"
+
+[node name="ColorRect" type="ColorRect" parent="OpeningScreen"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="SpikeUP" parent="OpeningScreen" instance=ExtResource("4_rqmlg")]
+material = SubResource("ShaderMaterial_j6tyu")
+layout_mode = 0
+offset_top = -155.0
+offset_bottom = -107.0
+
+[node name="ColorRect" type="ColorRect" parent="OpeningScreen/SpikeUP"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -119.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="SpikeDOWN" parent="OpeningScreen" instance=ExtResource("4_rqmlg")]
+material = SubResource("ShaderMaterial_fr1cp")
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -88.0
+offset_right = -384.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+flip_v = true
+
+[node name="ColorRect" type="ColorRect" parent="OpeningScreen/SpikeDOWN"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 19.0
+offset_bottom = 119.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="Conductor" parent="." instance=ExtResource("5_oli08")]
 

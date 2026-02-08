@@ -1,0 +1,128 @@
+[gd_scene load_steps=10 format=3 uid="uid://bh6c0rv41dfif"]
+
+[ext_resource type="Texture2D" uid="uid://dg4tgxqriu0f8" path="res://Assets/Images/UI Images/Gameplay/ProgressBar.png" id="1_3d3rw"]
+[ext_resource type="Script" uid="uid://vwqd0ntsid2g" path="res://Scripts/GameAssets/Gameplay/progress_bar.gd" id="1_by4cg"]
+[ext_resource type="Texture2D" uid="uid://b4sh48earydbn" path="res://Assets/Images/UI Images/Gameplay/ProgressBarFill.png" id="2_8euw2"]
+[ext_resource type="Texture2D" uid="uid://1bbip4ksidm6" path="res://Assets/Images/UI Images/Gameplay/FlagIcon.png" id="2_phrq6"]
+[ext_resource type="Texture2D" uid="uid://w0hhy2y06hos" path="res://Assets/Images/UI Images/Gameplay/SkeletonIcon.png" id="3_phrq6"]
+[ext_resource type="Texture2D" uid="uid://dqp4cukyyygig" path="res://Assets/Images/UI Images/Gameplay/ProgressBarShadow.png" id="6_j6pc6"]
+
+[sub_resource type="Animation" id="Animation_v2m68"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(140, 20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("barShadow:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_j6pc6"]
+resource_name = "normalBop"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(0.217638, 0.307786, 1),
+"update": 0,
+"values": [Vector2(140, 20), Vector2(140, 25), Vector2(140, 20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("barShadow:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(0.217638, 0.307786, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -2), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v2m68"]
+_data = {
+&"RESET": SubResource("Animation_v2m68"),
+&"normalBop": SubResource("Animation_j6pc6")
+}
+
+[node name="ProgressBar" type="TextureProgressBar"]
+z_index = 1
+anchors_preset = -1
+anchor_left = 0.109375
+anchor_top = 0.0277778
+anchor_right = 0.890625
+anchor_bottom = 0.0694444
+offset_top = -1.71661e-05
+offset_right = -800.0
+offset_bottom = -24.0
+grow_horizontal = 2
+scale = Vector2(5, 5)
+step = 0.001
+texture_under = ExtResource("1_3d3rw")
+texture_progress = ExtResource("2_8euw2")
+script = ExtResource("1_by4cg")
+metadata/_edit_use_anchors_ = true
+
+[node name="flag" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -4.0
+offset_bottom = 4.0
+grow_horizontal = 0
+grow_vertical = 2
+pivot_offset = Vector2(4, 4)
+texture = ExtResource("2_phrq6")
+expand_mode = 3
+
+[node name="skeleton" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -4.0
+offset_right = 8.0
+offset_bottom = 4.0
+grow_vertical = 2
+pivot_offset = Vector2(4, 4)
+texture = ExtResource("3_phrq6")
+expand_mode = 3
+
+[node name="barShadow" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 5.99999
+texture = ExtResource("6_j6pc6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_v2m68")
+}
