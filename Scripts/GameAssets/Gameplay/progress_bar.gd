@@ -9,13 +9,9 @@ extends TextureProgressBar
 @onready var accuracyLbl = $Stats/Accuracy/accValue
 @onready var missLbl = $Stats/Misses/missValue
 
-var curAcc:float = 0.0
-var curMiss:int = 0
-
 func _ready() -> void:
-	setSongUIData(100.0, 0, true)
+	setSongUIData(100.0, 0)
 
-# Called when the node enters the scene tree for the first time.
 func setSongTime(maxTime):
 	max_value = maxTime
 	
@@ -29,26 +25,21 @@ func playBob():
 	bopAnim.stop()
 	bopAnim.play("normalBop")
 
-func setSongUIData(acc:float, misses:int, firstSetup:bool = false):
-	if curAcc != acc or firstSetup:
-		curAcc = acc
-		updateAcc()
-	
-	if curMiss != misses or firstSetup:
-		curMiss = misses
-		updateMiss()
+func setSongUIData(acc:float, misses:int):
+	updateAcc(acc)
+	updateMiss(misses)
 
-func updateAcc():
-	if curAcc != 100.0:
-		var snappedAcc = snapped(curAcc, 0.1)
+func updateAcc(acc):
+	if acc != 100.0:
+		var snappedAcc = snapped(acc, 0.1)
 		accuracyLbl.text = str(snappedAcc) + "%"
 	else:
 		accuracyLbl.text = "100%"
 
-func updateMiss():
-	if curMiss < 10:
+func updateMiss(miss):
+	if miss < 10:
 		missLbl.text = "0"
 	else:
 		missLbl.text = ""
 	
-	missLbl.text += str(curMiss)
+	missLbl.text += str(miss)

@@ -1,0 +1,232 @@
+[gd_scene load_steps=22 format=3 uid="uid://btbkur778pbwy"]
+
+[ext_resource type="Script" uid="uid://dlw6ij2f3j5av" path="res://Scripts/Scenes/play_song_state.gd" id="1_rvoja"]
+[ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="2_57ly5"]
+[ext_resource type="PackedScene" uid="uid://cfxo2wixq1d5j" path="res://Nodes/GameAssets/Gameplay/player.tscn" id="2_qsmea"]
+[ext_resource type="Script" uid="uid://dphrkrj2tbpee" path="res://Scripts/GameAssets/Gameplay/gameplayCamera.gd" id="3_8lnul"]
+[ext_resource type="PackedScene" uid="uid://dqp0tei13fhqm" path="res://Nodes/GameAssets/Gameplay/stage.tscn" id="3_q43hg"]
+[ext_resource type="PackedScene" uid="uid://5f1c7amy88s7" path="res://Nodes/GameAssets/Gameplay/NoteSystem/note_strum.tscn" id="4_5yswb"]
+[ext_resource type="PackedScene" uid="uid://bqwt4i1tys03u" path="res://Nodes/Global/song.tscn" id="4_6ojtx"]
+[ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="5_ag0vi"]
+[ext_resource type="PackedScene" uid="uid://dubm3sqga7eku" path="res://Nodes/GameAssets/Menu/pauseMenu.tscn" id="6_66vma"]
+[ext_resource type="PackedScene" uid="uid://bh6c0rv41dfif" path="res://Nodes/GameAssets/Gameplay/progress_bar.tscn" id="7_m28nc"]
+[ext_resource type="Shader" uid="uid://br8w2h6npff8d" path="res://Assets/Shaders/bloodShader.gdshader" id="8_2vdfu"]
+[ext_resource type="PackedScene" uid="uid://b52w718lkr44x" path="res://Nodes/GameAssets/Gameplay/combo_counter.tscn" id="8_orr68"]
+[ext_resource type="Texture2D" uid="uid://uvtvbjc45uhp" path="res://Assets/Images/UI Images/borderTest.png" id="9_iwlib"]
+[ext_resource type="Script" uid="uid://ba4jb4xbatiil" path="res://Scripts/Global/DiscordRPC/DiscordInfo.gd" id="13_2q3pv"]
+[ext_resource type="AudioStream" uid="uid://btqlvlxwpq41v" path="res://Assets/Audio/Sounds/hitSound.wav" id="13_bdkql"]
+[ext_resource type="Script" uid="uid://chgqgqyqyjn6x" path="res://Scripts/GameAssets/Sounds/Gameplay/note_hit_sounds.gd" id="14_bdkql"]
+[ext_resource type="AudioStream" uid="uid://cl4g8w1kjxghg" path="res://Assets/Audio/Sounds/hitHoldSound.wav" id="15_rjkny"]
+[ext_resource type="Script" uid="uid://cvot631wm2ebs" path="res://Scripts/GameAssets/Sounds/Gameplay/note_hold_hit_sound.gd" id="16_qjike"]
+[ext_resource type="AudioStream" uid="uid://b571xp0ne0kfa" path="res://Assets/Audio/Sounds/Miss.wav" id="17_j1tg1"]
+
+[sub_resource type="Resource" id="Resource_r772e"]
+script = ExtResource("13_2q3pv")
+details = "Playing"
+state = "DynamicData"
+largeImageID = "char_skelly"
+smallImageID = ""
+largeImageText = ""
+smallImageText = ""
+metadata/_custom_type_script = "uid://ba4jb4xbatiil"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iwlib"]
+shader = ExtResource("8_2vdfu")
+shader_parameter/cutoff = 0.0
+shader_parameter/smoothSize = 1.0
+shader_parameter/mask = ExtResource("9_iwlib")
+
+[node name="PlayState" type="Node2D"]
+script = ExtResource("1_rvoja")
+discInfo = SubResource("Resource_r772e")
+metadata/_edit_horizontal_guides_ = []
+
+[node name="stage" parent="." instance=ExtResource("3_q43hg")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+script = ExtResource("3_8lnul")
+
+[node name="NoteGrp" type="Node2D" parent="."]
+
+[node name="RenderedNotes" type="Node2D" parent="NoteGrp"]
+
+[node name="NoteStrum" parent="NoteGrp" groups=["noteStrum"] instance=ExtResource("4_5yswb")]
+position = Vector2(250, 457)
+
+[node name="Placeholder Grp" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SongStats" type="Label" parent="Placeholder Grp"]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 452.0
+offset_top = 56.11
+offset_right = 812.0
+offset_bottom = 89.1101
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_ag0vi")
+text = "Accuracy: 0% | Misses: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UIGrp" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressBar" parent="UIGrp" instance=ExtResource("7_m28nc")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -500.0
+offset_top = 20.0
+offset_right = -300.0
+offset_bottom = 26.0
+
+[node name="ComboCounter" parent="UIGrp" instance=ExtResource("8_orr68")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -180.0
+offset_bottom = -180.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="player" parent="." instance=ExtResource("2_qsmea")]
+position = Vector2(134.96, 630)
+fastFallMultiplier = 4.5
+
+[node name="WinScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Bg" type="ColorRect" parent="WinScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RankText" type="Label" parent="WinScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -183.765
+offset_right = 110.0
+offset_bottom = -157.765
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_ag0vi")
+theme_override_font_sizes/font_size = 22
+text = "Your Rank:"
+
+[node name="RankValue" type="Label" parent="WinScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -189.0
+offset_top = -82.7
+offset_right = 189.0
+offset_bottom = -37.7
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_ag0vi")
+theme_override_font_sizes/font_size = 42
+text = "RANK (FC)"
+horizontal_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("6_66vma")]
+menuOptions = 13
+
+[node name="bloodSplater" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_iwlib")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)
+
+[node name="gameOver" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="gameOverText" type="Label" parent="CanvasLayer/gameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.0
+offset_top = -17.5
+offset_right = 176.0
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_ag0vi")
+theme_override_font_sizes/font_size = 26
+text = "GAME OVER
+
+Press ENTER to restart"
+horizontal_alignment = 1
+
+[node name="Conductor" parent="." instance=ExtResource("2_57ly5")]
+
+[node name="Song" parent="." instance=ExtResource("4_6ojtx")]
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="NoteHitSounds" type="AudioStreamPlayer" parent="Audio"]
+bus = &"Sound Effects"
+script = ExtResource("14_bdkql")
+defaultHitSound = ExtResource("13_bdkql")
+
+[node name="NoteHoldHitSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("15_rjkny")
+bus = &"Sound Effects"
+script = ExtResource("16_qjike")
+
+[node name="MissNoteSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("17_j1tg1")
+pitch_scale = 1.2
+
+[connection signal="hurt" from="player" to="." method="_on_player_hurt"]
+[connection signal="pause" from="CanvasLayer/pauseMenu" to="." method="_on_pause_menu_pause"]
+[connection signal="beatHit" from="Conductor" to="." method="_on_conductor_beat_hit"]
