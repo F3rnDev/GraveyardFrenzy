@@ -47,9 +47,9 @@ func updateCounter(combo:int):
 	else:
 		textAnim.play("changeValueRunner")
 
-func setTextVisible(is_visible:bool):
-	comboValueLbl.visible = is_visible
-	comboTxtLbl.visible = is_visible
+func setTextVisible(isVisible:bool):
+	comboValueLbl.visible = isVisible
+	comboTxtLbl.visible = isVisible
 
 func setRunnerSection(runner:bool):
 	if runnerSection == runner:

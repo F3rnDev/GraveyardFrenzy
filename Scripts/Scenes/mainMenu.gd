@@ -86,7 +86,7 @@ func _input(_event):
 		mainMenuTransition.play("toMainMenu")
 		curScreen += 1
 
-func _on_conductor_beat_hit(songPos: Variant) -> void:
+func _on_conductor_beat_hit(_songPos: Variant) -> void:
 	logoAnim.play("idle")
 	animations.animateIdle()
 	

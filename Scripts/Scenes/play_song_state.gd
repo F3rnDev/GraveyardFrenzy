@@ -699,7 +699,7 @@ func _on_pause_menu_pause() -> void:
 	if !songOver:
 		$Conductor.playSong(false)
 
-func _on_conductor_beat_hit(position: Variant) -> void:
+func _on_conductor_beat_hit(_position: Variant) -> void:
 	progressBar.playBob()
 	progressBar.updateSongTime($Conductor.songPos)
 	

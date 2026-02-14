@@ -164,7 +164,6 @@ text = "RANK (FC)"
 horizontal_alignment = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("6_66vma")]
 menuOptions = 13

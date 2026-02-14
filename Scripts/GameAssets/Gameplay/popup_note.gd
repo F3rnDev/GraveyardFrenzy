@@ -46,5 +46,5 @@ func showTiming(timing, rating):
 	timingLabel.set("theme_override_colors/font_color", textColor)
 
 
-func _on_spawn_anim_animation_finished(anim_name: StringName) -> void:
+func _on_spawn_anim_animation_finished(_anim_name: StringName) -> void:
 	queue_free()
