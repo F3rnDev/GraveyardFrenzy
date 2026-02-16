@@ -529,10 +529,7 @@ func noteHit(strumTime, noteData, isHold = false, isHoldRelease = false):
 			#Stop Hold Audio
 			$Audio/NoteHoldHitSound.stopAudio()
 	
-	$NoteGrp/NoteStrum.spawnParticle(noteData, noteRating)
-	
-	
-	$NoteGrp/NoteStrum.playHitAnimation(noteData, noteRating == "perfect", isHoldRelease)
+	$NoteGrp/NoteStrum.playHit(noteData, noteRating == "perfect", isHoldRelease)
 	$Camera2D.shake($Camera2D.ShakeTypes.NOTEHIT, 18.0, 2.0)
 	
 	$Audio/NoteHitSounds.playAudio(noteData)

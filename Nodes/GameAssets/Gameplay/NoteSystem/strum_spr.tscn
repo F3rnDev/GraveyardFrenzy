@@ -1,0 +1,98 @@
+[gd_scene load_steps=13 format=3 uid="uid://cvjvisxsgpueu"]
+
+[ext_resource type="Texture2D" uid="uid://40nlvtmsj55m" path="res://Assets/Images/NoteSkin/default.png" id="1_5guh8"]
+[ext_resource type="Script" uid="uid://dojk6b51dw0si" path="res://Scripts/GameAssets/Gameplay/NoteSystem/strum_spr.gd" id="2_82hkv"]
+[ext_resource type="PackedScene" uid="uid://c26ebm8jkqym0" path="res://Nodes/GameAssets/Particles/noteHitParticle.tscn" id="3_fo1wc"]
+[ext_resource type="PackedScene" uid="uid://caqltnjrrrndi" path="res://Nodes/GameAssets/Particles/noteHoldParticle.tscn" id="4_offf4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ruq07"]
+atlas = ExtResource("1_5guh8")
+region = Rect2(46, 0, 23, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur7ka"]
+atlas = ExtResource("1_5guh8")
+region = Rect2(0, 0, 23, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k35h4"]
+atlas = ExtResource("1_5guh8")
+region = Rect2(46, 27, 23, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbovx"]
+atlas = ExtResource("1_5guh8")
+region = Rect2(69, 27, 23, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubqal"]
+atlas = ExtResource("1_5guh8")
+region = Rect2(0, 27, 23, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykf66"]
+atlas = ExtResource("1_5guh8")
+region = Rect2(23, 27, 23, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vo3ah"]
+atlas = ExtResource("1_5guh8")
+region = Rect2(23, 0, 23, 27)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0do0h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ruq07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur7ka")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k35h4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbovx")
+}],
+"loop": false,
+"name": &"note_hit_normal",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubqal")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykf66")
+}],
+"loop": false,
+"name": &"note_hit_perfect",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vo3ah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ruq07")
+}],
+"loop": false,
+"name": &"note_press",
+"speed": 10.0
+}]
+
+[node name="StrumSpr" type="AnimatedSprite2D"]
+texture_filter = 1
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_0do0h")
+animation = &"note_hit_perfect"
+frame = 1
+frame_progress = 1.0
+script = ExtResource("2_82hkv")
+
+[node name="NoteHitParticle" parent="." instance=ExtResource("3_fo1wc")]
+position = Vector2(0.5, 0.5)
+animation = &"Hit02"
+frame = 0
+frame_progress = 0.0
+
+[node name="NoteHoldParticle" parent="." instance=ExtResource("4_offf4")]

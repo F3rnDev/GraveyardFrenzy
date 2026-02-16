@@ -1,8 +1,28 @@
-[gd_scene load_steps=24 format=3 uid="uid://b52w718lkr44x"]
+[gd_scene load_steps=28 format=3 uid="uid://b52w718lkr44x"]
 
 [ext_resource type="Texture2D" uid="uid://dvuvserywq10j" path="res://Assets/Images/UI Images/Gameplay/comboBG.png" id="1_bdtso"]
 [ext_resource type="Script" uid="uid://cb3eper42xmt1" path="res://Scripts/GameAssets/Gameplay/combo_counter.gd" id="1_oxo8g"]
 [ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="2_bdtso"]
+[ext_resource type="Texture2D" uid="uid://bn8mqi7pd6kqc" path="res://Assets/Images/Particles/particleHoldPerfect.png" id="4_36tvr"]
+
+[sub_resource type="Curve" id="Curve_36tvr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.504732, 1), 0.0, 0.0, 0, 0, Vector2(0.9653, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3nwfc"]
+curve = SubResource("Curve_36tvr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xpndr"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 50.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 70.42
+initial_velocity_max = 202.81
+scale_min = 3.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_3nwfc")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xpndr"]
 atlas = ExtResource("1_bdtso")
@@ -423,6 +443,11 @@ _data = {
 [node name="ComboCounter" type="MarginContainer"]
 script = ExtResource("1_oxo8g")
 
+[node name="sickParticles" type="GPUParticles2D" parent="."]
+amount = 26
+texture = ExtResource("4_36tvr")
+process_material = SubResource("ParticleProcessMaterial_xpndr")
+
 [node name="Background" type="AnimatedSprite2D" parent="."]
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_bdtso")
@@ -436,10 +461,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 4.0
-offset_bottom = -4.0
+offset_left = -24.0
+offset_top = -24.0
+offset_right = -8.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(8, 4)
@@ -457,10 +482,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -23.0
-offset_top = -4.0
-offset_right = 17.0
-offset_bottom = 4.0
+offset_left = -36.0
+offset_top = -14.0
+offset_right = 4.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(20, 4)

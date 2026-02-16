@@ -7,6 +7,8 @@ extends MarginContainer
 @onready var textAnim = $Background/TextAnim
 @onready var bopAnim = $bopAnim
 
+@onready var sickParticles = $sickParticles
+
 @export var minCombo = 10
 @export var sickCombo = 50
 
@@ -15,8 +17,11 @@ var runnerSection = false
 var curCombo = 0
 
 func _ready() -> void:
-	visible = false
+	background.visible = false
 	background.play("Rythm")
+	
+	sickParticles.emitting = true
+	sickParticles.z_index = -1
 
 # Called when the node enters the scene tree for the first time.
 func updateCounter(combo:int):
@@ -26,17 +31,23 @@ func updateCounter(combo:int):
 		if !runnerSection:
 			appeared = false
 			bopAnim.play("disappear")
+			sickParticles.z_index = -1
 		else:
-			visible = true
+			background.visible = true
 			setTextVisible(false)
 		
 		return
 	
-	modulate = Color.RED if curCombo >= sickCombo else Color.WHITE
+	if curCombo >= sickCombo:
+		modulate = Color.RED
+		sickParticles.z_index = 0
+	else:
+		modulate = Color.WHITE
+		sickParticles.z_index = -1
 	
 	if !appeared:
 		bopAnim.play("appear")
-		visible = true
+		background.visible = true
 		setTextVisible(true)
 	
 	comboValueLbl.text = str(curCombo)
@@ -64,7 +75,7 @@ func setRunnerSection(runner:bool):
 
 func transitionToRunner():
 	if curCombo < minCombo and !appeared:
-		visible = true
+		background.visible = true
 		setTextVisible(false)
 		bopAnim.play("appear")
 	
@@ -88,4 +99,4 @@ func _on_bop_anim_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "appear":
 		appeared = true
 	elif anim_name == "disappear":
-		visible = false
+		background.visible = false
