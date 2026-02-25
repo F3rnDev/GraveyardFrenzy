@@ -244,10 +244,12 @@ func setHealthGraph():
 	$Health.modulate.a = 1
 	
 	for i in range($Health.get_child_count()):
+		var heartSprite = $Health.get_child(i)
+		
 		if health <= i:
-			$Health.get_child(i).play("NoLife")
+			heartSprite.play("NoLife")
 		else:
-			$Health.get_child(i).play("Life")
+			heartSprite.play("Life")
 	
 	var tween = create_tween()
 	

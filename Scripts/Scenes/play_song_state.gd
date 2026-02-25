@@ -253,13 +253,12 @@ func playerInputAnimation():
 		$player.setNoHitAnim(curPressed, $NoteGrp/NoteStrum)
 #END
 
+	
+#Could find a use for this later, that's why i'm keeping this function
 func setSongLeft():
 	pass
-	
 	#var songSeconds = str(int($Conductor.songLeft) % 60).pad_zeros(2)
 	#var songMinutes = str(int($Conductor.songLeft) / 60).pad_zeros(2)
-	#
-	#$"Placeholder Grp/ProgressBar/Label".text = songMinutes + ":" + songSeconds
 
 #CHARTACTION
 func chartElementAction():	
@@ -462,9 +461,6 @@ func noteMiss(note, noteIndex, holdEnd):
 		holdEnd.modulate.a = 0.3
 		note.getHold().modulate.a = 0.3
 		
-		#removeHoldParticle
-		$NoteGrp/NoteStrum.removeHoldParticle(noteArray[noteIndex][1])
-		
 		#Stop Hold Audio
 		$Audio/NoteHoldHitSound.stopAudio()
 		
@@ -476,6 +472,9 @@ func noteMiss(note, noteIndex, holdEnd):
 		var cameraTween:Tween = create_tween()
 		var cameraFinal = Vector2(1.0, 1.0)
 		cameraTween.tween_property($Camera2D, "zoom", cameraFinal, 0.2)
+		
+		#removeHoldParticle
+		$NoteGrp/NoteStrum.removeHoldParticle(noteArray[noteIndex][1])
 	
 	calculateSongAccuracy(isHold)
 	
@@ -546,9 +545,6 @@ func popupNoteScore(noteLane, rating, timing):
 	popupInstance.setPopup(lanePos, rating, timing, debugNoteTiming)
 
 func setNoteScore(rating, _timing, isHold = false):
-	#update the scoreGraphic, still a placeholder
-	#$"Placeholder Grp/Score".text = rating[0].to_upper() + rating.substr(1,-1)
-	
 	match rating:
 		"bad":
 			if !isHold: notesHit += 0.3
@@ -669,7 +665,7 @@ func gameOver():
 		noteTween.tween_property(notes, "modulate:a", 0.0, slowDownTime)
 		
 		#fade UI
-		var ui = $"Placeholder Grp"
+		var ui = $UIGrp
 		var uiTween = create_tween()
 		uiTween.tween_property(ui, "modulate:a", 0.0, slowDownTime)
 		

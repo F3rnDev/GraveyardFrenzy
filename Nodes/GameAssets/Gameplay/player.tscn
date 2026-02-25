@@ -66,7 +66,7 @@ debug_color = Color(0.957321, 0.197166, 0.169435, 0.42)
 one_shot = true
 
 [node name="Health" type="Node2D" parent="."]
-position = Vector2(0, -143.8)
+position = Vector2(-3.11, -143.8)
 scale = Vector2(6, 6)
 
 [node name="Heart 0" type="AnimatedSprite2D" parent="Health"]
