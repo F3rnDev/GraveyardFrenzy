@@ -37,7 +37,6 @@ func playSong(restart):
 		$Song.stop()
 	else:
 		$Song.play()
-		await get_tree().process_frame
 		startTime = Time.get_ticks_msec()/1000.0
 		if !restart and floor(songPos) < floor($Song.stream.get_length()):
 			$Song.seek(songPos)

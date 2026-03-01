@@ -1,4 +1,6 @@
-[gd_resource type="Theme" load_steps=8 format=4 uid="uid://cyb8ixl8b0jtt"]
+[gd_resource type="Theme" load_steps=10 format=4 uid="uid://cyb8ixl8b0jtt"]
+
+[ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="1_wca55"]
 
 [sub_resource type="Image" id="Image_7bxx3"]
 data = {
@@ -908,6 +910,14 @@ cache/0/20/0/glyphs/80/size = Vector2(19, 13)
 cache/0/20/0/glyphs/80/uv_rect = Rect2(169, 1, 19, 13)
 cache/0/20/0/glyphs/80/texture_idx = 0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0vcl5"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lcet5"]
 content_margin_left = 4.0
 content_margin_top = 4.0
@@ -922,7 +932,12 @@ border_width_bottom = 2
 corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wca55"]
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7bxx3"]
 bg_color = Color(0, 0, 0, 1)
@@ -932,10 +947,16 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0vcl5"]
-bg_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xorm8"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
 
 [resource]
+Label/fonts/font = ExtResource("1_wca55")
 NoteGridStep/base_type = &"Button"
 NoteGridStep/colors/font_color = Color(0, 0, 0, 1)
 NoteGridStep/colors/font_disabled_color = Color(0, 0, 0, 1)
@@ -956,8 +977,8 @@ NoteGridStep/constants/icon_max_width = 0
 NoteGridStep/constants/outline_size = 0
 NoteGridStep/font_sizes/font_size = 16
 NoteGridStep/fonts/font = SubResource("FontFile_0vcl5")
-NoteGridStep/styles/disabled = SubResource("StyleBoxFlat_lcet5")
+NoteGridStep/styles/disabled = SubResource("StyleBoxFlat_0vcl5")
 NoteGridStep/styles/focus = SubResource("StyleBoxFlat_lcet5")
 NoteGridStep/styles/hover = SubResource("StyleBoxFlat_wca55")
 NoteGridStep/styles/normal = SubResource("StyleBoxFlat_7bxx3")
-NoteGridStep/styles/pressed = SubResource("StyleBoxFlat_0vcl5")
+NoteGridStep/styles/pressed = SubResource("StyleBoxFlat_xorm8")
