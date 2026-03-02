@@ -1,6 +1,9 @@
-[gd_resource type="Theme" load_steps=10 format=4 uid="uid://cyb8ixl8b0jtt"]
+[gd_resource type="Theme" load_steps=14 format=4 uid="uid://cyb8ixl8b0jtt"]
 
 [ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="1_wca55"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ho5hn"]
+bg_color = Color(1, 0, 0, 1)
 
 [sub_resource type="Image" id="Image_7bxx3"]
 data = {
@@ -955,8 +958,35 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lb3dg"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 10
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_biuy5"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 10
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxuol"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 10
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
 [resource]
+Label/colors/font_color = Color(1, 1, 1, 1)
 Label/fonts/font = ExtResource("1_wca55")
+NoteGridSeparator/base_type = &"Panel"
+NoteGridSeparator/styles/panel = SubResource("StyleBoxFlat_ho5hn")
 NoteGridStep/base_type = &"Button"
 NoteGridStep/colors/font_color = Color(0, 0, 0, 1)
 NoteGridStep/colors/font_disabled_color = Color(0, 0, 0, 1)
@@ -982,3 +1012,7 @@ NoteGridStep/styles/focus = SubResource("StyleBoxFlat_lcet5")
 NoteGridStep/styles/hover = SubResource("StyleBoxFlat_wca55")
 NoteGridStep/styles/normal = SubResource("StyleBoxFlat_7bxx3")
 NoteGridStep/styles/pressed = SubResource("StyleBoxFlat_xorm8")
+NoteGridStepSection/base_type = &"Button"
+NoteGridStepSection/styles/hover = SubResource("StyleBoxFlat_lb3dg")
+NoteGridStepSection/styles/normal = SubResource("StyleBoxFlat_biuy5")
+NoteGridStepSection/styles/pressed = SubResource("StyleBoxFlat_lxuol")

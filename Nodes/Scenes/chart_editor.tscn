@@ -1,25 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b0j7eql8crax4"]
+[gd_scene load_steps=5 format=3 uid="uid://b0j7eql8crax4"]
 
 [ext_resource type="PackedScene" uid="uid://hme46mywc6mk" path="res://Nodes/GameAssets/Chart_Editor/note_grid.tscn" id="1_4a8do"]
 [ext_resource type="Script" uid="uid://b7hloju20pnt6" path="res://Scripts/Scenes/charting_editor.gd" id="1_81dar"]
 [ext_resource type="PackedScene" uid="uid://b6l6ne4iiyoef" path="res://Nodes/GameAssets/Chart_Editor/strum_bar.tscn" id="2_tm7ll"]
 [ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="3_tyg1x"]
-[ext_resource type="Texture2D" uid="uid://e8mbetj4fdhs" path="res://Assets/Images/UI Images/ChartEditor/noteStrum.png" id="4_wwp6h"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jk55r"]
-atlas = ExtResource("4_wwp6h")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_7o4bb"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jk55r")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}]
 
 [node name="ChartEditor" type="Control"]
 layout_mode = 3
@@ -29,9 +13,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_81dar")
-mouseDragDistanceLeft = 50.0
-minDragInterval = 0.01
-maxDragInterval = 0.8
 
 [node name="NoteGrp" type="Control" parent="."]
 layout_mode = 1
@@ -63,32 +44,7 @@ offset_right = 40.0
 offset_bottom = 68.0
 grow_vertical = 2
 
-[node name="NoteUp" type="MarginContainer" parent="NoteGrp/StrumBar"]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 71.0
-offset_right = 7.0
-offset_bottom = 71.0
-scale = Vector2(4, 4)
-mouse_filter = 2
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NoteGrp/StrumBar/NoteUp"]
-sprite_frames = SubResource("SpriteFrames_7o4bb")
-animation = &"idle"
-
-[node name="NoteDown" type="MarginContainer" parent="NoteGrp/StrumBar"]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 139.405
-offset_right = 7.0
-offset_bottom = 139.405
-scale = Vector2(4, 4)
-mouse_filter = 2
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NoteGrp/StrumBar/NoteDown"]
-sprite_frames = SubResource("SpriteFrames_7o4bb")
-animation = &"idle"
-
 [node name="Conductor" parent="." instance=ExtResource("3_tyg1x")]
 
-[connection signal="mouseDrag" from="NoteGrp/StrumBar" to="." method="_on_strum_bar_mouse_drag"]
+[connection signal="moveGrab" from="NoteGrp/StrumBar" to="." method="_on_strum_bar_move_grab"]
+[connection signal="startedGrab" from="NoteGrp/StrumBar" to="." method="_on_strum_bar_started_grab"]

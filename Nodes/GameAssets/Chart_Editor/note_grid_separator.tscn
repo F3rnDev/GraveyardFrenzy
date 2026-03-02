@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6dctaji1hbnh"]
+
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_tibuq"]
+[ext_resource type="Script" uid="uid://dwpyifpv6bxg4" path="res://Scripts/GameAssets/ChartEditor/note_grid_separator.gd" id="2_ic478"]
+
+[node name="Separator" type="Panel"]
+theme = ExtResource("1_tibuq")
+theme_type_variation = &"NoteGridSeparator"
+script = ExtResource("2_ic478")

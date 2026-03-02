@@ -5,18 +5,6 @@ extends Control
 @onready var noteGrid = $NoteGrp/NoteGrid
 @onready var strumBar = $NoteGrp/StrumBar
 
-#Drag Strum bar
-var isMouseDragging = false
-var dragStartMousePos = 0.0
-var dragAmnt = 0.0
-var mousePos
-
-@export_category("Drag")
-@export var mouseDragDistanceRight = 500.0
-@export var mouseDragDistanceLeft = 500.0
-@export var minDragInterval = 0.05
-@export var maxDragInterval = 1.0
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	loadChart()
@@ -31,8 +19,8 @@ func loadChart(path:String = "res://Assets/Audio/Songs/Tutorial/Tutorial"):
 func _process(delta: float) -> void:
 	noteGrid.setGridPos(conductor)
 	
-	if isMouseDragging:
-		dragChart(delta)
+	if strumBar.isMouseDragging:
+		strumBar.dragChart(delta)
 	
 	resetSongPos()
 
@@ -49,33 +37,13 @@ func resetSongPos():
 	if conductor.songPos >= conductorSong.stream.get_length():
 		conductor.songPos = conductorSong.stream.get_length()
 
-#DRAG Chart
-func dragChart(delta):
-	#GetPos and direction
-	var mousePos = floor((get_global_mouse_position().x - dragStartMousePos))
-	var dragDir = sign(mousePos)
-	
-	#GetDragInterval
-	var curDragDistance = mouseDragDistanceRight
-	if dragDir == -1:
-		curDragDistance = mouseDragDistanceLeft
-	
-	var t = clamp(abs(mousePos) / curDragDistance, 0.0, 1.0)
-	var dragInterval = lerp(maxDragInterval, minDragInterval, t)
-	
-	#UpdateDrag
-	dragAmnt += delta
-	
-	if dragAmnt >= dragInterval:
-		dragAmnt = 0.0
-		
-		var curStep = floor(conductor.songPos / conductor.stepCrochet)
-		curStep += dragDir
-		
-		conductor.songPos = curStep * conductor.stepCrochet
-
-func _on_strum_bar_mouse_drag(isDragging: Variant) -> void:
-	isMouseDragging = isDragging
-	if isMouseDragging:
-		dragStartMousePos = get_global_mouse_position().x
+#Drag Strum Bar
+func _on_strum_bar_started_grab() -> void:
+	if strumBar.isMouseDragging:
 		conductorSong.stop()
+
+func _on_strum_bar_move_grab(direction: Variant) -> void:
+	var curStep = floor(conductor.songPos / conductor.stepCrochet)
+	curStep += direction
+		
+	conductor.songPos = curStep * conductor.stepCrochet
