@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b6l6ne4iiyoef"]
 
-[ext_resource type="Texture2D" uid="uid://bcnojql5cgqel" path="res://Assets/Images/UI Images/ChartEditor/StrumSign.png" id="1_bfu4g"]
 [ext_resource type="Script" uid="uid://ddhufj8dsuh5v" path="res://Scripts/GameAssets/ChartEditor/strum_bar.gd" id="1_qfub7"]
+[ext_resource type="Texture2D" uid="uid://bv8f38wm061ap" path="res://Assets/Images/UI Images/ChartEditor/StrumSign1.png" id="2_jk55r"]
 [ext_resource type="Texture2D" uid="uid://e8mbetj4fdhs" path="res://Assets/Images/UI Images/ChartEditor/noteStrum.png" id="3_jk55r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jk55r"]
@@ -49,7 +49,7 @@ layout_mode = 0
 offset_left = -2.76
 offset_right = 29.24
 offset_bottom = 32.0
-texture = ExtResource("1_bfu4g")
+texture = ExtResource("2_jk55r")
 
 [node name="StrumBarBtn" type="Button" parent="StrumBarIcon"]
 modulate = Color(1, 1, 1, 0)
@@ -63,6 +63,7 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 
 [node name="NoteUp" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_left = 7.0
 offset_top = 71.0
 offset_right = 7.0
@@ -75,6 +76,7 @@ sprite_frames = SubResource("SpriteFrames_wwsxc")
 animation = &"idle"
 
 [node name="NoteDown" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_left = 7.0
 offset_top = 139.405
 offset_right = 7.0
@@ -88,3 +90,5 @@ animation = &"idle"
 
 [connection signal="button_down" from="StrumBarIcon/StrumBarBtn" to="." method="_on_strum_bar_button_down"]
 [connection signal="button_up" from="StrumBarIcon/StrumBarBtn" to="." method="_on_strum_bar_button_up"]
+[connection signal="mouse_entered" from="StrumBarIcon/StrumBarBtn" to="." method="_on_strum_bar_btn_mouse_entered"]
+[connection signal="mouse_exited" from="StrumBarIcon/StrumBarBtn" to="." method="_on_strum_bar_btn_mouse_exited"]

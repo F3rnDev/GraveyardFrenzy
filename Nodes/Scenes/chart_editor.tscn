@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0j7eql8crax4"]
+[gd_scene load_steps=6 format=3 uid="uid://b0j7eql8crax4"]
 
 [ext_resource type="PackedScene" uid="uid://hme46mywc6mk" path="res://Nodes/GameAssets/Chart_Editor/note_grid.tscn" id="1_4a8do"]
 [ext_resource type="Script" uid="uid://b7hloju20pnt6" path="res://Scripts/Scenes/charting_editor.gd" id="1_81dar"]
 [ext_resource type="PackedScene" uid="uid://b6l6ne4iiyoef" path="res://Nodes/GameAssets/Chart_Editor/strum_bar.tscn" id="2_tm7ll"]
 [ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="3_tyg1x"]
+[ext_resource type="PackedScene" uid="uid://c4lmc6ptd4nju" path="res://Nodes/GameAssets/Chart_Editor/note_preview.tscn" id="4_wwp6h"]
 
 [node name="ChartEditor" type="Control"]
 layout_mode = 3
@@ -33,6 +34,15 @@ offset_right = 96.0
 offset_bottom = 8.0
 grow_vertical = 2
 
+[node name="NotePreview" parent="NoteGrp" instance=ExtResource("4_wwp6h")]
+visible = false
+layout_mode = 0
+
+[node name="RenderedNotes" type="Control" parent="NoteGrp"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="StrumBar" parent="NoteGrp" instance=ExtResource("2_tm7ll")]
 layout_mode = 1
 anchors_preset = 4
@@ -46,5 +56,8 @@ grow_vertical = 2
 
 [node name="Conductor" parent="." instance=ExtResource("3_tyg1x")]
 
+[connection signal="previewNoteAdd" from="NoteGrp/NoteGrid" to="NoteGrp/NotePreview" method="_on_note_grid_preview_note_add"]
+[connection signal="previewNoteRemove" from="NoteGrp/NoteGrid" to="NoteGrp/NotePreview" method="_on_note_grid_preview_note_remove"]
 [connection signal="moveGrab" from="NoteGrp/StrumBar" to="." method="_on_strum_bar_move_grab"]
 [connection signal="startedGrab" from="NoteGrp/StrumBar" to="." method="_on_strum_bar_started_grab"]
+[connection signal="beatHit" from="Conductor" to="." method="_on_conductor_beat_hit"]

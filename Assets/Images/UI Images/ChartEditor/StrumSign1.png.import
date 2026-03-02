@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcnojql5cgqel"
-path="res://.godot/imported/StrumSign.png-d8a1f3bc7d647d0c8a7119856e71a362.ctex"
+uid="uid://bv8f38wm061ap"
+path="res://.godot/imported/StrumSign1.png-622f22475746664b7522fb491fbdd30f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/UI Images/ChartEditor/StrumSign.png"
-dest_files=["res://.godot/imported/StrumSign.png-d8a1f3bc7d647d0c8a7119856e71a362.ctex"]
+source_file="res://Assets/Images/UI Images/ChartEditor/StrumSign1.png"
+dest_files=["res://.godot/imported/StrumSign1.png-622f22475746664b7522fb491fbdd30f.ctex"]
 
 [params]
 

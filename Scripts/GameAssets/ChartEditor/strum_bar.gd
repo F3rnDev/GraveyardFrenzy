@@ -3,6 +3,11 @@ extends Control
 signal startedGrab()
 signal moveGrab(direction)
 
+@onready var strumBarIcon = $StrumBarIcon
+@onready var iconNormal:Texture = preload("res://Assets/Images/UI Images/ChartEditor/StrumSign1.png")
+@onready var iconSelected:Texture = preload("res://Assets/Images/UI Images/ChartEditor/StrumSign2.png")
+var mouseInStrum = false
+
 #Drag Strum bar
 var isMouseDragging = false
 var dragStartMousePos = 0.0
@@ -12,6 +17,18 @@ var dragAmnt = 0.0
 @export var mouseDragDistanceLeft = 500.0
 @export var minDragInterval = 0.05
 @export var maxDragInterval = 1.0
+
+func _process(delta: float) -> void:
+	animateStrumIcon()
+	
+	if isMouseDragging:
+		dragChart(delta)
+
+func animateStrumIcon():
+	if mouseInStrum or isMouseDragging:
+		strumBarIcon.texture = iconSelected
+	else:
+		strumBarIcon.texture = iconNormal
 
 func dragChart(delta):
 	#GetPos and direction
@@ -41,3 +58,11 @@ func _on_strum_bar_button_down() -> void:
 func _on_strum_bar_button_up() -> void:
 	isMouseDragging = false
 	startedGrab.emit()
+	strumBarIcon.texture = iconNormal
+
+#Animate icon
+func _on_strum_bar_btn_mouse_entered() -> void:
+	mouseInStrum = true
+
+func _on_strum_bar_btn_mouse_exited() -> void:
+	mouseInStrum = false

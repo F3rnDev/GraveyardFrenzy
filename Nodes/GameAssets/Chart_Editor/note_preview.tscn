@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4lmc6ptd4nju"]
+
+[ext_resource type="Texture2D" uid="uid://bk1m6ar3id6i2" path="res://Assets/Images/UI Images/ChartEditor/NoteSign.png" id="1_xwwcx"]
+[ext_resource type="Script" uid="uid://bh3kin1grbsqa" path="res://Scripts/GameAssets/ChartEditor/note_preview.gd" id="2_fj4l7"]
+
+[node name="NotePreview" type="TextureRect"]
+modulate = Color(1, 1, 1, 0.294118)
+offset_right = 64.0
+offset_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource("1_xwwcx")
+script = ExtResource("2_fj4l7")

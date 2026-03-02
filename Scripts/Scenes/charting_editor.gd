@@ -18,32 +18,43 @@ func loadChart(path:String = "res://Assets/Audio/Songs/Tutorial/Tutorial"):
 
 func _process(delta: float) -> void:
 	noteGrid.setGridPos(conductor)
-	
-	if strumBar.isMouseDragging:
-		strumBar.dragChart(delta)
-	
-	resetSongPos()
 
 func _input(event: InputEvent) -> void:
+	#ChangeChartPos based on scroll
+	if Input.is_action_just_pressed("WheelUp"):
+		moveChart(1.0)
+	elif Input.is_action_just_pressed("WheelDown"):
+		moveChart(-1.0)
+	
 	#Change to a button
 	if Input.is_action_just_pressed("Confirm"):
 		conductor.playSong(false)
 
 #reset position if the song position is out of bounds
-func resetSongPos():
-	if conductor.songPos < 0:
-		conductor.songPos = 0
-
-	if conductor.songPos >= conductorSong.stream.get_length():
-		conductor.songPos = conductorSong.stream.get_length()
+func canMoveChart(newPos:float) -> bool:
+	if newPos < 0 or newPos >= conductorSong.stream.get_length():
+		return false
+	
+	return true
 
 #Drag Strum Bar
+func moveChart(direction):
+	var curStep = floor(conductor.songPos / conductor.stepCrochet)
+	curStep += direction
+	
+	var newPos = curStep * conductor.stepCrochet
+	if !canMoveChart(newPos):
+		return
+	
+	conductor.songPos = newPos
+
 func _on_strum_bar_started_grab() -> void:
 	if strumBar.isMouseDragging:
 		conductorSong.stop()
 
 func _on_strum_bar_move_grab(direction: Variant) -> void:
-	var curStep = floor(conductor.songPos / conductor.stepCrochet)
-	curStep += direction
-		
-	conductor.songPos = curStep * conductor.stepCrochet
+	moveChart(direction)
+
+#Beat animations
+func _on_conductor_beat_hit(position: Variant) -> void:
+	pass
