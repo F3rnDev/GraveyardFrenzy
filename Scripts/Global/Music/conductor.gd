@@ -56,6 +56,14 @@ func setSong(path, fileLoaded = true):
 	
 	songLength = $Song.stream.get_length()
 
+#Change name later
+func NewSetSong(bytes:PackedByteArray):
+	var newStream:AudioStreamMP3 = AudioStreamMP3.new()
+	newStream.data = bytes
+	
+	$Song.stream = newStream
+	songLength = $Song.stream.get_length()
+
 func _process(_delta):
 	if $Song.playing:
 		var timeNow = Time.get_ticks_msec() / 1000.0

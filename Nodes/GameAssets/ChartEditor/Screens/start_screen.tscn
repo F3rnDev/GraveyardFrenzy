@@ -1,0 +1,163 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1hnwhbq1o00k"]
+
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_ff7ul"]
+[ext_resource type="Script" uid="uid://cs1twt8m0f3g6" path="res://Scripts/GameAssets/ChartEditor/screens/start_screen.gd" id="1_qrt8g"]
+[ext_resource type="PackedScene" uid="uid://688j2en82dlp" path="res://Nodes/GameAssets/ChartEditor/Screens/window.tscn" id="2_53dyf"]
+[ext_resource type="PackedScene" uid="uid://dbi7wxwhaqmx3" path="res://Nodes/GameAssets/ChartEditor/Screens/ScreenIconBtn.tscn" id="3_yrjkm"]
+[ext_resource type="Texture2D" uid="uid://c172yvgspumfg" path="res://Assets/Images/UI Images/ChartEditor/NewProjIcon.png" id="4_jsajg"]
+[ext_resource type="Texture2D" uid="uid://5xwves2a430" path="res://Assets/Images/UI Images/ChartEditor/LoadIcon.png" id="5_qrt8g"]
+
+[node name="StartScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qrt8g")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ff7ul")
+
+[node name="StartWindow" parent="." instance=ExtResource("2_53dyf")]
+custom_minimum_size = Vector2(920, 543)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -460.0
+offset_top = -271.5
+offset_right = 460.0
+offset_bottom = 271.5
+pivot_offset = Vector2(460, 543)
+windowTitle = "Welcome to the chart editor!"
+canExit = false
+canDrag = false
+deleteAfterClose = false
+
+[node name="WindowContent" type="Control" parent="StartWindow"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -456.0
+offset_top = -181.5
+offset_right = 452.0
+offset_bottom = 259.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WindowDivision" type="HBoxContainer" parent="StartWindow/WindowContent"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="RightSide" type="VBoxContainer" parent="StartWindow/WindowContent/WindowDivision"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Buttons" type="HBoxContainer" parent="StartWindow/WindowContent/WindowDivision/RightSide"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="CreateNew" parent="StartWindow/WindowContent/WindowDivision/RightSide/Buttons" instance=ExtResource("3_yrjkm")]
+layout_mode = 2
+newImage = ExtResource("4_jsajg")
+newText = "Create New"
+
+[node name="CreateNewPath" type="FileDialog" parent="StartWindow/WindowContent/WindowDivision/RightSide/Buttons/CreateNew"]
+title = "Open a Directory"
+initial_position = 1
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+use_native_dialog = true
+
+[node name="LoadChart" parent="StartWindow/WindowContent/WindowDivision/RightSide/Buttons" instance=ExtResource("3_yrjkm")]
+layout_mode = 2
+newImage = ExtResource("5_qrt8g")
+newText = "Load File"
+
+[node name="LoadChartPath" type="FileDialog" parent="StartWindow/WindowContent/WindowDivision/RightSide/Buttons/LoadChart"]
+auto_translate_mode = 1
+title = "Open a File"
+initial_position = 2
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+use_native_dialog = true
+
+[node name="LoadFromModFolder" type="VBoxContainer" parent="StartWindow/WindowContent/WindowDivision/RightSide"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="StartWindow/WindowContent/WindowDivision/RightSide/LoadFromModFolder"]
+layout_mode = 2
+theme = ExtResource("1_ff7ul")
+theme_override_font_sizes/font_size = 20
+text = "Load from Mod Folder"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="StartWindow/WindowContent/WindowDivision/RightSide/LoadFromModFolder"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme = ExtResource("1_ff7ul")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartWindow/WindowContent/WindowDivision/RightSide/LoadFromModFolder/ScrollContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="StartWindow/WindowContent/WindowDivision/RightSide/LoadFromModFolder/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_ff7ul")
+text = "Does not work bro, wait
+A bit twin"
+
+[node name="LeftSide" type="VBoxContainer" parent="StartWindow/WindowContent/WindowDivision"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="StartWindow/WindowContent/WindowDivision/LeftSide"]
+layout_mode = 2
+theme = ExtResource("1_ff7ul")
+theme_override_font_sizes/font_size = 20
+text = "Open Recent"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="StartWindow/WindowContent/WindowDivision/LeftSide"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme = ExtResource("1_ff7ul")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartWindow/WindowContent/WindowDivision/LeftSide/ScrollContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StartWindow/WindowContent/WindowDivision/LeftSide/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_ff7ul")
+text = "Does not work bro, wait
+A bit twin"
+
+[connection signal="button_down" from="StartWindow/WindowContent/WindowDivision/RightSide/Buttons/CreateNew" to="." method="_on_create_new_button_down"]
+[connection signal="dir_selected" from="StartWindow/WindowContent/WindowDivision/RightSide/Buttons/CreateNew/CreateNewPath" to="." method="_on_create_new_path_dir_selected"]
+[connection signal="button_down" from="StartWindow/WindowContent/WindowDivision/RightSide/Buttons/LoadChart" to="." method="_on_load_chart_button_down"]
+[connection signal="file_selected" from="StartWindow/WindowContent/WindowDivision/RightSide/Buttons/LoadChart/LoadChartPath" to="." method="_on_load_chart_path_file_selected"]

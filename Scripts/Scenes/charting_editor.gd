@@ -1,18 +1,25 @@
 extends Control
 
+#Screens
+@onready var startScreen = $StartScreen
+
 @onready var conductor = $Conductor
 @onready var conductorSong = $Conductor/Song
 @onready var noteGrid = $NoteGrp/NoteGrid
 @onready var strumBar = $NoteGrp/StrumBar
 
+var songProject:SongProject = SongProject.new()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	loadChart()
+	startScreen.visible = true
 
 #Get Path after selecting the song
-func loadChart(path:String = "res://Assets/Audio/Songs/Tutorial/Tutorial"):
-	conductor.setSong(path)
-	conductor.setBpm(120)
+func loadChart():
+	startScreen.visible = false
+	
+	conductor.NewSetSong(songProject.commonAudio)
+	conductor.setBpm(songProject.data.baseBpm)
 	
 	noteGrid.setGrid(conductor)
 
@@ -58,3 +65,15 @@ func _on_strum_bar_move_grab(direction: Variant) -> void:
 #Beat animations
 func _on_conductor_beat_hit(position: Variant) -> void:
 	pass
+
+#Load/Add Project
+func _on_start_screen_add_project(project: SongProject, path: String) -> void:
+	SongLoader.saveSong(path, project)
+	songProject = project
+	
+	loadChart()
+
+func _on_start_screen_load_project(path: String) -> void:
+	songProject = SongLoader.loadSongProject(path)
+	
+	loadChart()

@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_2r6mm"]
 [ext_resource type="Script" uid="uid://cogwci50jvadq" path="res://Scripts/GameAssets/ChartEditor/note_grid_step.gd" id="1_vc6en"]
 [ext_resource type="Texture2D" uid="uid://x1fh6l1geoek" path="res://Assets/Images/UI Images/ChartEditor/noteGridDivision1.png" id="2_4dtx1"]
-[ext_resource type="PackedScene" uid="uid://b6dctaji1hbnh" path="res://Nodes/GameAssets/Chart_Editor/note_grid_separator.tscn" id="4_1txwx"]
+[ext_resource type="PackedScene" uid="uid://b6dctaji1hbnh" path="res://Nodes/GameAssets/ChartEditor/note_grid_separator.tscn" id="4_1txwx"]
 
 [node name="Step" type="VBoxContainer"]
 offset_right = 60.0

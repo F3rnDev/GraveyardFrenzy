@@ -1,7 +1,7 @@
 extends HBoxContainer
 
-@onready var gridStep = preload("res://Nodes/GameAssets/Chart_Editor/note_grid_step.tscn")
-@onready var gridSeparator = preload("res://Nodes/GameAssets/Chart_Editor/note_grid_separator.tscn")
+@onready var gridStep = preload("res://Nodes/GameAssets/ChartEditor/note_grid_step.tscn")
+@onready var gridSeparator = preload("res://Nodes/GameAssets/ChartEditor/note_grid_separator.tscn")
 
 @export var stepSize:float = 60.0
 @export var gridDir:float = -1.0

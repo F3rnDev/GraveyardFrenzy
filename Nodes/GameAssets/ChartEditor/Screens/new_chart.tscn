@@ -1,0 +1,424 @@
+[gd_scene load_steps=12 format=3 uid="uid://b2faayvrae0pb"]
+
+[ext_resource type="PackedScene" uid="uid://688j2en82dlp" path="res://Nodes/GameAssets/ChartEditor/Screens/window.tscn" id="1_8j666"]
+[ext_resource type="Script" uid="uid://yln7t1iq7enp" path="res://Scripts/GameAssets/ChartEditor/screens/new_chart.gd" id="1_wblfo"]
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="2_yhcqn"]
+[ext_resource type="Script" uid="uid://dujyecnqkc54p" path="res://Scripts/GameAssets/ChartEditor/screens/new_chart_song_data.gd" id="4_04g65"]
+[ext_resource type="Script" uid="uid://dhpnklteas1v0" path="res://Scripts/GameAssets/ChartEditor/screens/new_chart_difficulty.gd" id="5_33d4i"]
+[ext_resource type="Script" uid="uid://bdsfebsyaq5hu" path="res://Scripts/GameAssets/ChartEditor/screens/new_chart_audio.gd" id="6_g1koy"]
+[ext_resource type="PackedScene" uid="uid://dkkg6xn78evlv" path="res://Nodes/GameAssets/ChartEditor/musicProgressBar.tscn" id="7_4dtxr"]
+
+[sub_resource type="Animation" id="Animation_04g65"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(400, -53.035)]
+}
+
+[sub_resource type="Animation" id="Animation_wblfo"]
+resource_name = "appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector2(400, -53.16), Vector2(400, 53.035)]
+}
+
+[sub_resource type="Animation" id="Animation_33d4i"]
+resource_name = "disappear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1.6245, 1),
+"update": 0,
+"values": [Vector2(400, 53.035), Vector2(400, -53.16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_04g65"]
+_data = {
+&"RESET": SubResource("Animation_04g65"),
+&"appear": SubResource("Animation_wblfo"),
+&"disappear": SubResource("Animation_33d4i")
+}
+
+[node name="NewChart" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wblfo")
+
+[node name="NewProject" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -240.0
+offset_top = -53.035
+offset_right = 240.0
+offset_bottom = -21.035
+grow_horizontal = 2
+theme = ExtResource("2_yhcqn")
+theme_override_font_sizes/font_size = 32
+text = "- New Project -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelAnimations" type="AnimationPlayer" parent="NewProject"]
+libraries = {
+&"": SubResource("AnimationLibrary_04g65")
+}
+
+[node name="SongData" parent="." instance=ExtResource("1_8j666")]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -200.0
+offset_right = 250.0
+offset_bottom = 200.0
+pivot_offset = Vector2(250, 400)
+windowTitle = "Set the Song Data"
+canExit = false
+canDrag = false
+deleteAfterClose = false
+
+[node name="Content" type="Control" parent="SongData"]
+custom_minimum_size = Vector2(465, 316)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.5
+offset_top = -136.16
+offset_right = 232.5
+offset_bottom = 179.84
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_04g65")
+
+[node name="Division" type="HBoxContainer" parent="SongData/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 39.0
+offset_right = -5.0
+offset_bottom = 0.333344
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Labels" type="VBoxContainer" parent="SongData/Content/Division"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SongName" type="Label" parent="SongData/Content/Division/Labels"]
+custom_minimum_size = Vector2(176, 24)
+layout_mode = 2
+theme = ExtResource("2_yhcqn")
+text = "Song Name: "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Composer" type="Label" parent="SongData/Content/Division/Labels"]
+custom_minimum_size = Vector2(176, 24)
+layout_mode = 2
+theme = ExtResource("2_yhcqn")
+text = "Composer: "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Charter" type="Label" parent="SongData/Content/Division/Labels"]
+custom_minimum_size = Vector2(176, 24)
+layout_mode = 2
+theme = ExtResource("2_yhcqn")
+text = "Charter: "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Base_Bpm" type="Label" parent="SongData/Content/Division/Labels"]
+custom_minimum_size = Vector2(176, 24)
+layout_mode = 2
+theme = ExtResource("2_yhcqn")
+text = "Base BPM: "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Inputs" type="VBoxContainer" parent="SongData/Content/Division"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SongName" type="LineEdit" parent="SongData/Content/Division/Inputs"]
+custom_minimum_size = Vector2(200, 24)
+layout_mode = 2
+theme = ExtResource("2_yhcqn")
+
+[node name="Composer" type="LineEdit" parent="SongData/Content/Division/Inputs"]
+custom_minimum_size = Vector2(200, 24)
+layout_mode = 2
+theme = ExtResource("2_yhcqn")
+
+[node name="Charter" type="LineEdit" parent="SongData/Content/Division/Inputs"]
+custom_minimum_size = Vector2(200, 24)
+layout_mode = 2
+theme = ExtResource("2_yhcqn")
+
+[node name="Base_Bpm" type="SpinBox" parent="SongData/Content/Division/Inputs"]
+custom_minimum_size = Vector2(200, 24)
+layout_mode = 2
+theme = ExtResource("2_yhcqn")
+max_value = 1000.0
+value = 120.0
+alignment = 1
+
+[node name="SongDataCancelBtn" type="Button" parent="SongData/Content"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+offset_right = 136.0
+grow_vertical = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_yhcqn")
+text = "Cancel"
+
+[node name="SongDataContinueBtn" type="Button" parent="SongData/Content"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_yhcqn")
+text = "Continue"
+
+[node name="Difficulty" parent="." instance=ExtResource("1_8j666")]
+visible = false
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -200.0
+offset_right = 250.0
+offset_bottom = 200.0
+pivot_offset = Vector2(250, 400)
+windowTitle = "Set Difficulties"
+canExit = false
+canDrag = false
+deleteAfterClose = false
+hiddenInReady = true
+
+[node name="Content" type="Control" parent="Difficulty"]
+custom_minimum_size = Vector2(465, 316)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.5
+offset_top = -136.16
+offset_right = 232.5
+offset_bottom = 179.84
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_33d4i")
+
+[node name="DifficultyReturnBtn" type="Button" parent="Difficulty/Content"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+offset_right = 136.0
+grow_vertical = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_yhcqn")
+text = "Return"
+
+[node name="DifficultyContinueBtn" type="Button" parent="Difficulty/Content"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_yhcqn")
+text = "Continue"
+
+[node name="Tree" type="Tree" parent="Difficulty/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 7.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_yhcqn")
+column_titles_visible = true
+select_mode = 2
+
+[node name="SelectAudio" parent="." instance=ExtResource("1_8j666")]
+visible = false
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -200.0
+offset_right = 250.0
+offset_bottom = 200.0
+pivot_offset = Vector2(250, 400)
+windowTitle = "Import the Audio File"
+canExit = false
+canDrag = false
+deleteAfterClose = false
+hiddenInReady = true
+
+[node name="Content" type="Control" parent="SelectAudio"]
+custom_minimum_size = Vector2(465, 316)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.5
+offset_top = -136.16
+offset_right = 232.5
+offset_bottom = 179.84
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_g1koy")
+
+[node name="AudioContainer" type="VBoxContainer" parent="SelectAudio/Content"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -232.5
+offset_top = 18.82
+offset_right = 232.5
+offset_bottom = 168.82
+grow_horizontal = 2
+theme_override_constants/separation = 16
+
+[node name="ImportAudioBtn" type="Button" parent="SelectAudio/Content/AudioContainer"]
+custom_minimum_size = Vector2(465, 150)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_yhcqn")
+text = "Drag and drop the audio file here or Click to browse"
+autowrap_mode = 3
+
+[node name="MusicBar" parent="SelectAudio/Content/AudioContainer" instance=ExtResource("7_4dtxr")]
+layout_mode = 2
+
+[node name="AudioReturnBtn" type="Button" parent="SelectAudio/Content"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+offset_right = 136.0
+grow_vertical = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_yhcqn")
+text = "Return"
+
+[node name="AudioContinueBtn" type="Button" parent="SelectAudio/Content"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_yhcqn")
+text = "Continue"
+
+[node name="AudioSelectFile" type="FileDialog" parent="SelectAudio/Content"]
+title = "Open a File"
+initial_position = 2
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.mp3")
+use_native_dialog = true
+
+[connection signal="close" from="SongData" to="." method="_on_song_data_close"]
+[connection signal="continued" from="SongData/Content" to="." method="_on_song_data_continued"]
+[connection signal="button_down" from="SongData/Content/SongDataCancelBtn" to="." method="_on_song_data_cancel_btn_button_down"]
+[connection signal="button_down" from="SongData/Content/SongDataContinueBtn" to="SongData/Content" method="_on_song_data_continue_btn_button_down"]
+[connection signal="continued" from="Difficulty/Content" to="." method="_on_difficulty_continued"]
+[connection signal="button_down" from="Difficulty/Content/DifficultyReturnBtn" to="." method="_on_difficulty_return_btn_button_down"]
+[connection signal="button_down" from="Difficulty/Content/DifficultyContinueBtn" to="Difficulty/Content" method="_on_difficulty_continue_btn_button_down"]
+[connection signal="item_edited" from="Difficulty/Content/Tree" to="Difficulty/Content" method="_on_tree_item_edited"]
+[connection signal="continued" from="SelectAudio/Content" to="." method="_on_audio_continued"]
+[connection signal="button_down" from="SelectAudio/Content/AudioContainer/ImportAudioBtn" to="SelectAudio/Content" method="_on_import_audio_btn_button_down"]
+[connection signal="button_down" from="SelectAudio/Content/AudioReturnBtn" to="." method="_on_audio_return_btn_button_down"]
+[connection signal="button_down" from="SelectAudio/Content/AudioReturnBtn" to="SelectAudio/Content" method="_on_audio_return_btn_button_down"]
+[connection signal="button_down" from="SelectAudio/Content/AudioContinueBtn" to="SelectAudio/Content" method="_on_audio_continue_btn_button_down"]
+[connection signal="file_selected" from="SelectAudio/Content/AudioSelectFile" to="SelectAudio/Content" method="_on_audio_select_file_file_selected"]
