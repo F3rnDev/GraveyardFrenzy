@@ -70,7 +70,9 @@ offset_top = -136.0
 offset_right = 2.0
 offset_bottom = -72.0
 
+[connection signal="button_down" from="LaneUp" to="." method="_on_lane_up_button_down"]
 [connection signal="mouse_entered" from="LaneUp" to="." method="_on_lane_up_mouse_entered"]
 [connection signal="mouse_exited" from="LaneUp" to="." method="_on_lane_up_mouse_exited"]
+[connection signal="button_down" from="LaneDown" to="." method="_on_lane_down_button_down"]
 [connection signal="mouse_entered" from="LaneDown" to="." method="_on_lane_down_mouse_entered"]
 [connection signal="mouse_exited" from="LaneDown" to="." method="_on_lane_down_mouse_exited"]

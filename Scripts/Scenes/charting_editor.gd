@@ -7,8 +7,10 @@ extends Control
 @onready var conductorSong = $Conductor/Song
 @onready var noteGrid = $NoteGrp/NoteGrid
 @onready var strumBar = $NoteGrp/StrumBar
+@onready var rendElements = $NoteGrp/RenderedElements
 
 var songProject:SongProject = SongProject.new()
+var songPath:String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,7 +41,7 @@ func _input(event: InputEvent) -> void:
 
 #reset position if the song position is out of bounds
 func canMoveChart(newPos:float) -> bool:
-	if newPos < 0 or newPos >= conductorSong.stream.get_length():
+	if newPos < 0 or newPos >= conductor.songLength:
 		return false
 	
 	return true
@@ -70,10 +72,16 @@ func _on_conductor_beat_hit(position: Variant) -> void:
 func _on_start_screen_add_project(project: SongProject, path: String) -> void:
 	SongLoader.saveSong(path, project)
 	songProject = project
+	songPath = path
 	
 	loadChart()
 
 func _on_start_screen_load_project(path: String) -> void:
 	songProject = SongLoader.loadSongProject(path)
+	songPath = path
 	
 	loadChart()
+
+# NoteControl
+func _on_note_grid_add_note(pos: Vector2) -> void:
+	rendElements.addNote(pos)

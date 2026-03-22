@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://b0j7eql8crax4"]
+[gd_scene load_steps=9 format=3 uid="uid://b0j7eql8crax4"]
 
 [ext_resource type="PackedScene" uid="uid://hme46mywc6mk" path="res://Nodes/GameAssets/ChartEditor/note_grid.tscn" id="1_4a8do"]
 [ext_resource type="Script" uid="uid://b7hloju20pnt6" path="res://Scripts/Scenes/charting_editor.gd" id="1_81dar"]
 [ext_resource type="PackedScene" uid="uid://b6l6ne4iiyoef" path="res://Nodes/GameAssets/ChartEditor/strum_bar.tscn" id="2_tm7ll"]
 [ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="3_tyg1x"]
+[ext_resource type="PackedScene" uid="uid://0t6oh4brib5t" path="res://Nodes/GameAssets/ChartEditor/rendered_elements.tscn" id="4_slqsl"]
 [ext_resource type="PackedScene" uid="uid://c4lmc6ptd4nju" path="res://Nodes/GameAssets/ChartEditor/note_preview.tscn" id="4_wwp6h"]
 [ext_resource type="PackedScene" uid="uid://d1hnwhbq1o00k" path="res://Nodes/GameAssets/ChartEditor/Screens/start_screen.tscn" id="6_7o4bb"]
 [ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="7_lgb8r"]
@@ -38,12 +39,13 @@ grow_vertical = 2
 
 [node name="NotePreview" parent="NoteGrp" instance=ExtResource("4_wwp6h")]
 visible = false
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 
-[node name="RenderedNotes" type="Control" parent="NoteGrp"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="RenderedElements" parent="NoteGrp" node_paths=PackedStringArray("conductor", "noteGrid") instance=ExtResource("4_slqsl")]
+layout_mode = 1
+conductor = NodePath("../../Conductor")
+noteGrid = NodePath("../NoteGrid")
 
 [node name="StrumBar" parent="NoteGrp" instance=ExtResource("2_tm7ll")]
 layout_mode = 1
@@ -63,6 +65,7 @@ visible = false
 layout_mode = 1
 theme = ExtResource("7_lgb8r")
 
+[connection signal="addNote" from="NoteGrp/NoteGrid" to="." method="_on_note_grid_add_note"]
 [connection signal="previewNoteAdd" from="NoteGrp/NoteGrid" to="NoteGrp/NotePreview" method="_on_note_grid_preview_note_add"]
 [connection signal="previewNoteRemove" from="NoteGrp/NoteGrid" to="NoteGrp/NotePreview" method="_on_note_grid_preview_note_remove"]
 [connection signal="moveGrab" from="NoteGrp/StrumBar" to="." method="_on_strum_bar_move_grab"]

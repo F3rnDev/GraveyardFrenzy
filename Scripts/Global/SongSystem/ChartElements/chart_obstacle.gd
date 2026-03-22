@@ -10,6 +10,9 @@ enum ObsTypes
 var obstacleType:ObsTypes = ObsTypes.Cactus
 var obstacleParams:Dictionary = {}
 
+func _init() -> void:
+	elementType = Types.Obs
+
 func getDict() -> Dictionary:
 	var dict = super.getDict()
 	

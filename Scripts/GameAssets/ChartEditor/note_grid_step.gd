@@ -21,6 +21,8 @@ var thisStep = 0
 signal btnEntered(pos:Vector2)
 signal btnExited()
 
+signal btnPressed(pos:Vector2)
+
 func setStep(step:int):
 	thisStep = step
 	
@@ -58,3 +60,10 @@ func _on_lane_down_mouse_entered() -> void:
 
 func _on_lane_down_mouse_exited() -> void:
 	btnExited.emit()
+
+#Button pressed
+func _on_lane_up_button_down() -> void:
+	btnPressed.emit(laneUp.global_position)
+
+func _on_lane_down_button_down() -> void:
+	btnPressed.emit(laneDown.global_position)

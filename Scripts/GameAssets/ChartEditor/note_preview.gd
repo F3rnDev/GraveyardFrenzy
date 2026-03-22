@@ -10,6 +10,9 @@ func setVisible(isVisible:bool):
 	visible = isVisible
 
 func _on_note_grid_preview_note_add(pos: Vector2) -> void:
+	if Input.is_action_pressed("LeftMouseClick"):
+		return
+	
 	setPosition(pos)
 	setVisible(true)
 

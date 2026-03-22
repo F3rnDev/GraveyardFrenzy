@@ -10,6 +10,9 @@ enum NoteTypes
 var noteType:NoteTypes = NoteTypes.Normal
 var holdAmount:float = 0.0
 
+func _init() -> void:
+	elementType = Types.Note
+
 func getDict() -> Dictionary:
 	var dict = super.getDict()
 	
