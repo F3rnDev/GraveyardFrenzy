@@ -1,5 +1,7 @@
 extends Control
 
+class_name ChartUIRenderedElements
+
 @onready var uiNote = preload("res://Nodes/GameAssets/ChartEditor/chart_ui_note.tscn")
 
 @onready var initPos = global_position.x
@@ -56,6 +58,15 @@ func addNote(pos:Vector2):
 func selectElement(element):
 	if element is ChartUINote:
 		selectNote(element)
+
+func selectElementDrag(elements:Array):
+	unselectElements()
+	
+	for element in elements:
+		if element is ChartUINote:
+			element.setSelected(true)
+		
+		selectedElements.append(element)
 
 func selectNote(note:ChartUINote, created=false):
 	if !Input.is_action_pressed("ChartMultSelect") or created:

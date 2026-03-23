@@ -87,10 +87,6 @@ func noteDrag():
 
 func _on_mouse_entered() -> void:
 	isHovered = true
-	
-	print(isHovered)
-	print(isSelected)
-	print(isDragging)
 
 func _on_mouse_exited() -> void:
 	isHovered = false

@@ -5,9 +5,11 @@ extends Control
 
 @onready var conductor = $Conductor
 @onready var conductorSong = $Conductor/Song
-@onready var noteGrid = $NoteGrp/NoteGrid
-@onready var strumBar = $NoteGrp/StrumBar
-@onready var rendElements = $NoteGrp/RenderedElements
+@onready var noteGrid = $ChartControl/Note/NoteGrid
+@onready var strumBar = $ChartControl/StrumBar
+@onready var rendElements = $ChartControl/Note/RenderedElements
+
+@onready var chartSelector = $ChartControl/ChartSelector
 
 var songProject:SongProject = SongProject.new()
 var songPath:String
@@ -24,6 +26,7 @@ func loadChart():
 	conductor.setBpm(songProject.data.baseBpm)
 	
 	noteGrid.setGrid(conductor)
+	chartSelector.active = true
 
 func _process(delta: float) -> void:
 	noteGrid.setGridPos(conductor)
