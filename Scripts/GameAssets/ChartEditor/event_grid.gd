@@ -1,29 +1,20 @@
 extends HBoxContainer
 
-class_name NoteGridUI
+class_name EventGridUI
 
-@onready var gridStep = preload("res://Nodes/GameAssets/ChartEditor/note_grid_step.tscn")
-@onready var gridSeparator = preload("res://Nodes/GameAssets/ChartEditor/note_grid_separator.tscn")
+#Step
+var gridStep = preload("res://Nodes/GameAssets/ChartEditor/event_grid_step.tscn")
 
-@export var stepMarkerHeight:float = 32.0
-@export var stepSpacing:float = 4.0
-
-var initPos:float
+@onready var initPos = global_position.x
 
 #Dependencies
-@export_category("Dependencies")
 @export var conductor:Conductor
 @export var gridInfo:GridInfo
 
-#GetNote
-signal previewNoteAdd(pos:Vector2)
-signal previewNoteRemove()
-
-#Add note
-signal addNote(pos:Vector2)
-
-func _ready() -> void:
-	initPos = global_position.x
+#Signals
+signal previewEventAdd(pos:Vector2)
+signal previewEventRemove()
+signal addEvent(pos:Vector2)
 
 func _process(delta: float) -> void:
 	setGridPos()
@@ -32,14 +23,12 @@ func setGrid():
 	var allSteps = floor((conductor.songLength) / conductor.stepCrochet)
 	
 	for step in allSteps:
-		var gridStepInstance:NoteGridStep = gridStep.instantiate()
+		var gridStepInstance:EventGridStep = gridStep.instantiate()
 		add_child(gridStepInstance)
 		
 		gridStepInstance.btnEntered.connect(enteredButton)
 		gridStepInstance.btnExited.connect(exitedButton)
 		gridStepInstance.btnPressed.connect(pressedButton)
-		gridStepInstance.setStep(step)
-
 
 func setGridPos():
 	var xPos = ((conductor.songPos / conductor.stepCrochet) * (gridInfo.stepSize))
@@ -47,10 +36,10 @@ func setGridPos():
 	global_position.x = (xPos * gridInfo.gridDir) + initPos
 
 func enteredButton(pos:Vector2):
-	previewNoteAdd.emit(pos)
+	previewEventAdd.emit(pos)
 
 func exitedButton():
-	previewNoteRemove.emit()
+	previewEventRemove.emit()
 
 func pressedButton(pos:Vector2):
-	addNote.emit(pos)
+	addEvent.emit(pos)

@@ -1,14 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0j7eql8crax4"]
+[gd_scene load_steps=13 format=3 uid="uid://b0j7eql8crax4"]
 
 [ext_resource type="PackedScene" uid="uid://hme46mywc6mk" path="res://Nodes/GameAssets/ChartEditor/note_grid.tscn" id="1_4a8do"]
 [ext_resource type="Script" uid="uid://b7hloju20pnt6" path="res://Scripts/Scenes/charting_editor.gd" id="1_81dar"]
+[ext_resource type="Script" uid="uid://denk1nu4uvtqn" path="res://Scripts/GameAssets/ChartEditor/GridInfo.gd" id="2_lhiwb"]
 [ext_resource type="PackedScene" uid="uid://b6l6ne4iiyoef" path="res://Nodes/GameAssets/ChartEditor/strum_bar.tscn" id="2_tm7ll"]
 [ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="3_tyg1x"]
-[ext_resource type="PackedScene" uid="uid://0t6oh4brib5t" path="res://Nodes/GameAssets/ChartEditor/rendered_elements.tscn" id="4_slqsl"]
+[ext_resource type="PackedScene" uid="uid://0t6oh4brib5t" path="res://Nodes/GameAssets/ChartEditor/Chart/rendered_elements.tscn" id="4_slqsl"]
 [ext_resource type="PackedScene" uid="uid://c4lmc6ptd4nju" path="res://Nodes/GameAssets/ChartEditor/note_preview.tscn" id="4_wwp6h"]
+[ext_resource type="PackedScene" uid="uid://blgqkedfnsqlh" path="res://Nodes/GameAssets/ChartEditor/event_grid.tscn" id="5_2ocph"]
 [ext_resource type="PackedScene" uid="uid://d1hnwhbq1o00k" path="res://Nodes/GameAssets/ChartEditor/Screens/start_screen.tscn" id="6_7o4bb"]
-[ext_resource type="PackedScene" uid="uid://bj0y35rh3b6yy" path="res://Nodes/GameAssets/ChartEditor/chart_selector.tscn" id="6_m10cc"]
+[ext_resource type="PackedScene" uid="uid://bj0y35rh3b6yy" path="res://Nodes/GameAssets/ChartEditor/Chart/chart_selector.tscn" id="6_m10cc"]
 [ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="7_lgb8r"]
+[ext_resource type="PackedScene" uid="uid://h1x8b6e3awfr" path="res://Nodes/GameAssets/ChartEditor/element_type_select.tscn" id="8_lhiwb"]
 
 [node name="ChartEditor" type="Control"]
 layout_mode = 3
@@ -27,36 +30,47 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Note" type="Control" parent="ChartControl"]
+[node name="GridInfo" type="Control" parent="ChartControl"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("2_lhiwb")
 
-[node name="NoteGrid" parent="ChartControl/Note" instance=ExtResource("1_4a8do")]
+[node name="NoteGrid" parent="ChartControl" node_paths=PackedStringArray("conductor", "gridInfo") instance=ExtResource("1_4a8do")]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 32.0
-offset_top = 178.0
+offset_top = -162.0
 offset_right = 96.0
-offset_bottom = 350.0
+offset_bottom = 10.0
 grow_vertical = 2
+conductor = NodePath("../../Conductor")
+gridInfo = NodePath("../GridInfo")
 
-[node name="NotePreview" parent="ChartControl/Note" instance=ExtResource("4_wwp6h")]
+[node name="EventGrid" parent="ChartControl" node_paths=PackedStringArray("conductor", "gridInfo") instance=ExtResource("5_2ocph")]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 390.0
+offset_right = 96.0
+offset_bottom = 454.0
+conductor = NodePath("../../Conductor")
+gridInfo = NodePath("../GridInfo")
+
+[node name="RenderedElements" parent="ChartControl" node_paths=PackedStringArray("conductor", "noteGrid", "eventGrid", "gridInfo") instance=ExtResource("4_slqsl")]
+layout_mode = 1
+conductor = NodePath("../../Conductor")
+noteGrid = NodePath("../NoteGrid")
+eventGrid = NodePath("../EventGrid")
+gridInfo = NodePath("../GridInfo")
+
+[node name="Preview" parent="ChartControl" node_paths=PackedStringArray("renderedNotes", "elementTypeSelect") instance=ExtResource("4_wwp6h")]
 visible = false
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
-
-[node name="RenderedElements" parent="ChartControl/Note" node_paths=PackedStringArray("conductor", "noteGrid") instance=ExtResource("4_slqsl")]
-layout_mode = 1
-conductor = NodePath("../../../Conductor")
-noteGrid = NodePath("../NoteGrid")
-
-[node name="Event" type="Control" parent="ChartControl"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+renderedNotes = NodePath("../RenderedElements")
+elementTypeSelect = NodePath("../ElementTypeSelect")
 
 [node name="StrumBar" parent="ChartControl" instance=ExtResource("2_tm7ll")]
 layout_mode = 1
@@ -66,13 +80,22 @@ anchor_bottom = 0.5
 offset_left = 26.0
 offset_top = -163.0
 offset_right = 40.0
-offset_bottom = 68.0
+offset_bottom = 94.0
 grow_vertical = 2
 
-[node name="ChartSelector" parent="ChartControl" node_paths=PackedStringArray("noteGrid", "renderedElements") instance=ExtResource("6_m10cc")]
+[node name="ElementTypeSelect" parent="ChartControl" instance=ExtResource("8_lhiwb")]
 layout_mode = 0
-noteGrid = NodePath("../Note/NoteGrid")
-renderedElements = NodePath("../Note/RenderedElements")
+offset_left = 1116.0
+offset_top = 120.0
+offset_right = 1248.0
+offset_bottom = 184.0
+
+[node name="ChartSelector" parent="ChartControl" node_paths=PackedStringArray("strumBar", "noteGrid", "eventGrid", "renderedElements") instance=ExtResource("6_m10cc")]
+layout_mode = 0
+strumBar = NodePath("../StrumBar")
+noteGrid = NodePath("../NoteGrid")
+eventGrid = NodePath("../EventGrid")
+renderedElements = NodePath("../RenderedElements")
 
 [node name="Conductor" parent="." instance=ExtResource("3_tyg1x")]
 
@@ -81,9 +104,12 @@ visible = false
 layout_mode = 1
 theme = ExtResource("7_lgb8r")
 
-[connection signal="addNote" from="ChartControl/Note/NoteGrid" to="." method="_on_note_grid_add_note"]
-[connection signal="previewNoteAdd" from="ChartControl/Note/NoteGrid" to="ChartControl/Note/NotePreview" method="_on_note_grid_preview_note_add"]
-[connection signal="previewNoteRemove" from="ChartControl/Note/NoteGrid" to="ChartControl/Note/NotePreview" method="_on_note_grid_preview_note_remove"]
+[connection signal="addNote" from="ChartControl/NoteGrid" to="." method="_on_note_grid_add_note"]
+[connection signal="previewNoteAdd" from="ChartControl/NoteGrid" to="ChartControl/Preview" method="_on_note_grid_preview_note_add"]
+[connection signal="previewNoteRemove" from="ChartControl/NoteGrid" to="ChartControl/Preview" method="_on_note_grid_preview_note_remove"]
+[connection signal="addEvent" from="ChartControl/EventGrid" to="." method="_on_event_grid_add_event"]
+[connection signal="previewEventAdd" from="ChartControl/EventGrid" to="ChartControl/Preview" method="_on_event_grid_preview_event_add"]
+[connection signal="previewEventRemove" from="ChartControl/EventGrid" to="ChartControl/Preview" method="_on_event_grid_preview_event_remove"]
 [connection signal="moveGrab" from="ChartControl/StrumBar" to="." method="_on_strum_bar_move_grab"]
 [connection signal="startedGrab" from="ChartControl/StrumBar" to="." method="_on_strum_bar_started_grab"]
 [connection signal="beatHit" from="Conductor" to="." method="_on_conductor_beat_hit"]

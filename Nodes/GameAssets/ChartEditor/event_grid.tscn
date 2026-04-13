@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://blgqkedfnsqlh"]
+
+[ext_resource type="Script" uid="uid://4mphddqtsf50" path="res://Scripts/GameAssets/ChartEditor/event_grid.gd" id="1_nva36"]
+[ext_resource type="PackedScene" uid="uid://y3k4e0rwyu2a" path="res://Nodes/GameAssets/ChartEditor/event_grid_step.tscn" id="2_nva36"]
+
+[node name="EventGrid" type="HBoxContainer"]
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_constants/separation = 0
+script = ExtResource("1_nva36")
+
+[node name="Step" parent="." instance=ExtResource("2_nva36")]
+layout_mode = 2
+inEditor = true

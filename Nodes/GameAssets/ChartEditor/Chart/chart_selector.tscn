@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bj0y35rh3b6yy"]
 
-[ext_resource type="Script" uid="uid://coq6veidvavm5" path="res://Scripts/GameAssets/ChartEditor/chart_selector.gd" id="1_ta6po"]
+[ext_resource type="Script" uid="uid://coq6veidvavm5" path="res://Scripts/GameAssets/ChartEditor/chart/chart_selector.gd" id="1_ta6po"]
 
 [node name="ChartSelector" type="ColorRect"]
 color = Color(1, 0, 0, 0.392157)

@@ -3,13 +3,17 @@ extends Control
 #Screens
 @onready var startScreen = $StartScreen
 
+#Conductor
 @onready var conductor = $Conductor
 @onready var conductorSong = $Conductor/Song
-@onready var noteGrid = $ChartControl/Note/NoteGrid
-@onready var strumBar = $ChartControl/StrumBar
-@onready var rendElements = $ChartControl/Note/RenderedElements
 
+#NoteSystem
+@onready var noteGrid = $ChartControl/NoteGrid
+@onready var rendElements = $ChartControl/RenderedElements
+@onready var eventGrid = $ChartControl/EventGrid
 @onready var chartSelector = $ChartControl/ChartSelector
+@onready var strumBar = $ChartControl/StrumBar
+@onready var elementSelectUI = $ChartControl/ElementTypeSelect
 
 var songProject:SongProject = SongProject.new()
 var songPath:String
@@ -25,11 +29,9 @@ func loadChart():
 	conductor.NewSetSong(songProject.commonAudio)
 	conductor.setBpm(songProject.data.baseBpm)
 	
-	noteGrid.setGrid(conductor)
+	noteGrid.setGrid()
+	eventGrid.setGrid()
 	chartSelector.active = true
-
-func _process(delta: float) -> void:
-	noteGrid.setGridPos(conductor)
 
 func _input(event: InputEvent) -> void:
 	#ChangeChartPos based on scroll
@@ -87,4 +89,17 @@ func _on_start_screen_load_project(path: String) -> void:
 
 # NoteControl
 func _on_note_grid_add_note(pos: Vector2) -> void:
-	rendElements.addNote(pos)
+	# check section info and stuff, decide if a note or obstacle
+	var element
+	match elementSelectUI.currentType:
+		ChartElement.Types.Note:
+			element = ChartUINote.new()
+		ChartElement.Types.Obs:
+			element = ChartUIObstacle.new()
+	
+	print(element)
+	
+	rendElements.addObject(pos, element)
+
+func _on_event_grid_add_event(pos: Vector2) -> void:
+	rendElements.addObject(pos, ChartUIEvent.new())

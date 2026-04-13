@@ -1,0 +1,315 @@
+extends Control
+
+class_name ChartUIRenderedObjects
+
+@onready var uiNote = preload("res://Nodes/GameAssets/ChartEditor/Chart/Objects/chart_ui_note.tscn")
+@onready var uiEvent = preload("res://Nodes/GameAssets/ChartEditor/Chart/Objects/chart_ui_event.tscn")
+@onready var uiObstacle = preload("res://Nodes/GameAssets/ChartEditor/Chart/Objects/chart_ui_obstacle.tscn")
+
+@onready var initPos = global_position.x
+
+var selectedObjects:Array = []
+
+var lastNoteType:ChartNote.NoteTypes = ChartNote.NoteTypes.Normal
+var lastObsType:ChartObstacle.ObsTypes = ChartObstacle.ObsTypes.Cactus
+var lastEventType:ChartEvent.Types = ChartEvent.Types.Runner
+
+#Drag
+var dragOffsets = {}
+var updateHold = false
+var canDragVertical = false
+
+var filledPositions = {}
+
+#Dependencies
+@export var conductor:Conductor
+@export var noteGrid:NoteGridUI
+@export var eventGrid:EventGridUI
+@export var gridInfo:GridInfo
+
+func _process(delta: float) -> void:
+	setChartPos()
+
+func loadChart():
+	pass
+
+func addObject(pos:Vector2, object:ChartUIObject):
+	var objectToInstance = uiNote
+	if object is ChartUIEvent:
+		objectToInstance = uiEvent
+	elif object is ChartUIObstacle:
+		objectToInstance = uiObstacle
+	
+	var instance:ChartUIObject = objectToInstance.instantiate()
+	
+	#setSignals
+	instance.selected.connect(selectObject)
+	instance.dragging.connect(dragObject)
+	instance.startDragging.connect(startDrag)
+	
+	#Set Position
+	var actualXPos = (initPos - global_position.x) + pos.x
+	instance.setPositionGlobal(Vector2(actualXPos, pos.y))
+	
+	add_child(instance)
+	
+	#Set Data
+	var dict = {}
+	dict["position"] = getObjectSongPos(instance.position.x)
+	
+	if object is ChartUINote: # or us chartObstacle
+		dict["lane"] = floor((pos.y - noteGrid.global_position.y) / gridInfo.stepSize)
+	
+	instance.setData(dict)
+	
+	#Drag and select
+	selectObject(instance, true)
+	instance.startDrag()
+
+#SELECT
+func selectObject(object:ChartUIObject, created=false):
+	if !Input.is_action_pressed("ChartMultSelect") or created:
+		unselectObjects()
+	
+	object.setSelected(true)
+	
+	if selectedObjects.find(object) == -1:
+		selectedObjects.append(object)
+	
+	#Set last object Data
+	if object is ChartUINote:
+		lastNoteType = object.noteData.noteType
+	elif object is ChartUIObstacle:
+		lastObsType = object.obsData.obstacleType
+	elif object is ChartUIEvent:
+		lastEventType = object.eventData.eventType
+
+func selectObjectDrag(objects:Array):
+	unselectObjects()
+	
+	for object in objects:
+		object.setSelected(true)
+		selectedObjects.append(object)
+
+func unselectObjects():
+	for object in get_children():
+		object.setSelected(false)
+	
+	selectedObjects.clear()
+
+#DRAG
+func startDrag():
+	dragOffsets.clear()
+	var localMouse = noteGrid.get_local_mouse_position()
+	
+	canDragVertical = true
+	var lastLane = null
+	
+	updateHold = Input.is_action_pressed("ChartMultSelect")
+	
+	for object in selectedObjects:
+		if object is ChartUINote and updateHold:
+			var currentHold = object.holdNoteEnd.position.x
+			var noteEnd = object.position.x + currentHold
+			dragOffsets[object] = Vector2(noteEnd - localMouse.x, object.position.y - localMouse.y)
+			continue
+		
+		dragOffsets[object] = object.position - localMouse
+		
+		if object is ChartUIEvent:
+			continue
+		
+		var noteLaneYPos = (object.position.y - noteGrid.global_position.y)
+		var lane = floor(noteLaneYPos / gridInfo.stepSize)
+		
+		if lastLane != lane and lastLane != null:
+			canDragVertical = false
+		
+		lastLane = lane
+	
+	filledPositions.clear()
+	for object:TextureRect in get_children():
+		if selectedObjects.has(object):
+			continue
+		
+		filledPositions[object.position] = true
+		
+		if object is ChartUINote:
+			var holdDuration = object.holdNoteEnd.position.x / gridInfo.stepSize
+			
+			for holdPos in range(holdDuration):
+				var holdX = gridInfo.stepSize * (holdPos + 1)
+				var newPos = Vector2(object.position.x + holdX, object.position.y)
+				filledPositions[newPos] = true
+
+func dragObject(object):
+	if updateHold:
+		updateNoteHold(object)
+		return
+	
+	moveObject(object)
+
+#UPDATENOTE HOLD
+func updateNoteHold(note):
+	for object in selectedObjects:
+		if !object.position in filledPositions:
+			filledPositions[object.position] = true
+		
+		if object is not ChartUINote:
+			continue
+		
+		var hold = setNoteHold(object)
+	
+		if !canSetHold(hold, object):
+			continue
+		
+		object.holdNoteEnd.position.x = hold
+		object.holdNoteLine.position.x = gridInfo.stepSize
+		object.holdNoteLine.size.x = hold - gridInfo.stepSize
+		
+		var dict = {}
+		dict["holdAmount"] = getNoteDurationFromPixels(hold)
+		object.setData(dict)
+
+func setNoteHold(element):
+	var mousePosX = noteGrid.get_local_mouse_position().x
+	var targetEndPos = mousePosX + dragOffsets[element].x
+	var rawMoveX = targetEndPos - element.position.x
+	
+	return max(0, round(rawMoveX / gridInfo.stepSize) * gridInfo.stepSize)
+
+func canSetHold(moveX:float, note:ChartUINote) -> bool:
+	var startX = note.position.x
+	var holdDuration = moveX / gridInfo.stepSize
+	
+	for holdPos in range(holdDuration):
+		var holdX = gridInfo.stepSize * (holdPos + 1)
+		var newPos = Vector2(startX + holdX, note.position.y)
+		if newPos in filledPositions:
+			return false
+	
+	return true
+
+#MOVE Object
+func moveObject(object):
+	var moveX = moveHorizontal(object)
+	var moveY = moveVertical(object)
+	
+	if !canMove(moveX, moveY):
+		return
+	
+	#MoveNote
+	for curObject in selectedObjects:
+		curObject.position.x += moveX
+		
+		if curObject is not ChartUIEvent:
+			curObject.position.y = moveY if canDragVertical else curObject.position.y
+		
+		#Update Info
+		var dict = {}
+		dict["position"] = getObjectSongPos(curObject.position.x)
+		
+		if curObject is ChartUINote: #or is ChartUIObstacle
+			dict["lane"] = floor((curObject.global_position.y - noteGrid.global_position.y) / gridInfo.stepSize)
+		
+		curObject.setData(dict)
+
+func moveVertical(element) -> float:
+	if !canDragVertical:
+		return 0.0
+	
+	var spacing = noteGrid.stepSpacing
+	var header = noteGrid.stepMarkerHeight + spacing
+	var laneSize = gridInfo.stepSize + spacing
+	
+	var mousePosY = noteGrid.get_local_mouse_position().y
+	var targetY = (mousePosY + dragOffsets[element].x) - header
+	var laneIndex = clamp(round(targetY / laneSize), 0, gridInfo.laneAmnt - 1)
+	
+	var snappedLocalY = header + (laneIndex * laneSize)
+	return snappedLocalY + noteGrid.global_position.y
+
+func moveHorizontal(element) -> float:
+	#GetXPosition
+	var mousePosX = noteGrid.get_local_mouse_position().x
+	var targetX = mousePosX + dragOffsets[element].x
+	var relativeX = targetX - noteGrid.initPos
+	
+	#Calculate X moveDelta
+	var step = round(relativeX / gridInfo.stepSize)
+	var snappedPos = (step * gridInfo.stepSize) + noteGrid.initPos
+	
+	return snappedPos - element.position.x
+
+func canMove(moveX:float, moveY:float) -> bool:
+	for object in selectedObjects:
+		#Set future positions
+		var futureX = object.position.x + moveX
+		var futureY = moveY
+		if !canDragVertical or object is ChartUIEvent:
+			futureY = object.position.y
+		
+		#SetLimits
+		if getObjectSongPos(futureX) < 0:
+			return false
+		
+		if getObjectSongPos(futureX) >= conductor.songLength - conductor.stepCrochet:
+			return false
+		
+		#Check if object is not colliding with another object
+		if Vector2(futureX, futureY) in filledPositions:
+			return false
+		
+		#Check if HOLD is not colliding with another object
+		if object is ChartUINote:
+			var holdDuration = object.holdNoteEnd.position.x / gridInfo.stepSize
+			
+			for holdPos in range(holdDuration):
+				var holdX = gridInfo.stepSize * (holdPos + 1)
+				var newPos = Vector2(futureX + holdX, futureY)
+				if newPos in filledPositions:
+					return false
+	
+	return true
+
+#Chart/Song Positions
+func getObjectSongPos(noteXPos:float) -> float:
+	var xPos = noteXPos - noteGrid.initPos
+	var songPos = (xPos / gridInfo.stepSize) * conductor.stepCrochet
+	return songPos
+
+func getNoteDurationFromPixels(pixelDist: float) -> float:
+	return (pixelDist / gridInfo.stepSize) * conductor.stepCrochet
+
+func setChartPos():
+	var xPos = ((conductor.songPos / conductor.stepCrochet) * (gridInfo.stepSize))
+	
+	global_position.x = (xPos * gridInfo.gridDir) + initPos
+
+#KeyBoard Shortcuts / Additional Inputs
+func _input(event: InputEvent) -> void:
+	clickOutside()
+	deleteObjects()
+
+func deleteObjects():
+	if !(Input.is_action_just_pressed("Delete") and selectedObjects.size() > 0):
+		return
+	
+	for element in selectedObjects:
+		element.queue_free()
+	
+	selectedObjects.clear()
+
+func clickOutside():
+	if !Input.is_action_pressed("LeftMouseClick"):
+		return
+	
+	var canUnselect = []
+	for element in get_children():
+		if !element.isHovered and !element.isDragging:
+			canUnselect.append(true)
+		else:
+			canUnselect.append(false)
+	
+	if canUnselect.find(false) == -1:
+		unselectObjects()

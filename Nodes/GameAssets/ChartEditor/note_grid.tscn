@@ -8,7 +8,6 @@ offset_right = 60.0
 offset_bottom = 124.0
 theme_override_constants/separation = 0
 script = ExtResource("1_2f4tt")
-stepSize = 64.0
 
 [node name="Step" parent="." instance=ExtResource("2_mkpgi")]
 layout_mode = 2

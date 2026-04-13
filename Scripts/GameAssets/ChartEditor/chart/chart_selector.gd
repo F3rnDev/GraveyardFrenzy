@@ -1,8 +1,10 @@
 extends ColorRect
 
+@export var strumBar:StrumBar
+
 @export var noteGrid:NoteGridUI
-@export var renderedElements:ChartUIRenderedElements
-#@export var renderedEvents
+@export var eventGrid:EventGridUI
+@export var renderedElements:ChartUIRenderedObjects
 
 var active = false
 
@@ -11,7 +13,12 @@ var initMousePos:Vector2
 
 func startSelection():
 	var noteGridRect = noteGrid.get_rect()
-	if noteGridRect.has_point(get_global_mouse_position()):
+	var isInNoteGrid = noteGridRect.has_point(get_global_mouse_position())
+	
+	var eventGridRect = eventGrid.get_rect()
+	var isInEventGrid = eventGridRect.has_point(get_global_mouse_position())
+	
+	if isInNoteGrid or isInEventGrid or strumBar.mouseInStrum:
 		return
 	
 	initMousePos = get_global_mouse_position()
@@ -32,11 +39,11 @@ func select():
 	
 	var selectingNotes:Array = []
 	var selectionRect = get_rect()
-	for element in renderedElements.get_children():
-		if selectionRect.has_point(element.global_position):
-			selectingNotes.append(element)
+	for object in renderedElements.get_children():
+		if selectionRect.has_point(object.global_position):
+			selectingNotes.append(object)
 	
-	renderedElements.selectElementDrag(selectingNotes)
+	renderedElements.selectObjectDrag(selectingNotes)
 	
 	size = Vector2.ZERO
 

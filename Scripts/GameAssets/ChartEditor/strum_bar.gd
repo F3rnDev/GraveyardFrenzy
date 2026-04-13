@@ -1,5 +1,7 @@
 extends Control
 
+class_name StrumBar
+
 signal startedGrab()
 signal moveGrab(direction)
 

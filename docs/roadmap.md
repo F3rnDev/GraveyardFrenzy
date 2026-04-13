@@ -17,7 +17,7 @@
 [roadmap-item]
   [current]
   [title]Patch v1[title]
-  [date]Apr 2026[date]
+  [date]May 2026[date]
   [description]Polish gameplay, and remake the charting system.[description]
   [progress]25[progress]
   [version]v0.0.2[version]

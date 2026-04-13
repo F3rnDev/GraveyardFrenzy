@@ -1,17 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://dqp32tir4o145"]
 
 [ext_resource type="Texture2D" uid="uid://bk1m6ar3id6i2" path="res://Assets/Images/UI Images/ChartEditor/NoteSign.png" id="1_chisp"]
-[ext_resource type="Script" uid="uid://rw8o7y0pxre3" path="res://Scripts/GameAssets/ChartEditor/chart_ui_note.gd" id="2_mncdx"]
+[ext_resource type="Script" uid="uid://rw8o7y0pxre3" path="res://Scripts/GameAssets/ChartEditor/chart/objects/chart_ui_note.gd" id="2_mncdx"]
 [ext_resource type="Texture2D" uid="uid://bjnoxmlmfqx6l" path="res://Assets/Images/UI Images/ChartEditor/NoteSignHold1.png" id="3_7blxt"]
 [ext_resource type="Texture2D" uid="uid://bk8qltutiuefj" path="res://Assets/Images/UI Images/ChartEditor/NoteSignHold2.png" id="4_kyept"]
 
 [node name="Note" type="TextureRect"]
 custom_minimum_size = Vector2(64, 64)
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 64.0
+offset_bottom = 64.0
 mouse_default_cursor_shape = 2
 texture = ExtResource("1_chisp")
 script = ExtResource("2_mncdx")
+metadata/_custom_type_script = "uid://wdrb3xd077ek"
 
 [node name="HoldLine" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(64, 64)
@@ -35,7 +36,7 @@ grow_vertical = 2
 mouse_default_cursor_shape = 2
 texture = ExtResource("4_kyept")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="SelectHint" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,13 +45,3 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0, 0, 0.392157)
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-offset_top = -23.0
-offset_right = 86.0
-theme_override_colors/font_color = Color(3.27289e-06, 0.583245, 0.782523, 1)
-text = "Hold = 20.0"
-
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

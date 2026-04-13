@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://0t6oh4brib5t"]
 
-[ext_resource type="Script" uid="uid://8wexta1b1hnb" path="res://Scripts/GameAssets/ChartEditor/rendered_elements.gd" id="1_k1qvq"]
+[ext_resource type="Script" uid="uid://8wexta1b1hnb" path="res://Scripts/GameAssets/ChartEditor/chart/rendered_elements.gd" id="1_k1qvq"]
 
 [node name="RenderedElements" type="Control"]
 layout_mode = 3
