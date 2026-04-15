@@ -58,12 +58,13 @@ offset_bottom = 454.0
 conductor = NodePath("../../Conductor")
 gridInfo = NodePath("../GridInfo")
 
-[node name="RenderedElements" parent="ChartControl" node_paths=PackedStringArray("conductor", "noteGrid", "eventGrid", "gridInfo") instance=ExtResource("4_slqsl")]
+[node name="RenderedElements" parent="ChartControl" node_paths=PackedStringArray("conductor", "noteGrid", "eventGrid", "gridInfo", "elementSelectUI") instance=ExtResource("4_slqsl")]
 layout_mode = 1
 conductor = NodePath("../../Conductor")
 noteGrid = NodePath("../NoteGrid")
 eventGrid = NodePath("../EventGrid")
 gridInfo = NodePath("../GridInfo")
+elementSelectUI = NodePath("../ElementTypeSelect")
 
 [node name="Preview" parent="ChartControl" node_paths=PackedStringArray("renderedNotes", "elementTypeSelect") instance=ExtResource("4_wwp6h")]
 visible = false
@@ -84,11 +85,18 @@ offset_bottom = 94.0
 grow_vertical = 2
 
 [node name="ElementTypeSelect" parent="ChartControl" instance=ExtResource("8_lhiwb")]
-layout_mode = 0
-offset_left = 1116.0
-offset_top = 120.0
-offset_right = 1248.0
-offset_bottom = 184.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -240.0
+offset_right = -18.0
+offset_bottom = -176.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="ChartSelector" parent="ChartControl" node_paths=PackedStringArray("strumBar", "noteGrid", "eventGrid", "renderedElements") instance=ExtResource("6_m10cc")]
 layout_mode = 0
@@ -104,10 +112,10 @@ visible = false
 layout_mode = 1
 theme = ExtResource("7_lgb8r")
 
-[connection signal="addNote" from="ChartControl/NoteGrid" to="." method="_on_note_grid_add_note"]
+[connection signal="addNote" from="ChartControl/NoteGrid" to="ChartControl/RenderedElements" method="_on_note_grid_add_note"]
 [connection signal="previewNoteAdd" from="ChartControl/NoteGrid" to="ChartControl/Preview" method="_on_note_grid_preview_note_add"]
 [connection signal="previewNoteRemove" from="ChartControl/NoteGrid" to="ChartControl/Preview" method="_on_note_grid_preview_note_remove"]
-[connection signal="addEvent" from="ChartControl/EventGrid" to="." method="_on_event_grid_add_event"]
+[connection signal="addEvent" from="ChartControl/EventGrid" to="ChartControl/RenderedElements" method="_on_event_grid_add_event"]
 [connection signal="previewEventAdd" from="ChartControl/EventGrid" to="ChartControl/Preview" method="_on_event_grid_preview_event_add"]
 [connection signal="previewEventRemove" from="ChartControl/EventGrid" to="ChartControl/Preview" method="_on_event_grid_preview_event_remove"]
 [connection signal="moveGrab" from="ChartControl/StrumBar" to="." method="_on_strum_bar_move_grab"]

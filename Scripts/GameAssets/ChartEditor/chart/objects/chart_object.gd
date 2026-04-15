@@ -3,7 +3,7 @@ extends TextureRect
 class_name ChartUIObject #Elements AND Events
 
 #Hovered
-var isHovered = true
+var isHovered = false
 
 #Select
 @onready var selectRect = $SelectHint
@@ -22,6 +22,8 @@ signal dragging()
 func _ready() -> void:
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
+	
+	setSelected(false)
 
 func setSelected(selected:bool):
 	isSelected = selected

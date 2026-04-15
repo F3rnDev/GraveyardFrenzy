@@ -26,14 +26,45 @@ var filledPositions = {}
 @export var noteGrid:NoteGridUI
 @export var eventGrid:EventGridUI
 @export var gridInfo:GridInfo
+@export var elementSelectUI:ElementTypeSelectUI
 
 func _process(delta: float) -> void:
 	setChartPos()
 
-func loadChart():
-	pass
+func loadChart(chart:Chart):
+	for element in chart.elements:
+		var pos = getElementPos(element.position, element.lane)
+		var object
+		
+		if element.elementType == ChartElement.Types.Note:
+			object = ChartUINote.new()
+		elif element.elementType == ChartElement.Types.Obs:
+			object = ChartUIObstacle.new()
+		
+		addObject(pos, object, element.getDict())
+	
+	for event in chart.events:
+		var pos = getEventPos(event.position)
+		
+		addObject(pos, ChartUIEvent.new(), event.getDict())
 
-func addObject(pos:Vector2, object:ChartUIObject):
+func getChart():
+	var curChart:Chart = Chart.new()
+	
+	for object in get_children():
+		if object is ChartUINote:
+			curChart.elements.append(object.noteData)
+		elif object is ChartUIObstacle:
+			curChart.elements.append(object.obsData)
+		elif object is ChartUIEvent:
+			curChart.events.append(object.eventData)
+	
+	curChart.elements.sort_custom(func(a,b): return a.position < b.position)
+	curChart.events.sort_custom(func(a,b): return a.position < b.position)
+	
+	return curChart
+
+func addObject(pos:Vector2, object:ChartUIObject, previousData:Dictionary = {}):
 	var objectToInstance = uiNote
 	if object is ChartUIEvent:
 		objectToInstance = uiEvent
@@ -55,16 +86,27 @@ func addObject(pos:Vector2, object:ChartUIObject):
 	
 	#Set Data
 	var dict = {}
-	dict["position"] = getObjectSongPos(instance.position.x)
 	
-	if object is ChartUINote: # or us chartObstacle
-		dict["lane"] = floor((pos.y - noteGrid.global_position.y) / gridInfo.stepSize)
+	if previousData.is_empty():
+		dict["position"] = getObjectSongPos(instance.position.x)
+		
+		if object is not ChartUIEvent:
+			dict["lane"] = floor((pos.y - noteGrid.global_position.y) / gridInfo.stepSize)
+	else:
+		dict = previousData
 	
 	instance.setData(dict)
 	
+	#Set Hold, if it has any
+	if object is ChartUINote and dict.has("holdAmount") and dict["holdAmount"] > 0.0:
+		var hold = getNotePixelsFromDuration(dict["holdAmount"])
+		instance.updateHold(hold, gridInfo.stepSize)
+	
 	#Drag and select
-	selectObject(instance, true)
-	instance.startDrag()
+	if previousData.is_empty():
+		instance.isHovered = true
+		selectObject(instance, true)
+		instance.startDrag()
 
 #SELECT
 func selectObject(object:ChartUIObject, created=false):
@@ -163,13 +205,13 @@ func updateNoteHold(note):
 		if !canSetHold(hold, object):
 			continue
 		
-		object.holdNoteEnd.position.x = hold
-		object.holdNoteLine.position.x = gridInfo.stepSize
-		object.holdNoteLine.size.x = hold - gridInfo.stepSize
-		
+		#SetData
 		var dict = {}
 		dict["holdAmount"] = getNoteDurationFromPixels(hold)
 		object.setData(dict)
+		
+		#SetHold
+		object.updateHold(hold, gridInfo.stepSize)
 
 func setNoteHold(element):
 	var mousePosX = noteGrid.get_local_mouse_position().x
@@ -209,7 +251,7 @@ func moveObject(object):
 		var dict = {}
 		dict["position"] = getObjectSongPos(curObject.position.x)
 		
-		if curObject is ChartUINote: #or is ChartUIObstacle
+		if curObject is not ChartUIEvent:
 			dict["lane"] = floor((curObject.global_position.y - noteGrid.global_position.y) / gridInfo.stepSize)
 		
 		curObject.setData(dict)
@@ -273,10 +315,33 @@ func canMove(moveX:float, moveY:float) -> bool:
 	return true
 
 #Chart/Song Positions
+func getElementPos(songXPos, lane):
+	#SetXPos
+	var xPos = ((songXPos / conductor.stepCrochet) * (gridInfo.stepSize))
+	
+	#SetYPos
+	var spacing = noteGrid.stepSpacing
+	var header = noteGrid.stepMarkerHeight + spacing
+	var laneSize = gridInfo.stepSize + spacing
+	
+	var yPos = (header + (lane * laneSize)) + noteGrid.global_position.y
+	
+	return Vector2(xPos + noteGrid.initPos, yPos)
+
+func getEventPos(songXPos):
+	#SetXPos
+	var xPos = ((songXPos / conductor.stepCrochet) * (gridInfo.stepSize))
+	var yPos = eventGrid.global_position.y
+	
+	return Vector2(xPos + noteGrid.initPos, yPos)
+
 func getObjectSongPos(noteXPos:float) -> float:
 	var xPos = noteXPos - noteGrid.initPos
 	var songPos = (xPos / gridInfo.stepSize) * conductor.stepCrochet
 	return songPos
+
+func getNotePixelsFromDuration(noteHold:float) -> float:
+	return (noteHold * gridInfo.stepSize) / conductor.stepCrochet
 
 func getNoteDurationFromPixels(pixelDist: float) -> float:
 	return (pixelDist / gridInfo.stepSize) * conductor.stepCrochet
@@ -313,3 +378,18 @@ func clickOutside():
 	
 	if canUnselect.find(false) == -1:
 		unselectObjects()
+
+#SIGNALS
+func _on_note_grid_add_note(pos: Vector2) -> void:
+	# check section info and stuff, decide if a note or obstacle
+	var element
+	match elementSelectUI.currentType:
+		ChartElement.Types.Note:
+			element = ChartUINote.new()
+		ChartElement.Types.Obs:
+			element = ChartUIObstacle.new()
+	
+	addObject(pos, element)
+
+func _on_event_grid_add_event(pos: Vector2) -> void:
+	addObject(pos, ChartUIEvent.new())

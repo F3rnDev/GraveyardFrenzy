@@ -9,20 +9,20 @@ extends Control
 
 #NoteSystem
 @onready var noteGrid = $ChartControl/NoteGrid
-@onready var rendElements = $ChartControl/RenderedElements
 @onready var eventGrid = $ChartControl/EventGrid
+@onready var rendElements = $ChartControl/RenderedElements
 @onready var chartSelector = $ChartControl/ChartSelector
 @onready var strumBar = $ChartControl/StrumBar
-@onready var elementSelectUI = $ChartControl/ElementTypeSelect
 
 var songProject:SongProject = SongProject.new()
+var curDiff = "normal"
 var songPath:String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	startScreen.visible = true
 
-#Get Path after selecting the song
+#Save/Load Chart
 func loadChart():
 	startScreen.visible = false
 	
@@ -32,7 +32,15 @@ func loadChart():
 	noteGrid.setGrid()
 	eventGrid.setGrid()
 	chartSelector.active = true
+	
+	curDiff = songProject.charts.keys()[0]
+	rendElements.loadChart(songProject.charts[curDiff])
 
+func saveChart():
+	songProject.charts[curDiff] = rendElements.getChart()
+	SongLoader.saveSong(songPath, songProject)
+
+#Input
 func _input(event: InputEvent) -> void:
 	#ChangeChartPos based on scroll
 	if Input.is_action_just_pressed("WheelUp"):
@@ -40,9 +48,15 @@ func _input(event: InputEvent) -> void:
 	elif Input.is_action_just_pressed("WheelDown"):
 		moveChart(-1.0)
 	
-	#Change to a button
+	keyShortcuts()
+
+#Shortcut
+func keyShortcuts():
 	if Input.is_action_just_pressed("Confirm"):
 		conductor.playSong(false)
+	
+	if Input.is_action_just_pressed("SaveChart"):
+		saveChart()
 
 #reset position if the song position is out of bounds
 func canMoveChart(newPos:float) -> bool:
@@ -86,20 +100,3 @@ func _on_start_screen_load_project(path: String) -> void:
 	songPath = path
 	
 	loadChart()
-
-# NoteControl
-func _on_note_grid_add_note(pos: Vector2) -> void:
-	# check section info and stuff, decide if a note or obstacle
-	var element
-	match elementSelectUI.currentType:
-		ChartElement.Types.Note:
-			element = ChartUINote.new()
-		ChartElement.Types.Obs:
-			element = ChartUIObstacle.new()
-	
-	print(element)
-	
-	rendElements.addObject(pos, element)
-
-func _on_event_grid_add_event(pos: Vector2) -> void:
-	rendElements.addObject(pos, ChartUIEvent.new())

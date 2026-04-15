@@ -19,9 +19,15 @@ func setData(noteDict:Dictionary):
 	updateUI()
 
 func updateUI():
-	#Set hold info
+	#Set hold visibility
 	holdNoteLine.visible = noteData.holdAmount > 0.0
 	holdNoteEnd.visible = noteData.holdAmount > 0.0
+
+func updateHold(hold:float, stepSize:float):
+	#Update Hold Position and Size
+	holdNoteEnd.position.x = hold
+	holdNoteLine.position.x = stepSize
+	holdNoteLine.size.x = hold - stepSize
 	
 	#Set Color Rect Size
 	selectRect.size.x = holdNoteEnd.position.x + holdNoteEnd.size.x

@@ -16,7 +16,7 @@ func setNode(dict:Dictionary):
 	events.clear()
 	
 	for elementData in dict["elements"]:
-		match elementData["elementType"]:
+		match int(elementData["elementType"]):
 			ChartElement.Types.Note:
 				var note:ChartNote = ChartNote.new()
 				note.setNode(elementData)

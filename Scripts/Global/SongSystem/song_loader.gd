@@ -7,7 +7,7 @@ static var songExtension = ".frzp" #Frenzy Project
 static func saveSong(path:String, project:SongProject):
 	var packer:ZIPPacker = ZIPPacker.new()
 	
-	var err = packer.open(path + "/" + project.data.songName + songExtension)
+	var err = packer.open(getFullFilePath(path, project.data.songName))
 	if err != OK:
 		return err
 	
@@ -58,6 +58,12 @@ static func loadSongProject(path:String) -> SongProject:
 	project.commonAudio = commonAudioBytes
 	
 	return project
+
+static func getFullFilePath(path:String, songName:String = "") -> String:
+	if path.contains(songExtension):
+		return path
+	
+	return path + "/" + songName + songExtension
 
 #LoadChart
 #LoadSongData
