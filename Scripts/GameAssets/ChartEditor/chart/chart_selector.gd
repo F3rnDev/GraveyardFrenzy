@@ -6,48 +6,41 @@ extends ColorRect
 @export var eventGrid:EventGridUI
 @export var renderedElements:ChartUIRenderedObjects
 
+@onready var selector = $Selector
+
 var active = false
 
 var selecting = false
 var initMousePos:Vector2
 
 func startSelection():
-	var noteGridRect = noteGrid.get_rect()
-	var isInNoteGrid = noteGridRect.has_point(get_global_mouse_position())
-	
-	var eventGridRect = eventGrid.get_rect()
-	var isInEventGrid = eventGridRect.has_point(get_global_mouse_position())
-	
-	if isInNoteGrid or isInEventGrid or strumBar.mouseInStrum:
-		return
-	
 	initMousePos = get_global_mouse_position()
 	
-	global_position = initMousePos
+	selector.global_position = initMousePos
 	selecting = true
 
 func updateSelection():
 	var endMousePos = get_global_mouse_position()
-	global_position.x = min(initMousePos.x, endMousePos.x)
-	global_position.y = min(initMousePos.y, endMousePos.y)
+	selector.global_position.x = min(initMousePos.x, endMousePos.x)
+	selector.global_position.y = min(initMousePos.y, endMousePos.y)
 	
-	size.x = abs(endMousePos.x - initMousePos.x)
-	size.y = abs(endMousePos.y - initMousePos.y)
+	selector.size.x = abs(endMousePos.x - initMousePos.x)
+	selector.size.y = abs(endMousePos.y - initMousePos.y)
 
 func select():
 	selecting = false
 	
 	var selectingNotes:Array = []
-	var selectionRect = get_rect()
+	var selectionRect = selector.get_rect()
 	for object in renderedElements.get_children():
 		if selectionRect.has_point(object.global_position):
 			selectingNotes.append(object)
 	
 	renderedElements.selectObjectDrag(selectingNotes)
 	
-	size = Vector2.ZERO
+	selector.size = Vector2.ZERO
 
-func _input(event: InputEvent) -> void:
+func _gui_input(event: InputEvent) -> void:
 	if !active:
 		return
 	

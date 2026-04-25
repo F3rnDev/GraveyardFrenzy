@@ -15,7 +15,6 @@ custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
 
 [node name="StepTex" type="TextureRect" parent="StepDivision"]
-custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
 offset_left = -2.0
 offset_right = 64.0

@@ -32,6 +32,8 @@ func _process(delta: float) -> void:
 	setChartPos()
 
 func loadChart(chart:Chart):
+	clearChart()
+	
 	for element in chart.elements:
 		var pos = getElementPos(element.position, element.lane)
 		var object
@@ -47,6 +49,10 @@ func loadChart(chart:Chart):
 		var pos = getEventPos(event.position)
 		
 		addObject(pos, ChartUIEvent.new(), event.getDict())
+
+func clearChart():
+	for object in get_children():
+		object.queue_free()
 
 func getChart():
 	var curChart:Chart = Chart.new()
@@ -79,8 +85,12 @@ func addObject(pos:Vector2, object:ChartUIObject, previousData:Dictionary = {}):
 	instance.startDragging.connect(startDrag)
 	
 	#Set Position
-	var actualXPos = (initPos - global_position.x) + pos.x
-	instance.setPositionGlobal(Vector2(actualXPos, pos.y))
+	var selXPos = (initPos - global_position.x) + pos.x
+	
+	if !previousData.is_empty():
+		selXPos = initPos + pos.x
+	
+	instance.setPositionGlobal(Vector2(selXPos, pos.y))
 	
 	add_child(instance)
 	
@@ -224,10 +234,14 @@ func canSetHold(moveX:float, note:ChartUINote) -> bool:
 	var startX = note.position.x
 	var holdDuration = moveX / gridInfo.stepSize
 	
+	if getObjectSongPos(startX + moveX) > conductor.songLength - conductor.stepCrochet:
+		return false
+	
 	for holdPos in range(holdDuration):
 		var holdX = gridInfo.stepSize * (holdPos + 1)
 		var newPos = Vector2(startX + holdX, note.position.y)
 		if newPos in filledPositions:
+			print(newPos.x, " and ", conductor.songLength)
 			return false
 	
 	return true
@@ -291,26 +305,28 @@ func canMove(moveX:float, moveY:float) -> bool:
 		if !canDragVertical or object is ChartUIEvent:
 			futureY = object.position.y
 		
-		#SetLimits
-		if getObjectSongPos(futureX) < 0:
-			return false
-		
-		if getObjectSongPos(futureX) >= conductor.songLength - conductor.stepCrochet:
-			return false
-		
 		#Check if object is not colliding with another object
 		if Vector2(futureX, futureY) in filledPositions:
 			return false
 		
 		#Check if HOLD is not colliding with another object
+		var holdEndPos = 0.0
 		if object is ChartUINote:
-			var holdDuration = object.holdNoteEnd.position.x / gridInfo.stepSize
+			holdEndPos = object.holdNoteEnd.position.x
+			var holdDuration = holdEndPos / gridInfo.stepSize
 			
 			for holdPos in range(holdDuration):
 				var holdX = gridInfo.stepSize * (holdPos + 1)
 				var newPos = Vector2(futureX + holdX, futureY)
 				if newPos in filledPositions:
 					return false
+		
+		#SetLimits
+		if getObjectSongPos(futureX) < 0:
+			return false
+		
+		if getObjectSongPos(futureX + holdEndPos) >= conductor.songLength - conductor.stepCrochet:
+			return false
 	
 	return true
 

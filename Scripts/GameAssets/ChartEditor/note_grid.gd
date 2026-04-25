@@ -38,8 +38,7 @@ func setGrid():
 		gridStepInstance.btnEntered.connect(enteredButton)
 		gridStepInstance.btnExited.connect(exitedButton)
 		gridStepInstance.btnPressed.connect(pressedButton)
-		gridStepInstance.setStep(step)
-
+		gridStepInstance.setStep(step, gridInfo.stepSize)
 
 func setGridPos():
 	var xPos = ((conductor.songPos / conductor.stepCrochet) * (gridInfo.stepSize))

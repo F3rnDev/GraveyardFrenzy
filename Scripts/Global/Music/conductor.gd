@@ -33,14 +33,15 @@ func playSong(restart):
 	curStep = floor((songPos) / stepCrochet)
 	curBeat = floor(curStep/4)
 	
+	$Song.play()
+	startTime = Time.get_ticks_msec()/1000.0
+	if !restart and floor(songPos) < floor($Song.stream.get_length()):
+		$Song.seek(songPos)
+		startTime -= songPos
+
+func pauseSong():
 	if $Song.playing:
 		$Song.stop()
-	else:
-		$Song.play()
-		startTime = Time.get_ticks_msec()/1000.0
-		if !restart and floor(songPos) < floor($Song.stream.get_length()):
-			$Song.seek(songPos)
-			startTime -= songPos
 
 func setBpm(newBpm):
 	bpm = newBpm

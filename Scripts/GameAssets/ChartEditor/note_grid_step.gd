@@ -6,6 +6,7 @@ var thisStep = 0
 
 @export var inScene = false
 
+@onready var stepDivisionGrp = $StepDivision
 @onready var stepTexture = $StepDivision/StepTex
 @onready var beatNumber = $StepDivision/StepTex/BeatNum
 @onready var separator = $SeparatorGrp
@@ -23,7 +24,7 @@ signal btnExited()
 
 signal btnPressed(pos:Vector2)
 
-func setStep(step:int):
+func setStep(step:int, stepSize:float):
 	thisStep = step
 	
 	beatNumber.visible = false

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=51 format=4 uid="uid://cyb8ixl8b0jtt"]
+[gd_resource type="Theme" load_steps=52 format=4 uid="uid://cyb8ixl8b0jtt"]
 
 [ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="1_wca55"]
 [ext_resource type="Texture2D" uid="uid://b2fprprb6qswf" path="res://Assets/Images/UI Images/SpinBox2.png" id="2_lcet5"]
@@ -67,6 +67,12 @@ expand_margin_left = 4.0
 expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eq4yn"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jd0lu"]
 bg_color = Color(1, 1, 1, 1)
@@ -1144,8 +1150,8 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eq4yn"]
-bg_color = Color(0, 0, 0, 0.615686)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stko8"]
+bg_color = Color(0, 0, 0, 0.529412)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5e7ug"]
 bg_color = Color(0, 0, 0, 1)
@@ -1253,6 +1259,9 @@ Button/styles/focus = SubResource("StyleBoxFlat_s2t23")
 Button/styles/hover = SubResource("StyleBoxFlat_l7rws")
 Button/styles/normal = SubResource("StyleBoxFlat_f3ol1")
 Button/styles/pressed = SubResource("StyleBoxFlat_2l4vd")
+ChartEditorFooter/base_type = &"Panel"
+ChartEditorFooter/styles/panel = SubResource("StyleBoxFlat_eq4yn")
+GamePanel/base_type = &"Panel"
 IconButton/base_type = &"Button"
 IconButton/styles/focus = SubResource("StyleBoxFlat_jd0lu")
 IconButton/styles/hover = SubResource("StyleBoxFlat_ek0qr")
@@ -1303,7 +1312,10 @@ NoteGridStepSection/base_type = &"Button"
 NoteGridStepSection/styles/hover = SubResource("StyleBoxFlat_lb3dg")
 NoteGridStepSection/styles/normal = SubResource("StyleBoxFlat_biuy5")
 NoteGridStepSection/styles/pressed = SubResource("StyleBoxFlat_lxuol")
-Panel/styles/panel = SubResource("StyleBoxFlat_eq4yn")
+OptionButton/fonts/font = ExtResource("1_wca55")
+OptionButton/icons/arrow = ExtResource("4_lxuol")
+Panel/styles/panel = SubResource("StyleBoxFlat_stko8")
+PopupMenu/fonts/font = ExtResource("1_wca55")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_5e7ug")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_p3e7j")
 ScrollContainer/styles/panel = SubResource("StyleBoxFlat_l5sax")
