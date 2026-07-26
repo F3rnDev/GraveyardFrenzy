@@ -27,11 +27,9 @@ func _on_note_grid_preview_note_add(pos: Vector2) -> void:
 	var image
 	match elementTypeSelect.currentType:
 		ChartElement.Types.Note:
-			element = renderedNotes.lastNoteType
-			image = ChartUIImages.notes[element]
+			image = ChartUIImages.notes[0]
 		ChartElement.Types.Obs:
-			element = renderedNotes.lastObsType
-			image = ChartUIImages.obstacles[element]
+			image = ChartUIImages.obstacles[0]
 	
 	addPreview(pos, image)
 
@@ -40,7 +38,7 @@ func _on_note_grid_preview_note_remove() -> void:
 
 #Events
 func _on_event_grid_preview_event_add(pos: Vector2) -> void:
-	var event = renderedNotes.lastEventType
+	var event = 0
 	var image = ChartUIImages.events[event]
 	
 	addPreview(pos, image)

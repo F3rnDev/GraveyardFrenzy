@@ -1,3 +1,4 @@
+extends ChartObject
 class_name ChartEvent
 
 enum Types
@@ -5,18 +6,22 @@ enum Types
 	Runner
 }
 
-var position:float = 0.0
 var eventType:Types = Types.Runner
 var eventParams:Dictionary = {}
 
 func getDict() -> Dictionary:
-	return {
-		"position": position,
-		"eventType": eventType,
-		"eventParams": eventParams
-	}
+	var dict = super.getDict()
+	
+	dict["eventType"] = eventType
+	dict["eventParams"] = eventParams
+	
+	return dict
+
+func getUIType():
+	return ChartUIEvent
 
 func setNode(dict:Dictionary):
-	position = dict["position"]
+	super.setNode(dict)
+	
 	eventType = dict["eventType"]
 	eventParams = dict["eventParams"]

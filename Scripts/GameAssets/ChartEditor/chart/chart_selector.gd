@@ -32,7 +32,7 @@ func select():
 	
 	var selectingNotes:Array = []
 	var selectionRect = selector.get_rect()
-	for object in renderedElements.get_children():
+	for object in renderedElements.elements.get_children():
 		if selectionRect.has_point(object.global_position):
 			selectingNotes.append(object)
 	
@@ -40,12 +40,16 @@ func select():
 	
 	selector.size = Vector2.ZERO
 
+func clickOutside():
+	renderedElements.unselectObjects()
+
 func _gui_input(event: InputEvent) -> void:
 	if !active:
 		return
 	
 	if Input.is_action_just_pressed("LeftMouseClick"):
 		startSelection()
+		clickOutside()
 	
 	if !selecting:
 		return

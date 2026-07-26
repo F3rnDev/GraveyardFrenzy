@@ -1,10 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvchme4lrj600"]
+[gd_scene load_steps=5 format=3 uid="uid://bvchme4lrj600"]
 
+[ext_resource type="Shader" uid="uid://dwraucsl0j3ne" path="res://Assets/Shaders/resizeTexture.gdshader" id="1_3pxpe"]
 [ext_resource type="Texture2D" uid="uid://bchuti0tvlso" path="res://Assets/Images/UI Images/ChartEditor/EventSign.png" id="1_xwxw6"]
 [ext_resource type="Script" uid="uid://crwte6dbxxobw" path="res://Scripts/GameAssets/ChartEditor/chart/objects/chart_ui_event.gd" id="2_5m6g5"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_px6d7"]
+resource_local_to_scene = true
+shader = ExtResource("1_3pxpe")
+shader_parameter/texture_scale = 1.0
+
 [node name="ChartUiEvent" type="TextureRect"]
+material = SubResource("ShaderMaterial_px6d7")
 custom_minimum_size = Vector2(64, 64)
+mouse_filter = 0
 mouse_default_cursor_shape = 2
 texture = ExtResource("1_xwxw6")
 script = ExtResource("2_5m6g5")

@@ -1,8 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://0t6oh4brib5t"]
+[gd_scene load_steps=4 format=3 uid="uid://0t6oh4brib5t"]
 
 [ext_resource type="Script" uid="uid://8wexta1b1hnb" path="res://Scripts/GameAssets/ChartEditor/chart/rendered_elements.gd" id="1_k1qvq"]
+[ext_resource type="Script" uid="uid://7fvywynegs25" path="res://Scripts/GameAssets/ChartEditor/chart/rend_elements_input_handler.gd" id="2_avbf3"]
+[ext_resource type="Script" uid="uid://dqvnddn5mh6sj" path="res://Scripts/GameAssets/ChartEditor/chart/rend_elements_thread.gd" id="3_4452r"]
 
 [node name="RenderedElements" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_k1qvq")
+
+[node name="Elements" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+
+[node name="InputHandler" type="Node" parent="."]
+script = ExtResource("2_avbf3")
+
+[node name="RendElementsThread" type="Node" parent="." node_paths=PackedStringArray("rendElements")]
+script = ExtResource("3_4452r")
+rendElements = NodePath("..")

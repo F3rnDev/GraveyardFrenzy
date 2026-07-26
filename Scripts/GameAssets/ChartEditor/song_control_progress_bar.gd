@@ -7,44 +7,60 @@ extends ColorRect
 @export var objHeight:float = 8.0
 @export var lanes:float = 3.0
 
-func _process(_delta):
-	queue_redraw()
+@onready var noteMesh = $noteMesh
+@onready var obsMesh = $obstacleMesh
+@onready var eventMesh = $eventMesh
 
-func _draw() -> void:
-	if not conductor and not rendElements:
+func _ready() -> void:
+	rendElements.chartChanged.connect(updateMinimap)
+
+func updateMinimap():
+	if not conductor or not rendElements or not rendElements.renderedChart:
 		return
 	
-	for object in rendElements.get_children():
-		var pos:float = 0.0
-		var lane:int = 0
-		var duration:float = 0.0
+	if conductor.songLength <= 0.0:
+		return
+	
+	var sizeXFactor = size.x / conductor.songLength
+	var laneFactor = size.y / lanes
+	
+	var notesData = []
+	var obsData = []
+	var eventsData = []
+	for element in rendElements.renderedChart.elements:
+		if element is ChartNote:
+			notesData.append(element)
+		else:
+			obsData.append(element)
+	for event in rendElements.renderedChart.events:
+		eventsData.append(event)
+	
+	setMultimesh(noteMesh.multimesh, notesData, sizeXFactor, laneFactor, Color.RED)
+	setMultimesh(obsMesh.multimesh, obsData, sizeXFactor, laneFactor, Color.WHITE)
+	setMultimesh(eventMesh.multimesh, eventsData, sizeXFactor, laneFactor, Color.RED)
+
+func setMultimesh(mm:MultiMesh, objects:Array, sizeXFactor:float, laneFactor:float, baseColor:Color):
+	mm.instance_count = objects.size()
+	
+	for id in range(objects.size()):
+		#GetValues
+		var object = objects[id]
+		var pos = object.position
+		var lane = object.lane if "lane" in object else 2
+		var duration = object.holdAmount if "holdAmount" in object else 0.0
 		
-		var objColor = Color.RED
+		#GetPositions
+		var xPos = pos * sizeXFactor
+		var yPos = (lane * laneFactor) + (objHeight / 2.0)
+		var xWidth = max(objMinWidth, duration * sizeXFactor)
 		
-		#Set variables
-		if object is ChartUINote:
-			pos = object.noteData.position
-			lane = object.noteData.lane
-			duration = object.noteData.holdAmount
+		xPos += xWidth / 2.0
 		
-		elif object is ChartUIObstacle:
-			pos = object.obsData.position
-			lane = object.obsData.lane
-			
-			objColor = Color.WHITE
+		#CreateTransform
+		var transform = Transform2D()
+		transform = transform.scaled(Vector2(xWidth, objHeight))
+		transform.origin = Vector2(xPos, yPos)
 		
-		elif object is ChartUIEvent:
-			pos = object.eventData.position
-			lane = 2
-		
-		#Set Pos
-		var xPos = (pos / conductor.songLength) * size.x
-		var yPos = (lane / lanes) * size.y
-		
-		#Set Size
-		var durationPx = (duration / conductor.songLength) * size.x
-		var xWidth = max(objMinWidth, durationPx)
-		
-		#SetRect
-		var rect = Rect2(xPos, yPos, xWidth, objHeight)
-		draw_rect(rect, objColor, false, objMinWidth/2)
+		#SetMultimesh
+		mm.set_instance_transform_2d(id, transform)
+		mm.set_instance_color(id, baseColor)

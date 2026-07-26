@@ -19,7 +19,13 @@ signal addEvent(pos:Vector2)
 func _process(delta: float) -> void:
 	setGridPos()
 
+func clearGrid():
+	for step in get_children():
+		step.queue_free()
+
 func setGrid():
+	clearGrid()
+	
 	var allSteps = floor((conductor.songLength) / conductor.stepCrochet)
 	
 	for step in allSteps:

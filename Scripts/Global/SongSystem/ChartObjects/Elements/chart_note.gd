@@ -21,6 +21,9 @@ func getDict() -> Dictionary:
 	
 	return dict
 
+func getUIType():
+	return ChartUINote
+
 func setNode(dict:Dictionary):
 	super.setNode(dict)
 	

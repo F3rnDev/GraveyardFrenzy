@@ -32,6 +32,9 @@ func _gui_input(event: InputEvent) -> void:
 		updateSongTime(event.position.x)
 
 func updateSongTime(mouseX: float):
+	#Dont allow moving while dragging
+	rendElements.unselectObjects()
+	
 	var percentage = clamp(mouseX / size.x, 0.0, 1.0)
 	var target_time = percentage * conductor.songLength
 	

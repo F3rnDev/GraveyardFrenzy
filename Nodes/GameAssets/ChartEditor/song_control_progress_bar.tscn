@@ -1,7 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://cy71e0ia7o6dq"]
+[gd_scene load_steps=9 format=3 uid="uid://cy71e0ia7o6dq"]
 
 [ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_14lv2"]
 [ext_resource type="Script" uid="uid://dbls0a73p8fyk" path="res://Scripts/GameAssets/ChartEditor/song_control_progress_bar.gd" id="2_0iwyc"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_0iwyc"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_cryvc"]
+use_colors = true
+mesh = SubResource("QuadMesh_0iwyc")
+
+[sub_resource type="QuadMesh" id="QuadMesh_cryvc"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_f4mck"]
+use_colors = true
+mesh = SubResource("QuadMesh_cryvc")
+
+[sub_resource type="QuadMesh" id="QuadMesh_fh08h"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_dcjv4"]
+use_colors = true
+mesh = SubResource("QuadMesh_fh08h")
 
 [node name="SongProgress" type="ColorRect"]
 anchors_preset = 10
@@ -11,3 +29,12 @@ grow_horizontal = 2
 theme = ExtResource("1_14lv2")
 color = Color(0, 0, 0, 1)
 script = ExtResource("2_0iwyc")
+
+[node name="noteMesh" type="MultiMeshInstance2D" parent="."]
+multimesh = SubResource("MultiMesh_cryvc")
+
+[node name="obstacleMesh" type="MultiMeshInstance2D" parent="."]
+multimesh = SubResource("MultiMesh_f4mck")
+
+[node name="eventMesh" type="MultiMeshInstance2D" parent="."]
+multimesh = SubResource("MultiMesh_dcjv4")

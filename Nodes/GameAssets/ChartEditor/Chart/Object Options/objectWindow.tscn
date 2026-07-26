@@ -1,0 +1,196 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1l1r4tyh2rx4"]
+
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_kcvt7"]
+[ext_resource type="Script" uid="uid://6h2kbtbujduw" path="res://Scripts/GameAssets/ChartEditor/chart/object options/object_window.gd" id="2_u8ipw"]
+[ext_resource type="Texture2D" uid="uid://dtw0d3vc1nsj6" path="res://Assets/Images/UI Images/ChartEditor/PlayIcons6.png" id="3_u8ipw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1an22"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="ObjectWindow" type="Panel"]
+offset_right = 324.0
+offset_bottom = 166.0
+theme = ExtResource("1_kcvt7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1an22")
+script = ExtResource("2_u8ipw")
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Edit" type="Button" parent="Content"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("1_kcvt7")
+theme_type_variation = &"ContextMenuButton"
+text = "Edit"
+icon = ExtResource("3_u8ipw")
+alignment = 0
+expand_icon = true
+
+[node name="ShortcutLbl" type="Label" parent="Content/Edit"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.344076, 0.344076, 0.344076, 1)
+text = "Crtl+E"
+
+[node name="ControlSection" type="HSeparator" parent="Content"]
+layout_mode = 2
+theme = ExtResource("1_kcvt7")
+
+[node name="Cut" type="Button" parent="Content"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("1_kcvt7")
+theme_type_variation = &"ContextMenuButton"
+text = "Cut"
+icon = ExtResource("3_u8ipw")
+alignment = 0
+expand_icon = true
+
+[node name="ShortcutLbl" type="Label" parent="Content/Cut"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.344076, 0.344076, 0.344076, 1)
+text = "Crtl+X"
+
+[node name="Copy" type="Button" parent="Content"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("1_kcvt7")
+theme_type_variation = &"ContextMenuButton"
+text = "Copy"
+icon = ExtResource("3_u8ipw")
+alignment = 0
+expand_icon = true
+
+[node name="ShortcutLbl" type="Label" parent="Content/Copy"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.344076, 0.344076, 0.344076, 1)
+text = "Crtl+C"
+
+[node name="Paste" type="Button" parent="Content"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("1_kcvt7")
+theme_type_variation = &"ContextMenuButton"
+text = "Paste"
+icon = ExtResource("3_u8ipw")
+alignment = 0
+expand_icon = true
+
+[node name="ShortcutLbl" type="Label" parent="Content/Paste"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.344076, 0.344076, 0.344076, 1)
+text = "Crtl+V"
+
+[node name="HSeparator" type="HSeparator" parent="Content"]
+layout_mode = 2
+theme = ExtResource("1_kcvt7")
+
+[node name="Delete" type="Button" parent="Content"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("1_kcvt7")
+theme_type_variation = &"ContextMenuButton"
+text = "Delete"
+icon = ExtResource("3_u8ipw")
+alignment = 0
+expand_icon = true
+
+[node name="ShortcutLbl" type="Label" parent="Content/Delete"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.344076, 0.344076, 0.344076, 1)
+text = "Delete"
+
+[node name="SelectAll" type="Button" parent="Content"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("1_kcvt7")
+theme_type_variation = &"ContextMenuButton"
+text = "Select All"
+icon = ExtResource("3_u8ipw")
+alignment = 0
+expand_icon = true
+
+[node name="ShortcutLbl" type="Label" parent="Content/SelectAll"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.344076, 0.344076, 0.344076, 1)
+text = "Crtl+A"

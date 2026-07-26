@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b0j7eql8crax4"]
+[gd_scene load_steps=25 format=3 uid="uid://b0j7eql8crax4"]
 
 [ext_resource type="PackedScene" uid="uid://hme46mywc6mk" path="res://Nodes/GameAssets/ChartEditor/note_grid.tscn" id="1_4a8do"]
 [ext_resource type="Script" uid="uid://b7hloju20pnt6" path="res://Scripts/Scenes/charting_editor.gd" id="1_81dar"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bqp8uhmes5feo" path="res://Nodes/GameAssets/ChartEditor/chart_bpm_spin_box.tscn" id="14_xb0vq"]
 [ext_resource type="Texture2D" uid="uid://m7m4kdehsybe" path="res://Assets/Images/UI Images/ChartEditor/PlayIcons8.png" id="15_j6ps7"]
 [ext_resource type="Texture2D" uid="uid://dtw0d3vc1nsj6" path="res://Assets/Images/UI Images/ChartEditor/PlayIcons6.png" id="16_pcl03"]
+[ext_resource type="PackedScene" uid="uid://bxkvanb86miud" path="res://Nodes/GameAssets/ChartEditor/navigation_options_grp.tscn" id="21_1i5k4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4uld4"]
 bg_color = Color(0, 0, 0, 1)
@@ -73,27 +74,29 @@ script = ExtResource("2_lhiwb")
 
 [node name="NoteGrid" parent="ChartControl" node_paths=PackedStringArray("conductor", "gridInfo") instance=ExtResource("1_4a8do")]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 32.0
-offset_top = -162.0
-offset_right = 96.0
-offset_bottom = 10.0
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.194444
+anchor_right = 0.075
+anchor_bottom = 0.433333
+offset_right = 0.0
+offset_bottom = 0.0
 grow_vertical = 2
 conductor = NodePath("../../Conductor")
 gridInfo = NodePath("../GridInfo")
+metadata/_edit_use_anchors_ = true
 
 [node name="EventGrid" parent="ChartControl" node_paths=PackedStringArray("conductor", "gridInfo") instance=ExtResource("5_2ocph")]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 390.0
+offset_top = 332.0
 offset_right = 96.0
-offset_bottom = 454.0
+offset_bottom = 396.0
 conductor = NodePath("../../Conductor")
 gridInfo = NodePath("../GridInfo")
 
-[node name="RenderedElements" parent="ChartControl" node_paths=PackedStringArray("conductor", "noteGrid", "eventGrid", "gridInfo", "elementSelectUI") instance=ExtResource("4_slqsl")]
+[node name="RenderedElements" parent="ChartControl" node_paths=PackedStringArray("chartEditor", "conductor", "noteGrid", "eventGrid", "gridInfo", "elementSelectUI") instance=ExtResource("4_slqsl")]
+chartEditor = NodePath("../..")
 conductor = NodePath("../../Conductor")
 noteGrid = NodePath("../NoteGrid")
 eventGrid = NodePath("../EventGrid")
@@ -113,9 +116,9 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 26.0
-offset_top = -163.0
+offset_top = -221.0
 offset_right = 40.0
-offset_bottom = 94.0
+offset_bottom = 36.0
 grow_vertical = 2
 
 [node name="ElementTypeSelect" parent="ChartControl" instance=ExtResource("8_lhiwb")]
@@ -126,9 +129,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -150.0
-offset_top = -240.0
+offset_top = -298.0
 offset_right = -18.0
-offset_bottom = -176.0
+offset_bottom = -234.0
 grow_horizontal = 0
 grow_vertical = 2
 
@@ -252,7 +255,30 @@ mouse_default_cursor_shape = 2
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 
+[node name="EditorHeader" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 42.0
+grow_horizontal = 2
+theme = ExtResource("7_lgb8r")
+theme_type_variation = &"ChartEditorFooter"
+
+[node name="Options" parent="EditorHeader" node_paths=PackedStringArray("editor") instance=ExtResource("21_1i5k4")]
+layout_mode = 1
+editor = NodePath("../..")
+
 [node name="Conductor" parent="." instance=ExtResource("3_tyg1x")]
+
+[node name="BlackScreen" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.337255)
 
 [node name="StartScreen" parent="." instance=ExtResource("6_7o4bb")]
 visible = false
@@ -274,6 +300,9 @@ theme = ExtResource("7_lgb8r")
 [connection signal="button_down" from="SongControl/ControlButtons/SkipToEnd" to="." method="_on_skip_to_end_button_down"]
 [connection signal="item_selected" from="SongControl/Info/DifficultySelector" to="." method="_on_difficulty_selector_item_selected"]
 [connection signal="value_changed" from="SongControl/Info/ChartBpm" to="." method="_on_chart_bpm_value_changed"]
+[connection signal="addProject" from="EditorHeader/Options" to="." method="newProject"]
+[connection signal="loadProject" from="EditorHeader/Options" to="." method="openProject"]
+[connection signal="saveProjectAs" from="EditorHeader/Options" to="." method="saveProjectAs"]
 [connection signal="beatHit" from="Conductor" to="." method="_on_conductor_beat_hit"]
-[connection signal="addProject" from="StartScreen" to="." method="_on_start_screen_add_project"]
-[connection signal="loadProject" from="StartScreen" to="." method="_on_start_screen_load_project"]
+[connection signal="addProject" from="StartScreen" to="." method="newProject"]
+[connection signal="loadProject" from="StartScreen" to="." method="openProject"]

@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://j3plxl03ch5j"]
+
+[ext_resource type="Shader" uid="uid://dwraucsl0j3ne" path="res://Assets/Shaders/resizeTexture.gdshader" id="1_0swvn"]
+[ext_resource type="Texture2D" uid="uid://kuihrxcbf5if" path="res://Assets/Images/UI Images/ChartEditor/GroupEventSign.png" id="1_lwb5m"]
+[ext_resource type="Script" uid="uid://dbc0qnf4pvfdr" path="res://Scripts/GameAssets/ChartEditor/chart/objects/chart_ui_event_group.gd" id="1_r3qmh"]
+[ext_resource type="PackedScene" uid="uid://bvchme4lrj600" path="res://Nodes/GameAssets/ChartEditor/Chart/Objects/chart_ui_event.tscn" id="2_jqfhb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6v4is"]
+resource_local_to_scene = true
+shader = ExtResource("1_0swvn")
+shader_parameter/texture_scale = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0swvn"]
+resource_local_to_scene = true
+shader = ExtResource("1_0swvn")
+shader_parameter/texture_scale = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fvfby"]
+resource_local_to_scene = true
+shader = ExtResource("1_0swvn")
+shader_parameter/texture_scale = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wlppe"]
+resource_local_to_scene = true
+shader = ExtResource("1_0swvn")
+shader_parameter/texture_scale = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2b1sh"]
+resource_local_to_scene = true
+shader = ExtResource("1_0swvn")
+shader_parameter/texture_scale = 1.0
+
+[node name="ChartEventGroup" type="TextureRect"]
+material = SubResource("ShaderMaterial_6v4is")
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+mouse_default_cursor_shape = 2
+texture = ExtResource("1_lwb5m")
+script = ExtResource("1_r3qmh")
+
+[node name="SelectHint" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 0.392157)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 64.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EventContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="ChartUiEvent" parent="ScrollContainer/EventContainer" instance=ExtResource("2_jqfhb")]
+material = SubResource("ShaderMaterial_0swvn")
+layout_mode = 2
+
+[node name="ChartUiEvent4" parent="ScrollContainer/EventContainer" instance=ExtResource("2_jqfhb")]
+material = SubResource("ShaderMaterial_fvfby")
+layout_mode = 2
+
+[node name="ChartUiEvent2" parent="ScrollContainer/EventContainer" instance=ExtResource("2_jqfhb")]
+material = SubResource("ShaderMaterial_wlppe")
+layout_mode = 2
+
+[node name="ChartUiEvent3" parent="ScrollContainer/EventContainer" instance=ExtResource("2_jqfhb")]
+material = SubResource("ShaderMaterial_2b1sh")
+layout_mode = 2

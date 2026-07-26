@@ -1,3 +1,5 @@
+extends ChartObject
+
 class_name ChartElement
 
 enum Lanes
@@ -13,17 +15,18 @@ enum Types
 }
 
 var elementType:Types = Types.Note
-var position:float = 0.0
 var lane:Lanes = Lanes.LaneUp
 
 func getDict():
-	return {
-		"elementType": elementType,
-		"position": position,
-		"lane": lane
-	}
+	var dict = super.getDict()
+	
+	dict["elementType"] = elementType
+	dict["lane"] = lane
+	
+	return dict
 
 func setNode(dict:Dictionary):
+	super.setNode(dict)
+	
 	elementType = dict["elementType"]
-	position = dict["position"]
 	lane = dict["lane"]

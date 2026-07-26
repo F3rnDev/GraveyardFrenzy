@@ -1,6 +1,7 @@
 extends Control
 
 #Screens
+@onready var blackScreen = $BlackScreen
 @onready var startScreen = $StartScreen
 
 #Conductor
@@ -28,6 +29,7 @@ var songPath:String
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	startScreen.visible = true
+	blackScreen.visible = true
 
 func _process(delta: float) -> void:
 	if songTimeLabel.curTime != conductor.songPos:
@@ -38,8 +40,29 @@ func _process(delta: float) -> void:
 		songPlayBtn.set_pressed_no_signal(conductorSong.playing)
 
 #Save/Load Project and Chart
+func newProject(project: SongProject, path: String) -> void:
+	SongLoader.saveSong(path, project)
+	songProject = project
+	songPath = path
+	
+	loadProject()
+
+func openProject(path: String) -> void:
+	songProject = SongLoader.loadSongProject(path)
+	songPath = path
+	
+	loadProject()
+
+func saveProjectAs(path:String) -> void:
+	saveChart()
+	
+	SongLoader.saveSong(path, songProject)
+	songPath = path
+
 func loadProject():
+	rendElements.unselectObjects()
 	startScreen.visible = false
+	blackScreen.visible = false
 	
 	conductor.NewSetSong(songProject.commonAudio)
 	conductor.setBpm(songProject.data.baseBpm)
@@ -108,20 +131,6 @@ func _on_strum_bar_move_grab(direction: Variant) -> void:
 #Beat animations
 func _on_conductor_beat_hit(position: Variant) -> void:
 	pass
-
-#Load/Add Project
-func _on_start_screen_add_project(project: SongProject, path: String) -> void:
-	SongLoader.saveSong(path, project)
-	songProject = project
-	songPath = path
-	
-	loadProject()
-
-func _on_start_screen_load_project(path: String) -> void:
-	songProject = SongLoader.loadSongProject(path)
-	songPath = path
-	
-	loadProject()
 
 # SongButtons
 func _on_play_song_toggled(toggled_on: bool) -> void:
