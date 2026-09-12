@@ -291,6 +291,7 @@ theme = ExtResource("7_lgb8r")
 [connection signal="addEvent" from="ChartControl/EventGrid" to="ChartControl/RenderedElements" method="_on_event_grid_add_event"]
 [connection signal="previewEventAdd" from="ChartControl/EventGrid" to="ChartControl/Preview" method="_on_event_grid_preview_event_add"]
 [connection signal="previewEventRemove" from="ChartControl/EventGrid" to="ChartControl/Preview" method="_on_event_grid_preview_event_remove"]
+[connection signal="openEditWindow" from="ChartControl/RenderedElements" to="." method="_on_rendered_elements_open_edit_window"]
 [connection signal="moveGrab" from="ChartControl/StrumBar" to="." method="_on_strum_bar_move_grab"]
 [connection signal="startedGrab" from="ChartControl/StrumBar" to="." method="_on_strum_bar_started_grab"]
 [connection signal="button_down" from="SongControl/ControlButtons/SkipToStart" to="." method="_on_skip_to_start_button_down"]

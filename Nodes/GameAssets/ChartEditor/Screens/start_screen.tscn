@@ -30,6 +30,7 @@ offset_bottom = 240.0
 pivot_offset = Vector2(460, 543)
 windowTitle = "Welcome to the chart editor!"
 canExit = false
+canMinimize = false
 canDrag = false
 deleteAfterClose = false
 

@@ -14,11 +14,11 @@ func startCreateAnimation():
 	createAnimation(holdNoteLine)
 	createAnimation(holdNoteEnd)
 
-func updateUI(data:ChartObject, elementsRef:ChartUIRenderedObjects):
-	super.updateUI(data, elementsRef)
+func updateUI(data:ChartObject, elementsRef:ChartUIRenderedObjects, stepCrochet:float):
+	super.updateUI(data, elementsRef, stepCrochet)
 	
 	#Set hold visibility
-	holdNoteLine.visible = data.holdAmount > 0.0
+	holdNoteLine.visible = data.holdAmount > stepCrochet
 	holdNoteEnd.visible = data.holdAmount > 0.0
 	
 	var hold = elementsRef.getNotePixelsFromDuration(data.holdAmount)

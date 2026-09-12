@@ -9,6 +9,7 @@ var isGuiInput = false
 var isSelected = false
 
 #Drag
+var startedDrag = false
 var mouseDragStart:Vector2
 var dragThreshold = 6.0
 
@@ -50,13 +51,8 @@ func setPositionLocal(pos:Vector2):
 
 #Allows player to drag the created object
 func _input(event: InputEvent) -> void:
-	if isSelected and Input.is_action_just_released("LeftMouseClick"):
+	if startedDrag and Input.is_action_just_released("LeftMouseClick"):
 		endDrag()
-	
-	if isGuiInput or !isSelected:
-		return
-	
-	processInput()
 
 func _gui_input(event: InputEvent) -> void:
 	isGuiInput = true
@@ -70,11 +66,13 @@ func processInput():
 
 #DRAG
 func startDrag():
+	startedDrag = true
 	mouseDragStart = get_global_mouse_position()
 	
 	startDragging.emit(self)
 
 func endDrag():
+	startedDrag = false
 	endDragging.emit()
 
 #Select

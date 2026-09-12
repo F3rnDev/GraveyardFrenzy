@@ -41,10 +41,12 @@ func setDragOffsets(params:Dictionary) -> Dictionary:
 		
 		if data is ChartNote and updateHold:
 			var noteEnd = data.position + data.holdAmount
-			dragOffsets[data] = noteEnd - mouseSongPos
+			var snappedHold = snapped(noteEnd, params["conductor"].stepCrochet)
+			dragOffsets[data] = snappedHold - mouseSongPos
 			continue
 		
-		dragOffsets[data] = data.position - mouseSongPos
+		var snappedObjectPos = snapped(data.position, params["conductor"].stepCrochet)
+		dragOffsets[data] = snappedObjectPos - mouseSongPos
 		
 		if data is ChartEvent:
 			continue

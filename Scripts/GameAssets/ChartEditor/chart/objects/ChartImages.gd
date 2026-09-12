@@ -11,5 +11,5 @@ static var obstacles:Dictionary[ChartObstacle.ObsTypes, Texture] = {
 }
 
 static var events:Dictionary[ChartEvent.Types, Texture] = {
-	ChartEvent.Types.Runner: load("res://Assets/Images/UI Images/ChartEditor/EventSign.png")
+	ChartEvent.Types.SetSection: load("res://Assets/Images/UI Images/ChartEditor/EventSign.png")
 }

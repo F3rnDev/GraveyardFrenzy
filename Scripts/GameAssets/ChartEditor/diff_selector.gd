@@ -11,7 +11,9 @@ func setOptions(availableDiffs:Array):
 
 func _on_pressed() -> void:
 	var popup = get_popup()
-	var popup_height = marginY * item_count
+	
+	popup.reset_size()
+	var popup_height = popup.get_contents_minimum_size().y + marginY
 	
 	var new_pos = global_position
 	new_pos.y -= popup_height

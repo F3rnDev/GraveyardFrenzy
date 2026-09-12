@@ -57,6 +57,8 @@ var activeObjects: Dictionary = {}
 var pendingEventMerges:Dictionary = {}
 
 signal chartChanged
+signal changedSelection
+signal openEditWindow
 
 func _ready() -> void:
 	global_position = noteGrid.global_position
@@ -169,7 +171,7 @@ func addObject(object:ChartUIObject, data:ChartObject, creationType:CreationType
 	
 	#Set object UI and reference
 	instance.refData = data
-	instance.updateUI(data, self)
+	instance.updateUI(data, self, conductor.stepCrochet)
 	
 	#Drag and select
 	if creationType == CreationType.ADDED:
@@ -208,6 +210,8 @@ func selectObject(object:ChartUIObject, created=false):
 		closeAllActiveEventGroups()
 	
 	lastObjectData = object.refData
+	
+	changedSelection.emit()
 
 func selectObjectDrag(objects:Array):
 	unselectObjects()
@@ -221,6 +225,8 @@ func selectObjectDrag(objects:Array):
 	#close event groups if necessary
 	if selectedObjects.size() > 1:
 		closeAllActiveEventGroups()
+	
+	changedSelection.emit()
 
 func closeAllActiveEventGroups():
 	for data in activeObjects:
@@ -237,6 +243,8 @@ func unselectObjects():
 	
 	if isDraggingNodes:
 		endDrag()
+	
+	changedSelection.emit()
 
 #DRAG
 #SetStartDrag
@@ -275,6 +283,9 @@ func endDrag():
 	
 	chartChanged.emit()
 	
+	#ChartChanged
+	changedSelection.emit()
+	
 	#Update grouping
 	if pendingEventMerges.is_empty():
 		return
@@ -302,7 +313,7 @@ func unmergeEvent(eventNode:ChartUIEvent, group:ChartUIEventGroup):
 	var newGroup = renderedChart.splitEventFromGroup(eventData, groupData)
 	
 	if newGroup is ChartEventGroup:
-		group.updateUI(newGroup, self)
+		group.updateUI(newGroup, self, conductor.stepCrochet)
 	elif newGroup is ChartEvent:
 		removeObject(groupData)
 		renderObject(newGroup, CreationType.LOADED)
@@ -329,6 +340,34 @@ func dragObject(object):
 	else:
 		moveObject(object)
 
+#UpdateGraphics
+func updateActiveObjects():
+	for data in selectedObjects:
+		setUIObject(data)
+
+func setUIObject(data:ChartObject):
+	#Despawn/Spawn note if in limits
+	var pos = getObjectPos(data.position, data.lane if "lane" in data else -1)
+	var hold = getNotePixelsFromDuration(data.holdAmount) if "holdAmount" in data else 0.0
+	
+	if outsideViewport(pos, hold):
+		if data in activeObjects:
+			removeObject(data)
+		
+		return
+	
+	if not data in activeObjects:
+		renderObject(data, CreationType.LOADED)
+	
+	#MoveNoteIfInActiveNotes
+	if data in activeObjects:
+		var node:ChartUIObject = activeObjects[data]
+		var lane = data.lane if "lane" in data else -1
+		var newPos = getObjectPos(data.position, lane)
+		
+		node.setPositionLocal(newPos)
+		node.updateUI(data, self, conductor.stepCrochet)
+
 #UPDATENOTE HOLD
 func updateNoteHold():
 	for data in selectedObjects:
@@ -348,9 +387,7 @@ func updateNoteHold():
 		data.holdAmount = hold
 		
 		#UpdateUI
-		if data in activeObjects:
-			var node:ChartUIObject = activeObjects[data]
-			node.updateUI(data, self)
+		setUIObject(data)
 
 func setNoteHold(data):
 	var mousePosX = noteGrid.get_local_mouse_position().x
@@ -398,39 +435,22 @@ func moveObject(object):
 	
 	#MoveNote
 	for data in selectedObjects:
+		if data not in dragOffsets:
+			return
+		
 		data.position = targetTime + dragOffsets[data]
 		
 		if "lane" in data and canDragVertical:
 			data.lane = targetLane
 		
-		#Despawn/Spawn note if in limits
-		var pos = getObjectPos(data.position, data.lane if "lane" in data else -1)
-		var hold = getNotePixelsFromDuration(data.holdAmount) if "holdAmount" in data else 0.0
-		
-		if outsideViewport(pos, hold):
-			if data in activeObjects:
-				removeObject(data)
-			
-			continue
-		
-		if not data in activeObjects:
-			renderObject(data, CreationType.LOADED)
-		
-		#MoveNoteIfInActiveNotes
-		if data in activeObjects:
-			var node:ChartUIObject = activeObjects[data]
-			var lane = data.lane if "lane" in data else -1
-			var newPos = getObjectPos(data.position, lane)
-			
-			node.setPositionLocal(newPos)
+		setUIObject(data)
 
 func moveHorizontal(object:ChartObject) -> float:
 	#GetPosition
 	var mousePosX = noteGrid.get_local_mouse_position().x
 	var mouseSongPos = getObjectSongPos(mousePosX)
-	var targetSongPos = mouseSongPos + dragOffsets[object]
-
-	return max(0.0, snapped(targetSongPos, conductor.stepCrochet))
+	
+	return max(0.0, snapped(mouseSongPos, conductor.stepCrochet))
 
 func moveVertical(object:ChartObject) -> float:
 	if !canDragVertical:

@@ -92,7 +92,6 @@ libraries = {
 }
 
 [node name="SongData" parent="." instance=ExtResource("1_8j666")]
-visible = false
 custom_minimum_size = Vector2(500, 200)
 layout_mode = 1
 anchors_preset = 8
@@ -107,6 +106,7 @@ offset_bottom = 170.0
 pivot_offset = Vector2(250, 400)
 windowTitle = "Set the Song Data"
 canExit = false
+canMinimize = false
 canDrag = false
 deleteAfterClose = false
 
@@ -242,6 +242,7 @@ offset_bottom = 172.0
 pivot_offset = Vector2(250, 400)
 windowTitle = "Set Difficulties"
 canExit = false
+canMinimize = false
 canDrag = false
 deleteAfterClose = false
 hiddenInReady = true
@@ -320,6 +321,7 @@ offset_bottom = 157.0
 pivot_offset = Vector2(250, 400)
 windowTitle = "Import the Audio File"
 canExit = false
+canMinimize = false
 canDrag = false
 deleteAfterClose = false
 hiddenInReady = true

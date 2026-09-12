@@ -3,10 +3,10 @@ class_name ChartEvent
 
 enum Types
 {
-	Runner
+	SetSection
 }
 
-var eventType:Types = Types.Runner
+var eventType:Types = Types.SetSection
 var eventParams:Dictionary = {}
 
 func getDict() -> Dictionary:

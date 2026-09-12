@@ -10,6 +10,7 @@ focus_mode = 0
 theme = ExtResource("1_xmbyv")
 alignment = 1
 script = ExtResource("2_h14ii")
+marginY = 20.0
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1

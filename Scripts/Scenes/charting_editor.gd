@@ -22,6 +22,10 @@ extends Control
 @onready var chartBpm = $SongControl/Info/ChartBpm
 @onready var songPlayBtn = $SongControl/ControlButtons/PlaySong
 
+#Windows
+var activeWindows:Array = []
+@onready var editWindow = preload("res://Nodes/GameAssets/ChartEditor/Screens/Windows/edit_window.tscn")
+
 var songProject:SongProject = SongProject.new()
 var curDiff = "normal"
 var songPath:String
@@ -179,3 +183,31 @@ func _on_chart_bpm_value_changed(value: float) -> void:
 #ResizeChart
 #func _on_song_progress_handle_resize(newVisibleTime: float) -> void:
 	#gridInfo.stepSize = newVisibleTime
+
+#Windows
+func openWindow(window):
+	if window in activeWindows:
+		return
+	
+	var windowInstance:ChartEditorWindow = window.instantiate()
+	add_child(windowInstance)
+	
+	windowInstance.close.connect(removeWindow.bind(window))
+	activeWindows.append(window)
+	
+	#Set the data:
+	if windowInstance.contentRef is EditWindow:
+		setEditWindowInfo(windowInstance.contentRef)
+
+func removeWindow(window):
+	if window in activeWindows:
+		activeWindows.erase(window)
+
+#EditWindow
+func setEditWindowInfo(content:EditWindow):
+	content.setReference(rendElements.selectedObjects, conductor)
+	rendElements.changedSelection.connect(content.setActiveFields)
+	content.updatedValue.connect(rendElements.updateActiveObjects)
+
+func _on_rendered_elements_open_edit_window() -> void:
+	openWindow(editWindow)

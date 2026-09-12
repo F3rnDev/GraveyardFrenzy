@@ -46,7 +46,7 @@ func shortcuts():
 func selectContextOption(optionID):
 	match optionID:
 		ChartObjectWindow.OPTIONS.EDIT:
-			pass#Open edit info
+			rendElements.openEditWindow.emit()
 		ChartObjectWindow.OPTIONS.CUT:
 			cutObjects()
 		ChartObjectWindow.OPTIONS.COPY:
@@ -122,6 +122,9 @@ func continuePaste(result:Dictionary):
 			rendElements.renderedChart.events.append(newData)
 		
 		rendElements.renderObject(newData, rendElements.CreationType.PASTED)
+	
+	#Selection Changed
+	rendElements.changedSelection.emit()
 
 func deleteObjectPaste(object):
 	if object is ChartElement:
@@ -153,7 +156,8 @@ func deleteObjects():
 	
 	selectedObjects.clear()
 	
-	rendElements.chartChanged.emit()
+	#Selection Changed
+	rendElements.changedSelection.emit()
 
 func selectAllObjects():
 	rendElements.unselectObjects()
@@ -167,7 +171,7 @@ func selectAllObjects():
 			var node = rendElements.activeObjects[element]
 			node.setSelected(true)
 	
-	#Selecct events
+	#Select events
 	for event in rendElements.renderedChart.events:
 		if event not in selectedObjects:
 			selectedObjects.append(event)
@@ -175,3 +179,6 @@ func selectAllObjects():
 		if event in rendElements.activeObjects:
 			var node = rendElements.activeObjects[event]
 			node.setSelected(true)
+	
+	#Selection Changed
+	rendElements.changedSelection.emit()

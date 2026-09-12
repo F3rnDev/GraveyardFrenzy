@@ -79,8 +79,8 @@ func animateEventContainer(selected:bool):
 	
 	tween.tween_property(scrollContainer, "size:y", sizeValue, contAnimDuration)
 
-func updateUI(data:ChartObject, elementsRef:ChartUIRenderedObjects):
-	super.updateUI(data, elementsRef)
+func updateUI(data:ChartObject, elementsRef:ChartUIRenderedObjects, stepCrochet:float):
+	super.updateUI(data, elementsRef, stepCrochet)
 	
 	refreshItems()
 
@@ -101,7 +101,7 @@ func addItem(event):
 	instance.endDragging.connect(endEventDrag)
 	
 	eventContainer.add_child(instance)
-	instance.updateUI(event, renderedObjectsRef)
+	instance.updateUI(event, renderedObjectsRef, step)
 
 #CHILD CONTROL
 func unselectEvents():
