@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://hme46mywc6mk"]
+
+[ext_resource type="Script" uid="uid://bxd2vm1lmo2h5" path="res://Scripts/GameAssets/ChartEditor/note_grid.gd" id="1_2f4tt"]
+[ext_resource type="PackedScene" uid="uid://bhvvckissrr3h" path="res://Nodes/GameAssets/ChartEditor/note_grid_step.tscn" id="2_mkpgi"]
+
+[node name="NoteGrid" type="HBoxContainer"]
+offset_right = 60.0
+offset_bottom = 124.0
+theme_override_constants/separation = 0
+script = ExtResource("1_2f4tt")
+
+[node name="Step" parent="." instance=ExtResource("2_mkpgi")]
+layout_mode = 2
+inScene = true

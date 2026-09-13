@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpssj8xgvenhb"]
+
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_pweuo"]
+[ext_resource type="Script" uid="uid://cps54f6c1yxwj" path="res://Scripts/GameAssets/ChartEditor/chart/object options/context_window.gd" id="2_e7m5c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1an22"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="ContextWindow" type="Panel"]
+offset_right = 200.0
+offset_bottom = 200.0
+theme = ExtResource("1_pweuo")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1an22")
+script = ExtResource("2_e7m5c")
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

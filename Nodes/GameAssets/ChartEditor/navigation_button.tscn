@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bp5o81yrbcb6t"]
+
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_ywa2u"]
+[ext_resource type="Script" uid="uid://bbc5ld6s82330" path="res://Scripts/GameAssets/ChartEditor/navigation_button.gd" id="2_7qi8a"]
+
+[node name="MenuButton" type="MenuButton"]
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_ywa2u")
+text = "File"
+flat = false
+item_count = 2
+popup/item_0/text = "New Project"
+popup/item_0/id = 0
+popup/item_1/text = "Open Project"
+popup/item_1/id = 1
+script = ExtResource("2_7qi8a")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -1,0 +1,209 @@
+[gd_scene load_steps=13 format=3 uid="uid://688j2en82dlp"]
+
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_guioy"]
+[ext_resource type="Script" uid="uid://bf16m7vcu6wo3" path="res://Scripts/GameAssets/ChartEditor/screens/window.gd" id="1_h7gbu"]
+[ext_resource type="Texture2D" uid="uid://c0l5wm6o7a3rl" path="res://Assets/Images/UI Images/ChartEditor/closeIcon1.png" id="3_mkgih"]
+[ext_resource type="Texture2D" uid="uid://cymn1lhua3gb4" path="res://Assets/Images/UI Images/ChartEditor/closeIcon2.png" id="4_x6fsw"]
+[ext_resource type="Texture2D" uid="uid://bjqhpg0fgg0oj" path="res://Assets/Images/UI Images/ChartEditor/closeIcon3.png" id="5_phu04"]
+[ext_resource type="Texture2D" uid="uid://8ja06j7c80eo" path="res://Assets/Images/UI Images/ChartEditor/closeIcon4.png" id="6_mkrsa"]
+
+[sub_resource type="Animation" id="Animation_x6fsw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainPanel:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mkgih"]
+resource_name = "appear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.241484, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_phu04"]
+resource_name = "disappear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1.93187, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mkrsa"]
+resource_name = "minimize"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainPanel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.241484, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_ju0qn"]
+resource_name = "unminimize"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainPanel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.241484, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_phu04"]
+_data = {
+&"RESET": SubResource("Animation_x6fsw"),
+&"appear": SubResource("Animation_mkgih"),
+&"disappear": SubResource("Animation_phu04"),
+&"minimize": SubResource("Animation_mkrsa"),
+&"unminimize": SubResource("Animation_ju0qn")
+}
+
+[node name="StartWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h7gbu")
+
+[node name="MainPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_guioy")
+theme_type_variation = &"WindowPanel"
+
+[node name="Header" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -69.0
+offset_bottom = -5.0
+grow_horizontal = 2
+theme = ExtResource("1_guioy")
+theme_type_variation = &"WindowPanel"
+
+[node name="WindowTitle" type="Label" parent="Header"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_guioy")
+theme_type_variation = &"GraphFrameTitleLabel"
+text = "WINDOW TITLE"
+vertical_alignment = 1
+
+[node name="WindowDragBtn" type="Button" parent="Header"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+
+[node name="WindowControl" type="HBoxContainer" parent="Header"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -119.0
+offset_top = -32.0
+offset_right = -12.0
+offset_bottom = 32.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 2
+
+[node name="Minimize" type="TextureButton" parent="Header/WindowControl"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("5_phu04")
+texture_pressed = ExtResource("6_mkrsa")
+texture_hover = ExtResource("6_mkrsa")
+stretch_mode = 5
+
+[node name="ExitScreen" type="TextureButton" parent="Header/WindowControl"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("3_mkgih")
+texture_pressed = ExtResource("4_x6fsw")
+texture_hover = ExtResource("4_x6fsw")
+stretch_mode = 5
+
+[node name="Animate" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_phu04")
+}
+
+[connection signal="button_down" from="Header/WindowDragBtn" to="." method="_on_window_drag_btn_button_down"]
+[connection signal="button_up" from="Header/WindowDragBtn" to="." method="_on_window_drag_btn_button_up"]
+[connection signal="button_down" from="Header/WindowControl/Minimize" to="." method="_on_minimize_button_down"]
+[connection signal="button_down" from="Header/WindowControl/ExitScreen" to="." method="_on_exit_screen_button_down"]
+[connection signal="animation_finished" from="Animate" to="." method="_on_animate_animation_finished"]
+[connection signal="current_animation_changed" from="Animate" to="." method="_on_animate_current_animation_changed"]

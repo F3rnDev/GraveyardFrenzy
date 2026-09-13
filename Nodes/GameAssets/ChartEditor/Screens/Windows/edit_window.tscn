@@ -1,0 +1,153 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3hm6iuy4gw2f"]
+
+[ext_resource type="PackedScene" uid="uid://688j2en82dlp" path="res://Nodes/GameAssets/ChartEditor/Screens/window.tscn" id="1_g07w1"]
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="2_8riuf"]
+[ext_resource type="Script" uid="uid://cnyt5q50bv0wh" path="res://Scripts/GameAssets/ChartEditor/screens/windows/edit_window.gd" id="2_a14s3"]
+[ext_resource type="Script" uid="uid://jwr8y2udluwr" path="res://Scripts/GameAssets/ChartEditor/screens/chartEditorOptionBtn.gd" id="4_3qxub"]
+[ext_resource type="PackedScene" uid="uid://elvfv75totp1" path="res://Nodes/GameAssets/ChartEditor/Screens/Windows/edit_window_obstacleParams.tscn" id="5_3mjvv"]
+[ext_resource type="PackedScene" uid="uid://b763xrq0j4etb" path="res://Nodes/GameAssets/ChartEditor/Screens/Windows/edit_window_eventParams.tscn" id="6_pru2s"]
+
+[node name="EditWindow" node_paths=PackedStringArray("contentRef") instance=ExtResource("1_g07w1")]
+z_index = 1
+custom_minimum_size = Vector2(450, 0)
+anchors_preset = -1
+anchor_left = 0.285156
+anchor_top = 0.152778
+anchor_right = 0.636719
+anchor_bottom = 0.847222
+offset_left = 25.0
+offset_right = -25.0
+pivot_offset = Vector2(225, 500)
+mouse_filter = 2
+windowTitle = "Edit Object"
+contentRef = NodePath("MainPanel/Content")
+metadata/_edit_use_anchors_ = true
+
+[node name="Content" type="VBoxContainer" parent="MainPanel" index="0" node_paths=PackedStringArray("windowRef")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -196.0
+offset_top = 20.0
+offset_right = 196.0
+offset_bottom = 470.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+script = ExtResource("2_a14s3")
+windowDownBorder = 30.0
+windowRef = NodePath("../..")
+
+[node name="NormalInfo" type="GridContainer" parent="MainPanel/Content" index="0"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="SongPosLabel" type="Label" parent="MainPanel/Content/NormalInfo" index="0"]
+layout_mode = 2
+theme = ExtResource("2_8riuf")
+text = "Song Position:"
+horizontal_alignment = 2
+
+[node name="songPos" type="SpinBox" parent="MainPanel/Content/NormalInfo" index="1"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme = ExtResource("2_8riuf")
+step = 0.001
+alignment = 1
+
+[node name="LaneLabel" type="Label" parent="MainPanel/Content/NormalInfo" index="2"]
+layout_mode = 2
+theme = ExtResource("2_8riuf")
+text = "Lane:"
+horizontal_alignment = 2
+
+[node name="lane" type="SpinBox" parent="MainPanel/Content/NormalInfo" index="3"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme = ExtResource("2_8riuf")
+max_value = 1.0
+alignment = 1
+
+[node name="HoldAmountLabel" type="Label" parent="MainPanel/Content/NormalInfo" index="4"]
+layout_mode = 2
+theme = ExtResource("2_8riuf")
+text = "Hold Amount:"
+horizontal_alignment = 2
+
+[node name="holdAmount" type="SpinBox" parent="MainPanel/Content/NormalInfo" index="5"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme = ExtResource("2_8riuf")
+step = 0.001
+alignment = 1
+
+[node name="NoteTypeLabel" type="Label" parent="MainPanel/Content/NormalInfo" index="6"]
+layout_mode = 2
+theme = ExtResource("2_8riuf")
+text = "Note Type:"
+horizontal_alignment = 2
+
+[node name="noteType" type="OptionButton" parent="MainPanel/Content/NormalInfo" index="7"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_8riuf")
+item_count = 1
+popup/item_0/text = "Normal"
+popup/item_0/id = 0
+script = ExtResource("4_3qxub")
+
+[node name="ObstacleTypeLabel" type="Label" parent="MainPanel/Content/NormalInfo" index="8"]
+layout_mode = 2
+theme = ExtResource("2_8riuf")
+text = "Obstacle Type:"
+horizontal_alignment = 2
+
+[node name="obstacleType" type="OptionButton" parent="MainPanel/Content/NormalInfo" index="9"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_8riuf")
+item_count = 1
+popup/item_0/text = "Normal"
+popup/item_0/id = 0
+script = ExtResource("4_3qxub")
+
+[node name="EventTypeLabel" type="Label" parent="MainPanel/Content/NormalInfo" index="10"]
+layout_mode = 2
+theme = ExtResource("2_8riuf")
+text = "Event Type:"
+horizontal_alignment = 2
+
+[node name="eventType" type="OptionButton" parent="MainPanel/Content/NormalInfo" index="11"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_8riuf")
+item_count = 1
+popup/item_0/text = "Normal"
+popup/item_0/id = 0
+script = ExtResource("4_3qxub")
+
+[node name="Params" type="VBoxContainer" parent="MainPanel/Content" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="ObstacleParams" parent="MainPanel/Content/Params" index="0" instance=ExtResource("5_3mjvv")]
+layout_mode = 2
+
+[node name="EventParams" parent="MainPanel/Content/Params" index="1" instance=ExtResource("6_pru2s")]
+layout_mode = 2
+
+[connection signal="value_changed" from="MainPanel/Content/NormalInfo/songPos" to="MainPanel/Content" method="_on_song_pos_value_changed"]
+[connection signal="value_changed" from="MainPanel/Content/NormalInfo/lane" to="MainPanel/Content" method="_on_lane_value_changed"]
+[connection signal="value_changed" from="MainPanel/Content/NormalInfo/holdAmount" to="MainPanel/Content" method="_on_hold_amount_value_changed"]
+[connection signal="item_selected" from="MainPanel/Content/NormalInfo/noteType" to="MainPanel/Content" method="_on_note_type_item_selected"]
+[connection signal="pressed" from="MainPanel/Content/NormalInfo/noteType" to="MainPanel/Content/NormalInfo/noteType" method="_on_pressed"]
+[connection signal="item_selected" from="MainPanel/Content/NormalInfo/obstacleType" to="MainPanel/Content" method="_on_obstacle_type_item_selected"]
+[connection signal="pressed" from="MainPanel/Content/NormalInfo/obstacleType" to="MainPanel/Content/NormalInfo/obstacleType" method="_on_pressed"]
+[connection signal="item_selected" from="MainPanel/Content/NormalInfo/eventType" to="MainPanel/Content" method="_on_event_type_item_selected"]
+[connection signal="pressed" from="MainPanel/Content/NormalInfo/eventType" to="MainPanel/Content/NormalInfo/eventType" method="_on_pressed"]

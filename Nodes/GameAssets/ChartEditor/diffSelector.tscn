@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://6w61bqayesj4"]
+
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_xmbyv"]
+[ext_resource type="Script" uid="uid://cvuh1axfag7o4" path="res://Scripts/GameAssets/ChartEditor/diff_selector.gd" id="2_h14ii"]
+
+[node name="DifficultySelector" type="OptionButton"]
+offset_right = 131.0
+offset_bottom = 24.0
+focus_mode = 0
+theme = ExtResource("1_xmbyv")
+alignment = 1
+script = ExtResource("2_h14ii")
+marginY = 20.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+offset_top = -25.0
+offset_right = 160.0
+offset_bottom = -9.0
+text = "Chart:"
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

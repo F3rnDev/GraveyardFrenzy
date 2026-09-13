@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://elvfv75totp1"]
+
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_ecwkh"]
+[ext_resource type="Script" uid="uid://dfyjsb7odkxfx" path="res://Scripts/GameAssets/ChartEditor/screens/windows/edit_window_obstacle_params.gd" id="2_2hv3y"]
+
+[node name="ObstacleParams" type="PanelContainer"]
+theme = ExtResource("1_ecwkh")
+theme_type_variation = &"WindowPanel"
+script = ExtResource("2_2hv3y")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Title" type="Label" parent="MainContainer"]
+layout_mode = 2
+theme = ExtResource("1_ecwkh")
+text = "Obstacle Params:"
+
+[node name="Parameters" type="GridContainer" parent="MainContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2

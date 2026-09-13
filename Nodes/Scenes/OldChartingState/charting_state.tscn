@@ -1,11 +1,11 @@
 [gd_scene load_steps=12 format=3 uid="uid://dv0phrrwdlicv"]
 
-[ext_resource type="Script" uid="uid://7l2ik7r8g852" path="res://Scripts/Scenes/charting_state.gd" id="1_022yw"]
-[ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="2_g7eaq"]
-[ext_resource type="PackedScene" uid="uid://bqwt4i1tys03u" path="res://Nodes/Global/song.tscn" id="3_x8v7v"]
-[ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="4_d4mfj"]
-[ext_resource type="Texture2D" uid="uid://dkn2ms4x455qg" path="res://Assets/Images/UI Images/playIcon.png" id="4_qw6ot"]
-[ext_resource type="Texture2D" uid="uid://ds5mr3p6xsyhg" path="res://Assets/Images/UI Images/arrowIcon.png" id="6_o7skw"]
+[ext_resource type="Script" uid="uid://7l2ik7r8g852" path="res://Scripts/Scenes/OLD Charting editor/charting_state.gd" id="1_iusoh"]
+[ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="2_ne27e"]
+[ext_resource type="PackedScene" uid="uid://bqwt4i1tys03u" path="res://Nodes/Global/song.tscn" id="3_u2ogn"]
+[ext_resource type="Texture2D" uid="uid://dkn2ms4x455qg" path="res://Assets/Images/UI Images/playIcon.png" id="4_b0mjq"]
+[ext_resource type="FontFile" uid="uid://d4kb6nf34gjix" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="5_vpegy"]
+[ext_resource type="Texture2D" uid="uid://ds5mr3p6xsyhg" path="res://Assets/Images/UI Images/arrowIcon.png" id="6_faxv6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kbfbv"]
 size = Vector2(17, 221)
@@ -34,10 +34,10 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="Theme" id="Theme_4o7fu"]
-default_font = ExtResource("4_d4mfj")
+default_font = ExtResource("5_vpegy")
 
 [node name="ChartingState" type="Node2D"]
-script = ExtResource("1_022yw")
+script = ExtResource("1_iusoh")
 gridX = 20
 gridY = 50
 gridSize = 60
@@ -50,9 +50,9 @@ propertyIndex = 2
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(640, 360)
 
-[node name="Conductor" parent="." instance=ExtResource("2_g7eaq")]
+[node name="Conductor" parent="." instance=ExtResource("2_ne27e")]
 
-[node name="Song" parent="." instance=ExtResource("3_x8v7v")]
+[node name="Song" parent="." instance=ExtResource("3_u2ogn")]
 
 [node name="StrumLine" type="ColorRect" parent="."]
 z_index = 2
@@ -95,7 +95,7 @@ grow_vertical = 0
 theme_override_styles/hover = SubResource("StyleBoxFlat_j7dr4")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0og24")
 action_mode = 0
-icon = ExtResource("4_qw6ot")
+icon = ExtResource("4_b0mjq")
 icon_alignment = 1
 
 [node name="MusicInfoUI" type="Control" parent="CanvasLayer"]
@@ -133,7 +133,7 @@ offset_right = 1210.0
 offset_bottom = 653.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 current_tab = 0
 
 [node name="SongInfo" type="TabBar" parent="CanvasLayer/MusicInfoUI/TabContainer"]
@@ -148,7 +148,7 @@ offset_top = 22.795
 offset_right = 209.0
 offset_bottom = 48.797
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 text = "Song Name:"
 
 [node name="input" type="LineEdit" parent="CanvasLayer/MusicInfoUI/TabContainer/SongInfo/SongName"]
@@ -156,7 +156,7 @@ layout_mode = 0
 offset_top = 22.775
 offset_right = 220.533
 offset_bottom = 53.775
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 
 [node name="SongBpm" type="Label" parent="CanvasLayer/MusicInfoUI/TabContainer/SongInfo"]
 texture_filter = 1
@@ -166,7 +166,7 @@ offset_top = 22.795
 offset_right = 477.0
 offset_bottom = 48.797
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 text = "BPM:"
 
 [node name="input" type="SpinBox" parent="CanvasLayer/MusicInfoUI/TabContainer/SongInfo/SongBpm"]
@@ -175,7 +175,7 @@ offset_top = 22.775
 offset_right = 86.0
 offset_bottom = 53.775
 theme = SubResource("Theme_4o7fu")
-theme_override_icons/updown = ExtResource("6_o7skw")
+theme_override_icons/updown = ExtResource("6_faxv6")
 max_value = 1000.0
 alignment = 1
 
@@ -187,7 +187,7 @@ offset_top = 22.795
 offset_right = 626.48
 offset_bottom = 48.797
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 text = "Difficulty:"
 
 [node name="Input" type="OptionButton" parent="CanvasLayer/MusicInfoUI/TabContainer/SongInfo/SongDifficulty"]
@@ -195,7 +195,7 @@ layout_mode = 0
 offset_top = 22.775
 offset_right = 202.11
 offset_bottom = 52.775
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 
 [node name="SectionInfo" type="TabBar" parent="CanvasLayer/MusicInfoUI/TabContainer"]
 visible = false
@@ -210,7 +210,7 @@ offset_top = 22.795
 offset_right = 257.0
 offset_bottom = 41.795
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 text = "Section Type:"
 
 [node name="Input" type="OptionButton" parent="CanvasLayer/MusicInfoUI/TabContainer/SectionInfo/sectionType"]
@@ -218,7 +218,7 @@ layout_mode = 0
 offset_top = 22.775
 offset_right = 281.555
 offset_bottom = 52.775
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 selected = 0
 item_count = 3
 popup/item_0/text = "Normal"
@@ -245,7 +245,7 @@ offset_right = 1212.0
 offset_bottom = 644.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 text = "Save Song"
 
 [node name="ReloadSong" type="Button" parent="CanvasLayer/MusicInfoUI"]
@@ -261,7 +261,7 @@ offset_right = 1212.0
 offset_bottom = 644.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 text = "Reload"
 
 [node name="LoadSongInfoUI" type="Button" parent="CanvasLayer/MusicInfoUI"]
@@ -276,7 +276,7 @@ offset_right = 1044.0
 offset_bottom = 644.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 text = "Load Song"
 
 [node name="loadSongUI" type="Control" parent="CanvasLayer"]
@@ -316,7 +316,7 @@ offset_top = 213.85
 offset_right = 1001.21
 offset_bottom = 236.85
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 text = "Please, select the
 song that you wish to load"
 horizontal_alignment = 1
@@ -334,7 +334,7 @@ offset_right = 300.0
 offset_bottom = 77.015
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 
 [node name="LoadSongLoadUI" type="Button" parent="CanvasLayer/loadSongUI"]
 layout_mode = 1
@@ -349,7 +349,7 @@ offset_right = -10.0005
 offset_bottom = 151.175
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 text = "Load Song"
 
 [node name="AddSong" type="Button" parent="CanvasLayer/loadSongUI"]
@@ -365,7 +365,7 @@ offset_right = 226.0
 offset_bottom = 151.175
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_d4mfj")
+theme_override_fonts/font = ExtResource("5_vpegy")
 text = "Add new Song"
 
 [connection signal="mouse_entered" from="StrumLine/StrumArea" to="." method="_on_strum_area_mouse_entered"]
