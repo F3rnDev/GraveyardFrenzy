@@ -3,7 +3,8 @@ class_name ChartEvent
 
 enum Types
 {
-	SetSection
+	SetSection,
+	TEST
 }
 
 var eventType:Types = Types.SetSection

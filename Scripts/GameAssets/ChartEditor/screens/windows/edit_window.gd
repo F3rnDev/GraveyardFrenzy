@@ -72,6 +72,13 @@ func getSelectedObjectType():
 	var curObjectType:String = ""
 	
 	for object in selectedObjectsRef:
+		#Check event Group
+		if object is ChartEventGroup:
+			if (selectedObjectsRef.size() == 1 and selectedObjectsRef[0].selectedEvent != null):
+				return "ChartEvent"
+			else:
+				return "ChartObject"
+		
 		curObjectType = object.get_script().get_global_name()
 		
 		if curObjectType not in objectTypes:
@@ -88,11 +95,8 @@ func setActiveFields():
 	
 	var objectTypeString = getSelectedObjectType()
 	
-	if objectTypeString == "":
+	if objectTypeString == "" or objectTypeString not in typeMap:
 		resizeWindow()
-		return
-	
-	if objectTypeString not in typeMap:
 		return
 	
 	var objectType = typeMap[objectTypeString].new()
@@ -144,8 +148,19 @@ func setTypeSelector(field:OptionButton, types:Array, objectType:String):
 	for type in types:
 		field.add_item(type)
 	
-	var firstType = selectedObjectsRef[0].get(objectType)
+	var objectToGetType = selectedObjectsRef[0]
+	
+	#IF IS A EVENT GROUP
+	var isEventGroup = selectedObjectsRef[0] is ChartEventGroup
+	if isEventGroup:
+		objectToGetType = objectToGetType.selectedEvent
+		field.select(objectToGetType.get(objectType))
+		
+		return
+	
+	var firstType = objectToGetType.get(objectType)
 	var multValues = false
+	
 	for object in selectedObjectsRef:
 		var type = object.get(objectType)
 		if firstType != type:
@@ -349,7 +364,11 @@ func setType(index:int, objType:String, paramCall:Variant = null):
 		return
 	
 	for object in selectedObjectsRef:
-		object.set(objType, index)
+		var targetObject = object
+		if object is ChartEventGroup:
+			targetObject = object.selectedEvent
+		
+		targetObject.set(objType, index)
 	
 	if paramCall != null and paramCall is Callable:
 		paramCall.call()

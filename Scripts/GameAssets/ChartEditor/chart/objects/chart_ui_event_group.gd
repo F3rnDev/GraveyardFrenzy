@@ -107,6 +107,9 @@ func addItem(event):
 func unselectEvents():
 	for eventUI in eventContainer.get_children():
 		eventUI.setSelected(false)
+	
+	if refData != null:
+		refData.selectedEvent = null
 
 func selectEvent(object:ChartUIObject):
 	unselectEvents()
@@ -116,6 +119,17 @@ func selectEvent(object:ChartUIObject):
 		return
 	
 	object.setSelected(true)
+	
+	#Set selected
+	var eventID = refData.linkedEvents.find(object.refData)
+	
+	if eventID == -1:
+		return
+	
+	refData.selectedEvent = refData.linkedEvents.get(eventID)
+	
+	#Reference
+	renderedObjectsRef.changedSelection.emit()
 
 func startEventDrag(object:ChartUIObject):
 	draggedEvent = object

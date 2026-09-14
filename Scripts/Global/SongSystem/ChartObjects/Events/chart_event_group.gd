@@ -3,6 +3,7 @@ extends ChartObject
 class_name ChartEventGroup
 
 var linkedEvents:Array[ChartEvent] = []
+var selectedEvent:ChartEvent = null
 
 func getUIType():
 	return ChartUIEventGroup

@@ -16,10 +16,11 @@ func setParams(Objects:Array):
 		return
 	
 	clearUI()
-	var firstEvent:ChartEvent = objectsRef[0]
+	var firstEvent:ChartEvent = objectsRef[0] if objectsRef[0] is not ChartEventGroup else objectsRef[0].selectedEvent
 	var eventType:ChartEvent.Types = firstEvent.eventType
 	
-	enableGroup(params[eventType])
+	if eventType in params:
+		enableGroup(params[eventType])
 	
 	match eventType:
 		ChartEvent.Types.SetSection:
@@ -38,5 +39,11 @@ func enableGroup(group:Array):
 #define param:
 func _on_new_section_item_selected(index: int) -> void:
 	for event in objectsRef:
-		if event is ChartEvent:
-			EventParams.setParam(event, EventParams.ParameterKey.SECTION_ID, index)
+		if event is not ChartEvent and event is not ChartEventGroup:
+			return
+		
+		var targetEvent = event
+		if event is ChartEventGroup:
+			targetEvent = event.selectedEvent
+		
+		EventParams.setParam(targetEvent, EventParams.ParameterKey.SECTION_ID, index)
