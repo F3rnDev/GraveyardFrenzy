@@ -44,6 +44,9 @@ func startDrag():
 	
 	if !hasMultipleSelection():
 		animateEventContainer(false)
+	
+	refData.selectedEvent = null
+	renderedObjectsRef.changedSelection.emit()
 
 func endDrag():
 	super.endDrag()
@@ -96,6 +99,7 @@ func cleanItems():
 
 func addItem(event):
 	var instance:ChartUIEvent = chartUIEvent.instantiate()
+	instance.hasAnimation = false
 	instance.selected.connect(selectEvent)
 	instance.startDragging.connect(startEventDrag)
 	instance.endDragging.connect(endEventDrag)

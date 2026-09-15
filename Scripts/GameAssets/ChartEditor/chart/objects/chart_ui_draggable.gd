@@ -20,10 +20,13 @@ signal endDragging()
 
 #Animation
 var startScale = Vector2.ZERO
+var hasAnimation = true
 
 func _ready() -> void:
 	setSelected(false)
-	startCreateAnimation()
+	
+	if hasAnimation:
+		startCreateAnimation()
 
 func startCreateAnimation():
 	createAnimation(self)
