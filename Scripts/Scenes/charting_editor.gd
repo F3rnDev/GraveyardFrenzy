@@ -70,9 +70,10 @@ func loadProject():
 	
 	conductor.NewSetSong(songProject.commonAudio)
 	conductor.setBpm(songProject.data.baseBpm)
+	conductor.songPos = 0.0
 	
-	noteGrid.setGrid()
-	eventGrid.setGrid()
+	noteGrid.renderGrid()
+	eventGrid.renderGrid()
 	chartSelector.active = true
 	
 	loadChart(0)
@@ -116,7 +117,7 @@ func canMoveChart(newPos:float) -> bool:
 
 #Drag Strum Bar
 func moveChart(direction):
-	var curStep = floor(conductor.songPos / conductor.stepCrochet)
+	var curStep = int(round(conductor.songPos / conductor.stepCrochet))
 	curStep += direction
 	
 	var newPos = curStep * conductor.stepCrochet

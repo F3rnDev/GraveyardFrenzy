@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends ChartEditorGrid
 
 class_name NoteGridUI
 
@@ -8,13 +8,6 @@ class_name NoteGridUI
 @export var stepMarkerHeight:float = 32.0
 @export var stepSpacing:float = 4.0
 
-var initPos:float
-
-#Dependencies
-@export_category("Dependencies")
-@export var conductor:Conductor
-@export var gridInfo:GridInfo
-
 #GetNote
 signal previewNoteAdd(pos:Vector2)
 signal previewNoteRemove()
@@ -22,34 +15,23 @@ signal previewNoteRemove()
 #Add note
 signal addNote(pos:Vector2)
 
-func _ready() -> void:
-	initPos = global_position.x
-
-func _process(delta: float) -> void:
-	setGridPos()
-
-func clearGrid():
-	for step in get_children():
-		step.queue_free()
-
-func setGrid():
-	clearGrid()
+func renderGridStep(stepID:int, stepPos:float):
+	var gridStepInstance:NoteGridStep
 	
-	var allSteps = floor((conductor.songLength) / conductor.stepCrochet)
-	
-	for step in allSteps:
-		var gridStepInstance:NoteGridStep = gridStep.instantiate()
+	if not nodePool.is_empty():
+		gridStepInstance = nodePool.pop_back()
+		gridStepInstance.visible = true
+	else:
+		gridStepInstance = gridStep.instantiate()
 		add_child(gridStepInstance)
 		
 		gridStepInstance.btnEntered.connect(enteredButton)
 		gridStepInstance.btnExited.connect(exitedButton)
 		gridStepInstance.btnPressed.connect(pressedButton)
-		gridStepInstance.setStep(step, gridInfo.stepSize)
-
-func setGridPos():
-	var xPos = ((conductor.songPos / conductor.stepCrochet) * (gridInfo.stepSize))
 	
-	global_position.x = (xPos * gridInfo.gridDir) + initPos
+	gridStepInstance.setStep(stepID, gridInfo.stepSize)
+	gridStepInstance.setXPos(stepPos)
+	activeSteps[stepID] = gridStepInstance
 
 func enteredButton(pos:Vector2):
 	previewNoteAdd.emit(pos)

@@ -24,6 +24,9 @@ signal btnExited()
 
 signal btnPressed(pos:Vector2)
 
+func setXPos(Xpos:float):
+	position.x = Xpos
+
 func setStep(step:int, stepSize:float):
 	thisStep = step
 	

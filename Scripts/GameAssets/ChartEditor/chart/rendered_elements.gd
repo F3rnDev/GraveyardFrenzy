@@ -9,10 +9,10 @@ class_name ChartUIRenderedObjects
 
 #ObjectMap
 @onready var instanceMap = {
-	"ChartUINote": preload("res://Nodes/GameAssets/ChartEditor/Chart/Objects/chart_ui_note.tscn"),
-	"ChartUIObstacle": preload("res://Nodes/GameAssets/ChartEditor/Chart/Objects/chart_ui_obstacle.tscn"),
-	"ChartUIEvent": preload("res://Nodes/GameAssets/ChartEditor/Chart/Objects/chart_ui_event.tscn"),
-	"ChartUIEventGroup": preload("res://Nodes/GameAssets/ChartEditor/Chart/Objects/chart_ui_event_group.tscn")
+	ChartUINote: preload("res://Nodes/GameAssets/ChartEditor/Chart/Objects/chart_ui_note.tscn"),
+	ChartUIObstacle: preload("res://Nodes/GameAssets/ChartEditor/Chart/Objects/chart_ui_obstacle.tscn"),
+	ChartUIEvent: preload("res://Nodes/GameAssets/ChartEditor/Chart/Objects/chart_ui_event.tscn"),
+	ChartUIEventGroup: preload("res://Nodes/GameAssets/ChartEditor/Chart/Objects/chart_ui_event_group.tscn")
 }
 
 @onready var initPos = global_position.x
@@ -128,7 +128,10 @@ func removeObject(object):
 	activeObjects.erase(object)
 
 func renderObject(objectData, type:CreationType):
-	var object: ChartUIObject = objectData.getUIType().new()
+	if objectData in activeObjects:
+		return
+	
+	var object:GDScript = objectData.getUIType()
 	
 	if object:
 		addObject(object, objectData, type)
@@ -146,9 +149,8 @@ func getChart():
 	return renderedChart
 
 #Add objects to scene
-func addObject(object:ChartUIObject, data:ChartObject, creationType:CreationType):
+func addObject(objectType:GDScript, data:ChartObject, creationType:CreationType):
 	#Create instance
-	var objectType = object.get_script().get_global_name()
 	var objectToInstance = instanceMap[objectType]
 	
 	var instance:ChartUIObject = objectToInstance.instantiate()

@@ -14,6 +14,9 @@ func _ready() -> void:
 	if inEditor:
 		queue_free()
 
+func setXPos(Xpos):
+	position.x = Xpos
+
 func _on_mouse_entered() -> void:
 	btnEntered.emit(global_position)
 
