@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2ya4amal0l8r"]
+
+[ext_resource type="Script" uid="uid://ca1hwes8s25gg" path="res://Scripts/GameAssets/ChartEditor/song_control_progress_handle.gd" id="1_s3c54"]
+
+[node name="SongProgressHandle" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+color = Color(1, 1, 1, 0)
+script = ExtResource("1_s3c54")
+
+[node name="ExpandSong" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.0015528
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 10
+metadata/_edit_use_anchors_ = true

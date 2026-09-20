@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://y3k4e0rwyu2a"]
+
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_axqyu"]
+[ext_resource type="Script" uid="uid://8tcx21kqypai" path="res://Scripts/GameAssets/ChartEditor/event_grid_step.gd" id="2_7enga"]
+
+[node name="Step" type="Button"]
+custom_minimum_size = Vector2(64, 64)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_axqyu")
+theme_type_variation = &"NoteGridStep"
+script = ExtResource("2_7enga")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

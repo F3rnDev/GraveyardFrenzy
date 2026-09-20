@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://dqp32tir4o145"]
+
+[ext_resource type="Texture2D" uid="uid://bk1m6ar3id6i2" path="res://Assets/Images/UI Images/ChartEditor/NoteSign.png" id="1_chisp"]
+[ext_resource type="Shader" uid="uid://dwraucsl0j3ne" path="res://Assets/Shaders/resizeTexture.gdshader" id="1_i1fyp"]
+[ext_resource type="Script" uid="uid://rw8o7y0pxre3" path="res://Scripts/GameAssets/ChartEditor/chart/objects/chart_ui_note.gd" id="2_mncdx"]
+[ext_resource type="Texture2D" uid="uid://bjnoxmlmfqx6l" path="res://Assets/Images/UI Images/ChartEditor/NoteSignHold1.png" id="3_7blxt"]
+[ext_resource type="Texture2D" uid="uid://bk8qltutiuefj" path="res://Assets/Images/UI Images/ChartEditor/NoteSignHold2.png" id="4_kyept"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l4vj3"]
+resource_local_to_scene = true
+shader = ExtResource("1_i1fyp")
+shader_parameter/texture_scale = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i1fyp"]
+resource_local_to_scene = true
+shader = ExtResource("1_i1fyp")
+shader_parameter/texture_scale = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wrkb0"]
+resource_local_to_scene = true
+shader = ExtResource("1_i1fyp")
+shader_parameter/texture_scale = 1.0
+
+[node name="Note" type="TextureRect"]
+material = SubResource("ShaderMaterial_l4vj3")
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+texture = ExtResource("1_chisp")
+script = ExtResource("2_mncdx")
+metadata/_custom_type_script = "uid://wdrb3xd077ek"
+
+[node name="HoldLine" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_i1fyp")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+texture = ExtResource("3_7blxt")
+
+[node name="HoldEnd" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_wrkb0")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+texture = ExtResource("4_kyept")
+
+[node name="SelectHint" type="ColorRect" parent="."]
+layout_mode = 1
+mouse_filter = 2
+color = Color(1, 0, 0, 0.392157)

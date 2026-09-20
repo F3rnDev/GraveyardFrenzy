@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://byt1gvuy2nwht"]
+
+[ext_resource type="Shader" uid="uid://dwraucsl0j3ne" path="res://Assets/Shaders/resizeTexture.gdshader" id="1_lt0fh"]
+[ext_resource type="Script" uid="uid://dtu7ou2d75mnf" path="res://Scripts/GameAssets/ChartEditor/chart/objects/chart_ui_draggable.gd" id="1_o0a4n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gcrrh"]
+resource_local_to_scene = true
+shader = ExtResource("1_lt0fh")
+shader_parameter/texture_scale = 1.0
+
+[node name="ChartDraggable" type="TextureRect"]
+material = SubResource("ShaderMaterial_gcrrh")
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+size_flags_horizontal = 0
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+script = ExtResource("1_o0a4n")
+
+[node name="SelectHint" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 0.392157)

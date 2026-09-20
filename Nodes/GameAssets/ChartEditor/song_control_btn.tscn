@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs56jc5gnmu5w"]
+
+[ext_resource type="Texture2D" uid="uid://cqjbvl8j0r8h2" path="res://Assets/Images/UI Images/ChartEditor/PlayIcons4.png" id="1_8itrm"]
+[ext_resource type="Script" uid="uid://cr14drwoct1ju" path="res://Scripts/GameAssets/ChartEditor/song_control_btn.gd" id="2_monhv"]
+
+[node name="SongControlBtn" type="Button"]
+custom_minimum_size = Vector2(64, 64)
+focus_mode = 0
+mouse_default_cursor_shape = 2
+icon = ExtResource("1_8itrm")
+expand_icon = true
+script = ExtResource("2_monhv")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

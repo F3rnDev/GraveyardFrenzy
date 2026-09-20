@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://d30u5w8nrlfma"]
+
+[ext_resource type="Texture2D" uid="uid://b0h4glsfqkb5o" path="res://Assets/Images/UI Images/ChartEditor/PlayIcons1.png" id="1_e8hsh"]
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_lvy0j"]
+[ext_resource type="Script" uid="uid://clmplhut8yjj0" path="res://Scripts/GameAssets/ChartEditor/play_song_button.gd" id="2_e8hsh"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_lvy0j"]
+action = &"PlayMusicChart"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_7i3qk"]
+events = [SubResource("InputEventAction_lvy0j")]
+
+[node name="PlaySong" type="Button"]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_lvy0j")
+toggle_mode = true
+shortcut = SubResource("Shortcut_7i3qk")
+icon = ExtResource("1_e8hsh")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_e8hsh")
+iconNormalPath = "uid://b0h4glsfqkb5o"
+iconHoverPath = "uid://c2h6q6y1w1cj2"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="toggled" from="." to="." method="_on_toggled"]

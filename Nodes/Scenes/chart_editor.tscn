@@ -1,0 +1,309 @@
+[gd_scene load_steps=25 format=3 uid="uid://b0j7eql8crax4"]
+
+[ext_resource type="PackedScene" uid="uid://hme46mywc6mk" path="res://Nodes/GameAssets/ChartEditor/note_grid.tscn" id="1_4a8do"]
+[ext_resource type="Script" uid="uid://b7hloju20pnt6" path="res://Scripts/Scenes/charting_editor.gd" id="1_81dar"]
+[ext_resource type="Script" uid="uid://denk1nu4uvtqn" path="res://Scripts/GameAssets/ChartEditor/GridInfo.gd" id="2_lhiwb"]
+[ext_resource type="PackedScene" uid="uid://b6l6ne4iiyoef" path="res://Nodes/GameAssets/ChartEditor/strum_bar.tscn" id="2_tm7ll"]
+[ext_resource type="PackedScene" uid="uid://byb7jid55qn1n" path="res://Nodes/Global/conductor.tscn" id="3_tyg1x"]
+[ext_resource type="PackedScene" uid="uid://0t6oh4brib5t" path="res://Nodes/GameAssets/ChartEditor/Chart/rendered_elements.tscn" id="4_slqsl"]
+[ext_resource type="PackedScene" uid="uid://c4lmc6ptd4nju" path="res://Nodes/GameAssets/ChartEditor/note_preview.tscn" id="4_wwp6h"]
+[ext_resource type="PackedScene" uid="uid://blgqkedfnsqlh" path="res://Nodes/GameAssets/ChartEditor/event_grid.tscn" id="5_2ocph"]
+[ext_resource type="PackedScene" uid="uid://d1hnwhbq1o00k" path="res://Nodes/GameAssets/ChartEditor/Screens/start_screen.tscn" id="6_7o4bb"]
+[ext_resource type="PackedScene" uid="uid://bj0y35rh3b6yy" path="res://Nodes/GameAssets/ChartEditor/Chart/chart_selector.tscn" id="6_m10cc"]
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="7_lgb8r"]
+[ext_resource type="PackedScene" uid="uid://h1x8b6e3awfr" path="res://Nodes/GameAssets/ChartEditor/element_type_select.tscn" id="8_lhiwb"]
+[ext_resource type="PackedScene" uid="uid://cy71e0ia7o6dq" path="res://Nodes/GameAssets/ChartEditor/song_control_progress_bar.tscn" id="11_4uld4"]
+[ext_resource type="PackedScene" uid="uid://d30u5w8nrlfma" path="res://Nodes/GameAssets/ChartEditor/play_song_Button.tscn" id="11_k61ma"]
+[ext_resource type="PackedScene" uid="uid://shpdfopjrevo" path="res://Nodes/GameAssets/ChartEditor/song_time.tscn" id="11_pre0x"]
+[ext_resource type="PackedScene" uid="uid://cs56jc5gnmu5w" path="res://Nodes/GameAssets/ChartEditor/song_control_btn.tscn" id="12_i7s2x"]
+[ext_resource type="PackedScene" uid="uid://d2ya4amal0l8r" path="res://Nodes/GameAssets/ChartEditor/song_control_progress_handle.tscn" id="12_t3h8i"]
+[ext_resource type="PackedScene" uid="uid://6w61bqayesj4" path="res://Nodes/GameAssets/ChartEditor/diffSelector.tscn" id="13_pre0x"]
+[ext_resource type="Texture2D" uid="uid://dn66v1dnxmmow" path="res://Assets/Images/UI Images/ChartEditor/PlayIcons10.png" id="13_wyop1"]
+[ext_resource type="PackedScene" uid="uid://bqp8uhmes5feo" path="res://Nodes/GameAssets/ChartEditor/chart_bpm_spin_box.tscn" id="14_xb0vq"]
+[ext_resource type="Texture2D" uid="uid://m7m4kdehsybe" path="res://Assets/Images/UI Images/ChartEditor/PlayIcons8.png" id="15_j6ps7"]
+[ext_resource type="Texture2D" uid="uid://dtw0d3vc1nsj6" path="res://Assets/Images/UI Images/ChartEditor/PlayIcons6.png" id="16_pcl03"]
+[ext_resource type="PackedScene" uid="uid://bxkvanb86miud" path="res://Nodes/GameAssets/ChartEditor/navigation_options_grp.tscn" id="21_1i5k4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4uld4"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[node name="ChartEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_81dar")
+
+[node name="ChartControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ChartSelectorArea" parent="ChartControl" node_paths=PackedStringArray("strumBar", "noteGrid", "eventGrid", "renderedElements") instance=ExtResource("6_m10cc")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 0)
+strumBar = NodePath("../StrumBar")
+noteGrid = NodePath("../NoteGrid")
+eventGrid = NodePath("../EventGrid")
+renderedElements = NodePath("../RenderedElements")
+
+[node name="GridInfo" type="Control" parent="ChartControl"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_lhiwb")
+
+[node name="NoteGrid" parent="ChartControl" node_paths=PackedStringArray("conductor", "gridInfo") instance=ExtResource("1_4a8do")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.194444
+anchor_right = 0.075
+anchor_bottom = 0.433333
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 2
+conductor = NodePath("../../Conductor")
+gridInfo = NodePath("../GridInfo")
+metadata/_edit_use_anchors_ = true
+
+[node name="EventGrid" parent="ChartControl" node_paths=PackedStringArray("conductor", "gridInfo") instance=ExtResource("5_2ocph")]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 332.0
+offset_right = 96.0
+offset_bottom = 396.0
+conductor = NodePath("../../Conductor")
+gridInfo = NodePath("../GridInfo")
+
+[node name="RenderedElements" parent="ChartControl" node_paths=PackedStringArray("chartEditor", "conductor", "noteGrid", "eventGrid", "gridInfo", "elementSelectUI") instance=ExtResource("4_slqsl")]
+chartEditor = NodePath("../..")
+conductor = NodePath("../../Conductor")
+noteGrid = NodePath("../NoteGrid")
+eventGrid = NodePath("../EventGrid")
+gridInfo = NodePath("../GridInfo")
+elementSelectUI = NodePath("../ElementTypeSelect")
+
+[node name="Preview" parent="ChartControl" node_paths=PackedStringArray("renderedNotes", "elementTypeSelect") instance=ExtResource("4_wwp6h")]
+visible = false
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+renderedNotes = NodePath("../RenderedElements")
+elementTypeSelect = NodePath("../ElementTypeSelect")
+
+[node name="StrumBar" parent="ChartControl" instance=ExtResource("2_tm7ll")]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 26.0
+offset_top = -221.0
+offset_right = 40.0
+offset_bottom = 36.0
+grow_vertical = 2
+
+[node name="ElementTypeSelect" parent="ChartControl" instance=ExtResource("8_lhiwb")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -298.0
+offset_right = -18.0
+offset_bottom = -234.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="SongControl" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -80.0
+offset_right = 1280.0
+offset_bottom = -2.0
+grow_vertical = 0
+theme = ExtResource("7_lgb8r")
+theme_type_variation = &"ChartEditorFooter"
+
+[node name="SongProgressPanel" type="Panel" parent="SongControl"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 4.0
+offset_top = -32.0
+offset_right = -4.0
+grow_horizontal = 2
+theme = ExtResource("7_lgb8r")
+theme_type_variation = &"ChartEditorFooter"
+theme_override_styles/panel = SubResource("StyleBoxFlat_4uld4")
+
+[node name="SongProgressBar" parent="SongControl/SongProgressPanel" node_paths=PackedStringArray("conductor", "rendElements") instance=ExtResource("11_4uld4")]
+layout_mode = 1
+anchors_preset = 15
+anchor_bottom = 1.0
+offset_top = 0.0
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+conductor = NodePath("../../../Conductor")
+rendElements = NodePath("../../../ChartControl/RenderedElements")
+
+[node name="SongProgressHandle" parent="SongControl/SongProgressPanel" node_paths=PackedStringArray("conductor", "rendElements", "gridInfo") instance=ExtResource("12_t3h8i")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.125
+anchor_bottom = 1.125
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+conductor = NodePath("../../../Conductor")
+rendElements = NodePath("../../../ChartControl/RenderedElements")
+gridInfo = NodePath("../../../ChartControl/GridInfo")
+metadata/_edit_use_anchors_ = true
+
+[node name="SongTime" parent="SongControl" instance=ExtResource("11_pre0x")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -250.0
+offset_top = -22.0
+offset_right = -20.0
+offset_bottom = 22.0
+grow_horizontal = 0
+
+[node name="ControlButtons" type="HBoxContainer" parent="SongControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -32.0
+offset_right = 56.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SkipToStart" parent="SongControl/ControlButtons" instance=ExtResource("12_i7s2x")]
+layout_mode = 2
+iconNormalPath = "uid://cqjbvl8j0r8h2"
+iconHoverPath = "uid://cq3sd3gplce6p"
+
+[node name="PreviousSection" parent="SongControl/ControlButtons" instance=ExtResource("12_i7s2x")]
+layout_mode = 2
+icon = ExtResource("13_wyop1")
+iconNormalPath = "uid://dn66v1dnxmmow"
+iconHoverPath = "uid://ciiciicp61xqx"
+
+[node name="PlaySong" parent="SongControl/ControlButtons" instance=ExtResource("11_k61ma")]
+layout_mode = 2
+
+[node name="NextSection" parent="SongControl/ControlButtons" instance=ExtResource("12_i7s2x")]
+layout_mode = 2
+icon = ExtResource("15_j6ps7")
+iconNormalPath = "uid://m7m4kdehsybe"
+iconHoverPath = "uid://cnk3k7xcwplk4"
+
+[node name="SkipToEnd" parent="SongControl/ControlButtons" instance=ExtResource("12_i7s2x")]
+layout_mode = 2
+icon = ExtResource("16_pcl03")
+iconNormalPath = "uid://dtw0d3vc1nsj6"
+iconHoverPath = "uid://bg7ctbpi35t8r"
+
+[node name="Info" type="HBoxContainer" parent="SongControl"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -1.0
+offset_right = 370.0
+offset_bottom = 24.0
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="DifficultySelector" parent="SongControl/Info" instance=ExtResource("13_pre0x")]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+
+[node name="ChartBpm" parent="SongControl/Info" instance=ExtResource("14_xb0vq")]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="EditorHeader" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 42.0
+grow_horizontal = 2
+theme = ExtResource("7_lgb8r")
+theme_type_variation = &"ChartEditorFooter"
+
+[node name="Options" parent="EditorHeader" node_paths=PackedStringArray("editor") instance=ExtResource("21_1i5k4")]
+layout_mode = 1
+editor = NodePath("../..")
+
+[node name="Conductor" parent="." instance=ExtResource("3_tyg1x")]
+
+[node name="BlackScreen" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.337255)
+
+[node name="StartScreen" parent="." instance=ExtResource("6_7o4bb")]
+visible = false
+layout_mode = 1
+theme = ExtResource("7_lgb8r")
+
+[connection signal="addNote" from="ChartControl/NoteGrid" to="ChartControl/RenderedElements" method="_on_note_grid_add_note"]
+[connection signal="previewNoteAdd" from="ChartControl/NoteGrid" to="ChartControl/Preview" method="_on_note_grid_preview_note_add"]
+[connection signal="previewNoteRemove" from="ChartControl/NoteGrid" to="ChartControl/Preview" method="_on_note_grid_preview_note_remove"]
+[connection signal="addEvent" from="ChartControl/EventGrid" to="ChartControl/RenderedElements" method="_on_event_grid_add_event"]
+[connection signal="previewEventAdd" from="ChartControl/EventGrid" to="ChartControl/Preview" method="_on_event_grid_preview_event_add"]
+[connection signal="previewEventRemove" from="ChartControl/EventGrid" to="ChartControl/Preview" method="_on_event_grid_preview_event_remove"]
+[connection signal="openEditWindow" from="ChartControl/RenderedElements" to="." method="_on_rendered_elements_open_edit_window"]
+[connection signal="moveGrab" from="ChartControl/StrumBar" to="." method="_on_strum_bar_move_grab"]
+[connection signal="startedGrab" from="ChartControl/StrumBar" to="." method="_on_strum_bar_started_grab"]
+[connection signal="button_down" from="SongControl/ControlButtons/SkipToStart" to="." method="_on_skip_to_start_button_down"]
+[connection signal="button_down" from="SongControl/ControlButtons/PreviousSection" to="." method="_on_previous_section_button_down"]
+[connection signal="toggled" from="SongControl/ControlButtons/PlaySong" to="." method="_on_play_song_toggled"]
+[connection signal="button_down" from="SongControl/ControlButtons/NextSection" to="." method="_on_next_section_button_down"]
+[connection signal="button_down" from="SongControl/ControlButtons/SkipToEnd" to="." method="_on_skip_to_end_button_down"]
+[connection signal="item_selected" from="SongControl/Info/DifficultySelector" to="." method="_on_difficulty_selector_item_selected"]
+[connection signal="value_changed" from="SongControl/Info/ChartBpm" to="." method="_on_chart_bpm_value_changed"]
+[connection signal="addProject" from="EditorHeader/Options" to="." method="newProject"]
+[connection signal="loadProject" from="EditorHeader/Options" to="." method="openProject"]
+[connection signal="saveProjectAs" from="EditorHeader/Options" to="." method="saveProjectAs"]
+[connection signal="beatHit" from="Conductor" to="." method="_on_conductor_beat_hit"]
+[connection signal="addProject" from="StartScreen" to="." method="newProject"]
+[connection signal="loadProject" from="StartScreen" to="." method="openProject"]

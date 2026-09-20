@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqp8uhmes5feo"]
+
+[ext_resource type="Script" uid="uid://cqiocisutqdaj" path="res://Scripts/GameAssets/ChartEditor/chart_bpm_spin_box.gd" id="1_xeee6"]
+
+[node name="ChartBpm" type="SpinBox"]
+offset_right = 101.165
+offset_bottom = 24.0
+max_value = 1000.0
+value = 120.0
+script = ExtResource("1_xeee6")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_top = -25.0
+offset_right = 144.0
+offset_bottom = -9.0
+text = "Base Bpm:"

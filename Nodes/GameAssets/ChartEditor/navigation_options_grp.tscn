@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxkvanb86miud"]
+
+[ext_resource type="Script" uid="uid://cn6n0abjtgfpr" path="res://Scripts/GameAssets/ChartEditor/navigation_options_grp.gd" id="1_0sovr"]
+[ext_resource type="PackedScene" uid="uid://bp5o81yrbcb6t" path="res://Nodes/GameAssets/ChartEditor/navigation_button.tscn" id="1_x5lmm"]
+[ext_resource type="Script" uid="uid://6x6x1l2awjq0" path="res://Scripts/GameAssets/ChartEditor/navigation_button_file.gd" id="3_mc4gy"]
+
+[node name="Options" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+script = ExtResource("1_0sovr")
+
+[node name="File" parent="." instance=ExtResource("1_x5lmm")]
+layout_mode = 2
+item_count = 5
+popup/item_2/text = "Save"
+popup/item_2/id = 4
+popup/item_2/separator = true
+popup/item_3/text = "Save Project"
+popup/item_3/id = 2
+popup/item_4/text = "Save Project As"
+popup/item_4/id = 3
+script = ExtResource("3_mc4gy")
+
+[node name="CreateNewPath" type="FileDialog" parent="File"]
+auto_translate_mode = 1
+title = "Open a Directory"
+initial_position = 1
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+use_native_dialog = true
+
+[node name="OpenPath" type="FileDialog" parent="File"]
+auto_translate_mode = 1
+title = "Open a File"
+initial_position = 2
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+use_native_dialog = true
+
+[node name="SaveAs" type="FileDialog" parent="File"]
+access = 2
+use_native_dialog = true
+
+[connection signal="selected" from="File" to="." method="_on_file_selected"]
+[connection signal="canceled" from="File/CreateNewPath" to="File" method="_on_create_new_path_canceled"]
+[connection signal="dir_selected" from="File/CreateNewPath" to="File" method="_on_create_new_path_dir_selected"]
+[connection signal="canceled" from="File/OpenPath" to="File" method="_on_open_path_canceled"]
+[connection signal="file_selected" from="File/OpenPath" to="File" method="_on_open_path_file_selected"]
+[connection signal="canceled" from="File/SaveAs" to="File" method="_on_save_as_canceled"]
+[connection signal="file_selected" from="File/SaveAs" to="File" method="_on_save_as_file_selected"]

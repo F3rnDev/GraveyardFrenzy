@@ -33,15 +33,15 @@ func playSong(restart):
 	curStep = floor((songPos) / stepCrochet)
 	curBeat = floor(curStep/4)
 	
+	$Song.play()
+	startTime = Time.get_ticks_msec()/1000.0
+	if !restart and floor(songPos) < floor($Song.stream.get_length()):
+		$Song.seek(songPos)
+		startTime -= songPos
+
+func pauseSong():
 	if $Song.playing:
 		$Song.stop()
-	else:
-		$Song.play()
-		await get_tree().process_frame
-		startTime = Time.get_ticks_msec()/1000.0
-		if !restart and floor(songPos) < floor($Song.stream.get_length()):
-			$Song.seek(songPos)
-			startTime -= songPos
 
 func setBpm(newBpm):
 	bpm = newBpm
@@ -55,6 +55,14 @@ func setSong(path, fileLoaded = true):
 	else:	
 		$Song.stream = Audio.getAudio(path)
 	
+	songLength = $Song.stream.get_length()
+
+#Change name later
+func NewSetSong(bytes:PackedByteArray):
+	var newStream:AudioStreamMP3 = AudioStreamMP3.new()
+	newStream.data = bytes
+	
+	$Song.stream = newStream
 	songLength = $Song.stream.get_length()
 
 func _process(_delta):
