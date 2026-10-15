@@ -1,7 +1,5 @@
 extends Node2D
 
-class_name ChartEditor
-
 var curSong
 
 var totalSections = 0
@@ -337,7 +335,7 @@ func _on_strum_area_mouse_exited():
 
 
 func _on_play_song_button_down():
-	$Conductor.playSong(false)	
+	$Conductor.playSong(false)
 	$"CanvasLayer/Play Song".release_focus()
 
 func _on_input_text_changed(new_text):

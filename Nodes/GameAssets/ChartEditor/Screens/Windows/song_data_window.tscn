@@ -1,0 +1,97 @@
+[gd_scene load_steps=4 format=3 uid="uid://bj6x4c8rusyum"]
+
+[ext_resource type="PackedScene" uid="uid://688j2en82dlp" path="res://Nodes/Global/window.tscn" id="1_61o8y"]
+[ext_resource type="Script" uid="uid://c02g3h7yeqbqh" path="res://Scripts/GameAssets/ChartEditor/screens/windows/song_data_window.gd" id="2_gicn4"]
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="2_gymch"]
+
+[node name="SongData" node_paths=PackedStringArray("contentRef") instance=ExtResource("1_61o8y")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -100.0
+offset_right = 250.0
+offset_bottom = 100.0
+pivot_offset = Vector2(250, 500)
+size_flags_horizontal = 4
+windowTitle = "METADATA"
+contentRef = NodePath("MainPanel/Content")
+
+[node name="Content" type="HBoxContainer" parent="MainPanel" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource("2_gicn4")
+
+[node name="SongStats" type="GridContainer" parent="MainPanel/Content" index="0"]
+layout_mode = 2
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="SongNameLbl" type="Label" parent="MainPanel/Content/SongStats" index="0"]
+custom_minimum_size = Vector2(176, 24)
+layout_mode = 2
+theme = ExtResource("2_gymch")
+text = "Song Name: "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SongName" type="LineEdit" parent="MainPanel/Content/SongStats" index="1"]
+custom_minimum_size = Vector2(200, 24)
+layout_mode = 2
+theme = ExtResource("2_gymch")
+
+[node name="ComposerLbl" type="Label" parent="MainPanel/Content/SongStats" index="2"]
+custom_minimum_size = Vector2(176, 24)
+layout_mode = 2
+theme = ExtResource("2_gymch")
+text = "Composer: "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Composer" type="LineEdit" parent="MainPanel/Content/SongStats" index="3"]
+custom_minimum_size = Vector2(200, 24)
+layout_mode = 2
+theme = ExtResource("2_gymch")
+
+[node name="CharterLbl" type="Label" parent="MainPanel/Content/SongStats" index="4"]
+custom_minimum_size = Vector2(176, 24)
+layout_mode = 2
+theme = ExtResource("2_gymch")
+text = "Charter: "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Charter" type="LineEdit" parent="MainPanel/Content/SongStats" index="5"]
+custom_minimum_size = Vector2(200, 24)
+layout_mode = 2
+theme = ExtResource("2_gymch")
+
+[node name="Base_BpmLbl" type="Label" parent="MainPanel/Content/SongStats" index="6"]
+custom_minimum_size = Vector2(176, 24)
+layout_mode = 2
+theme = ExtResource("2_gymch")
+text = "Base BPM: "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Base_Bpm" type="SpinBox" parent="MainPanel/Content/SongStats" index="7"]
+custom_minimum_size = Vector2(200, 24)
+layout_mode = 2
+tooltip_text = "Not fully implemented, could lead to bugs."
+theme = ExtResource("2_gymch")
+max_value = 1000.0
+value = 120.0
+alignment = 1
+
+[connection signal="text_changed" from="MainPanel/Content/SongStats/SongName" to="MainPanel/Content" method="_on_song_name_text_changed"]
+[connection signal="text_changed" from="MainPanel/Content/SongStats/Composer" to="MainPanel/Content" method="_on_composer_text_changed"]
+[connection signal="text_changed" from="MainPanel/Content/SongStats/Charter" to="MainPanel/Content" method="_on_charter_text_changed"]
+[connection signal="value_changed" from="MainPanel/Content/SongStats/Base_Bpm" to="MainPanel/Content" method="_on_base_bpm_value_changed"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://5ql32wnq2ivj"]
+
+[ext_resource type="Script" uid="uid://cp1jkan30hb0j" path="res://Scripts/Global/NotificationSystem/notification_manager.gd" id="1_1xwoh"]
+
+[node name="NotificationManager" type="CanvasLayer"]
+script = ExtResource("1_1xwoh")
+
+[node name="messageContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(550, 680)
+anchors_preset = -1
+anchor_left = 0.785
+anchor_top = 1.0
+anchor_right = 0.785
+anchor_bottom = 1.0
+offset_left = -274.8
+offset_top = -720.0
+offset_right = 275.2
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(0, 720)
+mouse_filter = 2
+theme_override_constants/separation = 20
+alignment = 2

@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxn4koy552r3i"]
+
+[ext_resource type="Shader" uid="uid://dwraucsl0j3ne" path="res://Assets/Shaders/resizeTexture.gdshader" id="1_cfx82"]
+[ext_resource type="Texture2D" uid="uid://bk1m6ar3id6i2" path="res://Assets/Images/UI Images/ChartEditor/NoteSign.png" id="1_uqeop"]
+[ext_resource type="Script" uid="uid://wdrb3xd077ek" path="res://Scripts/GameAssets/ChartEditor/chart/objects/chart_ui_object.gd" id="2_cfx82"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pdggl"]
+resource_local_to_scene = true
+shader = ExtResource("1_cfx82")
+shader_parameter/texture_scale = 1.0
+
+[node name="ChartObject" type="TextureRect"]
+material = SubResource("ShaderMaterial_pdggl")
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+texture = ExtResource("1_uqeop")
+script = ExtResource("2_cfx82")
+
+[node name="SelectHint" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 0.392157)

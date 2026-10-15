@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://h1x8b6e3awfr"]
+
+[ext_resource type="Script" uid="uid://dnv7m4g7qxqjq" path="res://Scripts/GameAssets/ChartEditor/element_type_select.gd" id="1_udo1l"]
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_vhqyu"]
+[ext_resource type="Texture2D" uid="uid://bk1m6ar3id6i2" path="res://Assets/Images/UI Images/ChartEditor/NoteSign.png" id="2_udo1l"]
+[ext_resource type="Texture2D" uid="uid://crgvnpujngto2" path="res://Assets/Images/UI Images/ChartEditor/ObstacleSign.png" id="4_k6eai"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_lhiwb"]
+
+[node name="ElementTypeSelect" type="HBoxContainer"]
+offset_right = 68.0
+offset_bottom = 32.0
+script = ExtResource("1_udo1l")
+
+[node name="Note" type="Button" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_vhqyu")
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_lhiwb")
+icon = ExtResource("2_udo1l")
+expand_icon = true
+
+[node name="Obstacle" type="Button" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_vhqyu")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_lhiwb")
+icon = ExtResource("4_k6eai")
+expand_icon = true
+
+[connection signal="toggled" from="Note" to="." method="_on_note_toggled"]
+[connection signal="toggled" from="Obstacle" to="." method="_on_obstacle_toggled"]

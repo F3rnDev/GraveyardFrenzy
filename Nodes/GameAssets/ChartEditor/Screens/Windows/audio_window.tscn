@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://cafh5xyt538rw"]
+
+[ext_resource type="PackedScene" uid="uid://688j2en82dlp" path="res://Nodes/Global/window.tscn" id="1_djsc0"]
+[ext_resource type="Script" uid="uid://d3s3kbtgkqxee" path="res://Scripts/GameAssets/ChartEditor/screens/windows/audio_window.gd" id="2_40x6d"]
+[ext_resource type="PackedScene" uid="uid://b3vs7krowpint" path="res://Nodes/GameAssets/ChartEditor/chart_editor_audio_visualizer.tscn" id="2_xuqau"]
+
+[node name="MusicWindow" node_paths=PackedStringArray("contentRef") instance=ExtResource("1_djsc0")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -80.0
+offset_right = 225.0
+offset_bottom = 80.0
+pivot_offset = Vector2(225, 160)
+windowTitle = "SONG MUSIC"
+contentRef = NodePath("MainPanel/Content")
+
+[node name="MainPanel" parent="." index="0"]
+anchors_preset = -1
+anchor_bottom = 0.757
+offset_bottom = 72.9
+
+[node name="Content" type="VBoxContainer" parent="MainPanel" index="0" node_paths=PackedStringArray("windowRef")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+script = ExtResource("2_40x6d")
+windowRef = NodePath("../..")
+
+[node name="DefaultLbl" type="Label" parent="MainPanel/Content" index="0"]
+layout_mode = 2
+tooltip_text = "Will eventually become a toggle
+between the remix and normal
+versions of the song."
+mouse_filter = 0
+text = "DEFAULT"
+horizontal_alignment = 1
+
+[node name="AudioVisualizer" parent="MainPanel/Content" index="1" instance=ExtResource("2_xuqau")]
+layout_mode = 2
+
+[connection signal="changedAudio" from="MainPanel/Content/AudioVisualizer" to="MainPanel/Content" method="_on_audio_visualizer_changed_audio"]
