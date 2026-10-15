@@ -55,7 +55,8 @@ offset_bottom = 8.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.344076, 0.344076, 0.344076, 1)
-text = "Crtl+E"
+text = "Alt+E"
+horizontal_alignment = 2
 
 [node name="ControlSection" type="HSeparator" parent="Content"]
 layout_mode = 2

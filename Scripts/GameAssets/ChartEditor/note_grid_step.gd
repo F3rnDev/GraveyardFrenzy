@@ -27,7 +27,7 @@ signal btnPressed(pos:Vector2)
 func setXPos(Xpos:float):
 	position.x = Xpos
 
-func setStep(step:int, stepSize:float):
+func setStep(step:int):
 	thisStep = step
 	
 	beatNumber.visible = false
@@ -35,7 +35,7 @@ func setStep(step:int, stepSize:float):
 	stepTexture.texture = stepDivision
 	
 	if step%16 == 0:
-		var sectionNum = floor(step/16) + 1
+		var sectionNum = int(floor(step/16) + 1)
 		beatNumber.text = str(sectionNum)
 		beatNumber.visible = true
 		

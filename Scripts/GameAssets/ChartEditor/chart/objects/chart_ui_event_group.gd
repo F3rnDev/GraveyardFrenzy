@@ -23,7 +23,7 @@ func _ready() -> void:
 	super._ready()
 	
 	contInitSize = scrollContainer.size.y
-	scrollContainer.size.y = 0.0
+	scrollContainer.set_deferred("size:y", 0.0)
 
 func _process(delta: float) -> void:
 	if draggedEvent != null and canUnmerge():

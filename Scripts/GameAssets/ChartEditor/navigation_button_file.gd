@@ -1,11 +1,28 @@
 extends NavigationUIButton
 
-@onready var group = get_parent()
+enum Options{
+	New,
+	Open,
+	Save,
+	SaveAs
+}
+
+@export var group:ChartHeaderGroup
 @onready var createNewPath = $CreateNewPath
 @onready var openPath = $OpenPath
 @onready var saveAs = $SaveAs
 
 @onready var newChartWindow = preload("res://Nodes/GameAssets/ChartEditor/Screens/new_chart.tscn")
+
+func _ready() -> void:
+	super._ready()
+	setShortcuts()
+
+func setShortcuts():
+	setShortcut(0, "NewProject")
+	setShortcut(1, "OpenProject")
+	setShortcut(2, "SaveProject")
+	setShortcut(3, "SaveProjectAs")
 
 #New project
 func startNewProject():
@@ -63,3 +80,15 @@ func _on_save_as_file_selected(path: String) -> void:
 
 func _on_save_as_canceled() -> void:
 	group.setBlackScreen(false)
+
+#When item is selected
+func _on_selected(id: Variant) -> void:
+	match id:
+		Options.New:
+			startNewProject()
+		Options.Open:
+			startOpenProject()
+		Options.Save:
+			saveProject()
+		Options.SaveAs:
+			startSaveProjectAs()

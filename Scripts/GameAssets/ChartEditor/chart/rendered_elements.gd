@@ -76,11 +76,16 @@ func _process(delta: float) -> void:
 	if isDraggingNodes:
 		dragObject(draggedNode)
 
-func loadChart(chart:Chart):
-	clearObjects()
+func setChart(chart:Chart):
 	renderedChart = chart
-	renderedChart.groupEvents()
+	loadChart()
 
+func loadChart():
+	renderedChart.groupEvents()
+	reloadChart()
+
+func reloadChart():
+	clearObjects()
 	chartChanged.emit()
 	renderObjects()
 

@@ -17,7 +17,7 @@ var lastSongPos:float = 0.0
 func _ready() -> void:
 	initPos = global_position.x
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if lastSongPos != conductor.songPos:
 		lastSongPos = conductor.songPos
 		
@@ -56,7 +56,7 @@ func renderGrid():
 			var stepPos = stepID * gridInfo.stepSize
 			renderGridStep(stepID, stepPos)
 
-func renderGridStep(stepID:int, stepPos:float):
+func renderGridStep(_stepID:int, _stepPos:float):
 	pass #Does nothing :D
 
 func recycleGridStep(step):

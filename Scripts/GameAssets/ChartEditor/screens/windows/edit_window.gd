@@ -97,6 +97,7 @@ func setActiveFields():
 	
 	if objectTypeString == "" or objectTypeString not in typeMap:
 		resizeWindow()
+		windowRef.title.text = "EDIT"
 		return
 	
 	var objectType = typeMap[objectTypeString].new()

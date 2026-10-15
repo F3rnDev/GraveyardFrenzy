@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7qqr23jjio6r"]
+
+[ext_resource type="Script" uid="uid://da4txpybxewv0" path="res://Scripts/Global/NotificationSystem/notification_warning.gd" id="1_afgb1"]
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_umvx6"]
+
+[node name="NotificationWarning" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_afgb1")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_umvx6")
+
+[connection signal="cancelled" from="." to="." method="closeWindow"]
+[connection signal="confirmed" from="." to="." method="closeWindow"]

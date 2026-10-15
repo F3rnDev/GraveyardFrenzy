@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_ff7ul"]
 [ext_resource type="Script" uid="uid://cs1twt8m0f3g6" path="res://Scripts/GameAssets/ChartEditor/screens/start_screen.gd" id="1_qrt8g"]
-[ext_resource type="PackedScene" uid="uid://688j2en82dlp" path="res://Nodes/GameAssets/ChartEditor/Screens/window.tscn" id="2_53dyf"]
+[ext_resource type="PackedScene" uid="uid://688j2en82dlp" path="res://Nodes/Global/window.tscn" id="2_53dyf"]
 [ext_resource type="PackedScene" uid="uid://dbi7wxwhaqmx3" path="res://Nodes/GameAssets/ChartEditor/Screens/ScreenIconBtn.tscn" id="3_yrjkm"]
 [ext_resource type="Texture2D" uid="uid://c172yvgspumfg" path="res://Assets/Images/UI Images/ChartEditor/NewProjIcon.png" id="4_jsajg"]
 [ext_resource type="Texture2D" uid="uid://5xwves2a430" path="res://Assets/Images/UI Images/ChartEditor/LoadIcon.png" id="5_qrt8g"]
@@ -92,6 +92,7 @@ initial_position = 2
 ok_button_text = "Open"
 file_mode = 0
 access = 2
+filters = PackedStringArray("*.frzp")
 use_native_dialog = true
 
 [node name="LoadFromModFolder" type="VBoxContainer" parent="StartWindow/WindowContent/WindowDivision/RightSide"]

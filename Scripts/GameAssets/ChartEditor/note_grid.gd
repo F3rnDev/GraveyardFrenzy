@@ -29,7 +29,7 @@ func renderGridStep(stepID:int, stepPos:float):
 		gridStepInstance.btnExited.connect(exitedButton)
 		gridStepInstance.btnPressed.connect(pressedButton)
 	
-	gridStepInstance.setStep(stepID, gridInfo.stepSize)
+	gridStepInstance.setStep(stepID)
 	gridStepInstance.setXPos(stepPos)
 	activeSteps[stepID] = gridStepInstance
 

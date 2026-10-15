@@ -1,7 +1,7 @@
 extends Control
 
 @onready var diffTree = $Tree
-var commonItem:TreeItem
+var commonItems:TreeItem
 
 var editedTroughCode = false
 
@@ -19,16 +19,16 @@ func updateTree():
 	addCommonDiffs()
 
 func addCommonDiffs():
-	commonItem = diffTree.create_item()
-	commonItem.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
-	commonItem.set_text(0, "Common")
-	commonItem.set_editable(0, true)
-	commonItem.set_selectable(0, false)
+	commonItems = diffTree.create_item()
+	commonItems.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
+	commonItems.set_text(0, "Common")
+	commonItems.set_editable(0, true)
+	commonItems.set_selectable(0, false)
 	
-	commonItem.set_checked(0, true)
+	commonItems.set_checked(0, true)
 	
 	for diff in Difficulty.commonDiffs:
-		var item:TreeItem = diffTree.create_item(commonItem)
+		var item:TreeItem = diffTree.create_item(commonItems)
 		item.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
 		item.set_text(0, diff)
 		item.set_editable(0, true)
@@ -56,7 +56,7 @@ func getChartDiffs() -> Array[String]:
 	var selectedDiffs:Array[String] = []
 	
 	#common items
-	for commonItem in commonItem.get_children():
+	for commonItem in commonItems.get_children():
 		if commonItem.is_checked(0):
 			selectedDiffs.append(commonItem.get_text(0))
 	
@@ -66,14 +66,14 @@ func _on_tree_item_edited() -> void:
 	var selectedItem:TreeItem = diffTree.get_edited()
 	var parentItem = selectedItem.get_parent()
 	
-	if parentItem == commonItem:
+	if parentItem == commonItems:
 		setParentCheck(parentItem)
 	
 	if editedTroughCode:
 		editedTroughCode = false
 		return
 	
-	if selectedItem == commonItem:
+	if selectedItem == commonItems:
 		checkAll(selectedItem)
 
 func _on_difficulty_continue_btn_button_down() -> void:

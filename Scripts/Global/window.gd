@@ -40,9 +40,12 @@ func _ready() -> void:
 	
 	animations.play("appear")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if dragging:
 		global_position = get_global_mouse_position() - mousePosOffset
+
+func closeWindow():
+	animations.play("disappear")
 
 func _on_window_drag_btn_button_down() -> void:
 	dragging = true
@@ -71,6 +74,6 @@ func _on_animate_animation_finished(anim_name: StringName) -> void:
 		else:
 			visible = false
 
-func _on_animate_current_animation_changed(name: String) -> void:
-	if name == "appear":
+func _on_animate_current_animation_changed(anim_name: String) -> void:
+	if anim_name == "appear":
 		visible = true

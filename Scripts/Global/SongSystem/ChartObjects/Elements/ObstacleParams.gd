@@ -7,15 +7,17 @@ class_name ObstacleParams
 enum ParameterKey {}
 
 #TO SET A NEW SCHEMA, FOLLOW THE FOLLOWING STANDARD:
-#	XEventType: {XParameterKey: {value_default, value_type}}
+#	XObstacleType: {XParameterKey: {value_default, value_type}}
 const Schemas = {}
 
 static func setParam(obstacle: ChartObstacle, key: ParameterKey, value):
-	obstacle.obstacleParams[key] = value
+	var dictKey = ParameterKey.keys()[key]
+	obstacle.obstacleParams[dictKey] = value
 
 static func getParam(obstacle: ChartObstacle, key: ParameterKey):
-	if obstacle.obstacleParams.has(key):
-		return obstacle.obstacleParams[key]
+	var dictKey = ParameterKey.keys()[key]
+	if obstacle.obstacleParams.has(dictKey):
+		return obstacle.obstacleParams[dictKey]
 	
 	var schema = Schemas.get(obstacle.obstacleType, {})
 	if schema.has(key):

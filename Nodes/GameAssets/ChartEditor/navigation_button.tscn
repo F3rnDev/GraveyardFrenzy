@@ -6,6 +6,7 @@
 [node name="MenuButton" type="MenuButton"]
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_ywa2u")
+theme_type_variation = &"NavigationButton"
 text = "File"
 flat = false
 item_count = 2

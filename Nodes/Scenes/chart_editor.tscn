@@ -121,6 +121,23 @@ offset_right = 40.0
 offset_bottom = 36.0
 grow_vertical = 2
 
+[node name="BpmAndTimeSignature" type="HBoxContainer" parent="ChartControl"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 32.0
+offset_top = -258.0
+offset_right = 182.0
+offset_bottom = -234.0
+grow_vertical = 2
+
+[node name="ChartBpm" parent="ChartControl/BpmAndTimeSignature" instance=ExtResource("14_xb0vq")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
 [node name="ElementTypeSelect" parent="ChartControl" instance=ExtResource("8_lhiwb")]
 layout_mode = 1
 anchors_preset = 6
@@ -251,10 +268,6 @@ custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 
-[node name="ChartBpm" parent="SongControl/Info" instance=ExtResource("14_xb0vq")]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-
 [node name="EditorHeader" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 10
@@ -266,12 +279,25 @@ theme_type_variation = &"ChartEditorFooter"
 
 [node name="Options" parent="EditorHeader" node_paths=PackedStringArray("editor") instance=ExtResource("21_1i5k4")]
 layout_mode = 1
+offset_top = 5.0
+offset_bottom = -5.0
 editor = NodePath("../..")
 
 [node name="Conductor" parent="." instance=ExtResource("3_tyg1x")]
 
+[node name="WindowGrp" type="Control" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="BlackScreen" type="ColorRect" parent="."]
 visible = false
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -282,6 +308,7 @@ color = Color(0, 0, 0, 0.337255)
 
 [node name="StartScreen" parent="." instance=ExtResource("6_7o4bb")]
 visible = false
+z_index = 1
 layout_mode = 1
 theme = ExtResource("7_lgb8r")
 
@@ -300,7 +327,6 @@ theme = ExtResource("7_lgb8r")
 [connection signal="button_down" from="SongControl/ControlButtons/NextSection" to="." method="_on_next_section_button_down"]
 [connection signal="button_down" from="SongControl/ControlButtons/SkipToEnd" to="." method="_on_skip_to_end_button_down"]
 [connection signal="item_selected" from="SongControl/Info/DifficultySelector" to="." method="_on_difficulty_selector_item_selected"]
-[connection signal="value_changed" from="SongControl/Info/ChartBpm" to="." method="_on_chart_bpm_value_changed"]
 [connection signal="addProject" from="EditorHeader/Options" to="." method="newProject"]
 [connection signal="loadProject" from="EditorHeader/Options" to="." method="openProject"]
 [connection signal="saveProjectAs" from="EditorHeader/Options" to="." method="saveProjectAs"]

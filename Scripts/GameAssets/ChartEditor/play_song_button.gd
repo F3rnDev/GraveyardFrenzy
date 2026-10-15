@@ -10,8 +10,8 @@ func setIcon():
 	if playing:
 		icon = pauseIcon
 
-func setPlaying(toggled:bool):
-	playing = toggled
+func setPlaying(isToggled:bool):
+	playing = isToggled
 	setIcon()
 
 func _on_toggled(toggled_on: bool) -> void:

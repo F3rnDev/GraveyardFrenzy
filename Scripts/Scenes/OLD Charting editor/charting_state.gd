@@ -1,7 +1,5 @@
 extends Node2D
 
-class_name ChartEditor
-
 var curSong
 
 var totalSections = 0

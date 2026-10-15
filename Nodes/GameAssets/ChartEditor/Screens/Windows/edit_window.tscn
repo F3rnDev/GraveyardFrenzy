@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://d3hm6iuy4gw2f"]
 
-[ext_resource type="PackedScene" uid="uid://688j2en82dlp" path="res://Nodes/GameAssets/ChartEditor/Screens/window.tscn" id="1_g07w1"]
+[ext_resource type="PackedScene" uid="uid://688j2en82dlp" path="res://Nodes/Global/window.tscn" id="1_g07w1"]
 [ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="2_8riuf"]
 [ext_resource type="Script" uid="uid://cnyt5q50bv0wh" path="res://Scripts/GameAssets/ChartEditor/screens/windows/edit_window.gd" id="2_a14s3"]
 [ext_resource type="Script" uid="uid://jwr8y2udluwr" path="res://Scripts/GameAssets/ChartEditor/screens/chartEditorOptionBtn.gd" id="4_3qxub"]
@@ -8,18 +8,19 @@
 [ext_resource type="PackedScene" uid="uid://b763xrq0j4etb" path="res://Nodes/GameAssets/ChartEditor/Screens/Windows/edit_window_eventParams.tscn" id="6_pru2s"]
 
 [node name="EditWindow" node_paths=PackedStringArray("contentRef") instance=ExtResource("1_g07w1")]
-z_index = 1
 custom_minimum_size = Vector2(450, 0)
 anchors_preset = -1
 anchor_left = 0.285156
 anchor_top = 0.152778
 anchor_right = 0.636719
 anchor_bottom = 0.847222
-offset_left = 25.0
-offset_right = -25.0
+offset_left = 0.000305176
+offset_top = 89.9998
+offset_right = -0.000305176
+offset_bottom = 89.9998
 pivot_offset = Vector2(225, 500)
 mouse_filter = 2
-windowTitle = "Edit Object"
+windowTitle = "EDIT WINDOW"
 contentRef = NodePath("MainPanel/Content")
 metadata/_edit_use_anchors_ = true
 

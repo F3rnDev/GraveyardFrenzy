@@ -9,6 +9,9 @@ extends Node
 @onready var copiedObjects = rendElements.copiedObjects
 @onready var conductor = rendElements.conductor
 
+#Dont allow the player to SPAM the copy notification
+var copyNotification: NotificationMessage = null
+
 #KeyBoard Shortcuts / Additional Inputs
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -36,6 +39,9 @@ func shortcuts():
 	var chartID = "Chart"
 	#CheckAction
 	for optionID in ChartObjectWindow.OPTIONS.values():
+		if optionID == ChartObjectWindow.OPTIONS.EDIT:
+			continue
+		
 		var optionKey = ChartObjectWindow.OPTIONS.keys()[optionID]
 		var option = optionKey.capitalize()
 		
@@ -79,6 +85,13 @@ func copyObjects():
 		var newData = data.duplicate()
 		newData.position = data.position - originTime
 		copiedObjects.append(newData)
+	
+	if is_instance_valid(copyNotification):
+		copyNotification.removeMessage()
+	
+	var successMessage = "Successfully copied " + str(copiedObjects.size()) + " objects"
+	copyNotification = NotificationManager.popupMessage(NotificationMessage.Types.Success, successMessage)
+	
 
 func pasteObjects():
 	if copiedObjects.is_empty():
@@ -99,13 +112,14 @@ func continuePaste(result:Dictionary):
 	var step = floor(conductor.songPos / conductor.stepCrochet)
 	var pasteOrigin = step * conductor.stepCrochet
 	
+	var objOutsideCount = 0
 	for objectData in copiedObjects:
 		var finalPos = objectData.position + pasteOrigin
 		var lane = 2 if "lane" not in objectData else objectData.lane
 		
 		#No need to paste, if it is outside the chart
 		if finalPos >= conductor.songLength - conductor.stepCrochet:
-			#Display an error like message saying (object out of bounds)
+			objOutsideCount += 1
 			continue
 		
 		var existing = rendElements.objectColliding(finalPos, lane, objectData)
@@ -122,6 +136,12 @@ func continuePaste(result:Dictionary):
 			rendElements.renderedChart.events.append(newData)
 		
 		rendElements.renderObject(newData, rendElements.CreationType.PASTED)
+	
+	#NOTIFICATIONS
+	if objOutsideCount > 0:
+		var errorMessage = str(objOutsideCount) + " object(s) were cut off at the end of the song."
+		NotificationManager.popupMessage(NotificationMessage.Types.Error, errorMessage)
+	
 	
 	#Selection Changed
 	rendElements.changedSelection.emit()
@@ -156,8 +176,8 @@ func deleteObjects():
 	
 	selectedObjects.clear()
 	
-	#Selection Changed
 	rendElements.changedSelection.emit()
+	rendElements.chartChanged.emit()
 
 func selectAllObjects():
 	rendElements.unselectObjects()

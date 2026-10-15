@@ -1,14 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://j3plxl03ch5j"]
+[gd_scene load_steps=12 format=3 uid="uid://j3plxl03ch5j"]
 
 [ext_resource type="Shader" uid="uid://dwraucsl0j3ne" path="res://Assets/Shaders/resizeTexture.gdshader" id="1_0swvn"]
 [ext_resource type="Texture2D" uid="uid://kuihrxcbf5if" path="res://Assets/Images/UI Images/ChartEditor/GroupEventSign.png" id="1_lwb5m"]
 [ext_resource type="Script" uid="uid://dbc0qnf4pvfdr" path="res://Scripts/GameAssets/ChartEditor/chart/objects/chart_ui_event_group.gd" id="1_r3qmh"]
 [ext_resource type="PackedScene" uid="uid://bvchme4lrj600" path="res://Nodes/GameAssets/ChartEditor/Chart/Objects/chart_ui_event.tscn" id="2_jqfhb"]
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="4_6v4is"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6v4is"]
 resource_local_to_scene = true
 shader = ExtResource("1_0swvn")
 shader_parameter/texture_scale = 1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fvfby"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0swvn"]
 resource_local_to_scene = true
@@ -58,6 +61,8 @@ offset_top = 64.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_6v4is")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fvfby")
 
 [node name="EventContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2

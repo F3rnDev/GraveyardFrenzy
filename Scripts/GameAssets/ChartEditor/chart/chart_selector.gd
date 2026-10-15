@@ -43,7 +43,7 @@ func select():
 func clickOutside():
 	renderedElements.unselectObjects()
 
-func _gui_input(event: InputEvent) -> void:
+func _gui_input(_event: InputEvent) -> void:
 	if !active:
 		return
 	

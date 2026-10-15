@@ -15,11 +15,13 @@ const Schemas = {
 }
 
 static func setParam(event: ChartEvent, key: ParameterKey, value):
-	event.eventParams[key] = value
+	var dictKey = ParameterKey.keys()[key]
+	event.eventParams[dictKey] = value
 
 static func getParam(event: ChartEvent, key: ParameterKey):
-	if event.eventParams.has(key):
-		return event.eventParams[key]
+	var dictKey = ParameterKey.keys()[key]
+	if event.eventParams.has(dictKey):
+		return event.eventParams[dictKey]
 	
 	var schema = Schemas.get(event.eventType, {})
 	if schema.has(key):

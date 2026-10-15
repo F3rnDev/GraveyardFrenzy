@@ -3,8 +3,7 @@ class_name ChartEvent
 
 enum Types
 {
-	SetSection,
-	TEST
+	SetSection
 }
 
 var eventType:Types = Types.SetSection
@@ -23,6 +22,9 @@ func getUIType():
 
 func setNode(dict:Dictionary):
 	super.setNode(dict)
+	
+	if "eventType" not in dict or "eventParams" not in dict:
+		return
 	
 	eventType = dict["eventType"]
 	eventParams = dict["eventParams"]

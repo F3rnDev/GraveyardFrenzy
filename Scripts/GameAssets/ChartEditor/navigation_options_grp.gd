@@ -1,6 +1,8 @@
 extends HBoxContainer
 
-@export var editor:Control
+class_name ChartHeaderGroup
+
+@export var editor:ChartEditor
 
 #FileOption
 @onready var fileBtn = $File
@@ -12,15 +14,3 @@ var loadPath = ""
 
 func setBlackScreen(isVisible):
 	editor.blackScreen.visible = isVisible
-
-#File
-func _on_file_selected(id: Variant) -> void:
-	match id:
-		0: #Create new
-			fileBtn.startNewProject()
-		1: #Open project
-			fileBtn.startOpenProject()
-		2: #Save project
-			fileBtn.saveProject()
-		3: #Save project as
-			fileBtn.startSaveProjectAs()
