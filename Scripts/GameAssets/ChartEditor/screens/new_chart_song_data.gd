@@ -8,13 +8,20 @@ extends Control
 signal continued(songName, composer, charter, baseBpm)
 
 func validateSongData() -> bool:
+	var missingError = []
 	if songNameInput.text == "":
-		return false
+		missingError.append("Song Name")
 	
 	if songComposerInput.text == "":
-		return false
+		missingError.append("Composer")
 	
 	if songCharterInput.text == "":
+		missingError.append("Charter")
+	
+	if !missingError.is_empty():
+		var fields = ", ".join(missingError)
+		var message = "The following fields are empty: " + fields
+		NotificationManager.popupMessage(NotificationMessage.Types.Error, message)
 		return false
 	
 	return true

@@ -8,6 +8,8 @@ func setOptions(availableDiffs:Array):
 	
 	for diffID in range(availableDiffs.size()):
 		add_item(availableDiffs[diffID].capitalize(), diffID)
+	
+	select(0)
 
 func _on_pressed() -> void:
 	var popup = get_popup()

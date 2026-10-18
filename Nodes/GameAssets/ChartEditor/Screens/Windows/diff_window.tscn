@@ -1,6 +1,57 @@
-[gd_scene load_steps=2 format=3 uid="uid://dolh6a75ismo7"]
+[gd_scene load_steps=4 format=3 uid="uid://dolh6a75ismo7"]
 
 [ext_resource type="PackedScene" uid="uid://688j2en82dlp" path="res://Nodes/Global/window.tscn" id="1_x057x"]
+[ext_resource type="PackedScene" uid="uid://bfanuqi7vg0gb" path="res://Nodes/GameAssets/ChartEditor/difficulty_tree.tscn" id="2_5ju2u"]
+[ext_resource type="Script" uid="uid://bdgl3hjw44v0n" path="res://Scripts/GameAssets/ChartEditor/screens/windows/difficulty_window.gd" id="2_if77e"]
 
-[node name="DiffWindow" instance=ExtResource("1_x057x")]
-windowTitle = "DiffWindow"
+[node name="DiffWindow" node_paths=PackedStringArray("contentRef") instance=ExtResource("1_x057x")]
+custom_minimum_size = Vector2(500, 280)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -140.0
+offset_right = 250.0
+offset_bottom = 140.0
+pivot_offset = Vector2(250, 280)
+windowTitle = "Difficulty"
+contentRef = NodePath("MainPanel")
+
+[node name="MainPanel" parent="." index="0"]
+offset_bottom = 20.0
+script = ExtResource("2_if77e")
+
+[node name="Tree" parent="MainPanel" index="0" instance=ExtResource("2_5ju2u")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -119.85
+offset_right = 225.0
+offset_bottom = 80.15
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SaveAvailableDiffs" type="Button" parent="MainPanel" index="1"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -42.505
+offset_right = 100.0
+offset_bottom = -18.505
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Save Changes"
+
+[connection signal="button_down" from="MainPanel/SaveAvailableDiffs" to="MainPanel" method="_on_save_available_diffs_button_down"]

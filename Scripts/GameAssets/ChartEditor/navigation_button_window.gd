@@ -3,7 +3,8 @@ extends NavigationUIButton
 enum Options{
 	Edit,
 	Data,
-	Music
+	Music,
+	Diff
 }
 
 @export var group:ChartHeaderGroup
@@ -16,12 +17,15 @@ func setShortcuts():
 	setShortcut(0, "ChartWindowEdit")
 	setShortcut(1, "ChartWindowSongData")
 	setShortcut(2, "ChartWindowAudio")
+	setShortcut(3, "ChartWindowDiff")
 
 func setCheckedItems(activeWindows):
 	var editor = group.editor
 	
 	get_popup().set_item_checked(0, editor.editWindow in activeWindows)
 	get_popup().set_item_checked(1, editor.songDataWindow in activeWindows)
+	get_popup().set_item_checked(2, editor.audioWindow in activeWindows)
+	get_popup().set_item_checked(3, editor.diffWindow in activeWindows)
 
 func _on_selected(id: Variant) -> void:
 	var editor = group.editor
@@ -34,6 +38,8 @@ func _on_selected(id: Variant) -> void:
 			windowToOpen = editor.songDataWindow
 		Options.Music:
 			windowToOpen = editor.audioWindow
+		Options.Diff:
+			windowToOpen = editor.diffWindow
 	
 	if windowToOpen == null:
 		return

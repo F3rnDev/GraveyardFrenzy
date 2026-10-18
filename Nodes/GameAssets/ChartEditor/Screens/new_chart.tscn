@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2faayvrae0pb"]
+[gd_scene load_steps=13 format=3 uid="uid://b2faayvrae0pb"]
 
 [ext_resource type="PackedScene" uid="uid://688j2en82dlp" path="res://Nodes/Global/window.tscn" id="1_8j666"]
 [ext_resource type="Script" uid="uid://yln7t1iq7enp" path="res://Scripts/GameAssets/ChartEditor/screens/new_chart.gd" id="1_wblfo"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dujyecnqkc54p" path="res://Scripts/GameAssets/ChartEditor/screens/new_chart_song_data.gd" id="4_04g65"]
 [ext_resource type="Script" uid="uid://dhpnklteas1v0" path="res://Scripts/GameAssets/ChartEditor/screens/new_chart_difficulty.gd" id="5_33d4i"]
 [ext_resource type="Script" uid="uid://bdsfebsyaq5hu" path="res://Scripts/GameAssets/ChartEditor/screens/new_chart_audio.gd" id="6_g1koy"]
+[ext_resource type="PackedScene" uid="uid://bfanuqi7vg0gb" path="res://Nodes/GameAssets/ChartEditor/difficulty_tree.tscn" id="6_tcdvj"]
 [ext_resource type="PackedScene" uid="uid://b3vs7krowpint" path="res://Nodes/GameAssets/ChartEditor/chart_editor_audio_visualizer.tscn" id="7_tcdvj"]
 
 [sub_resource type="Animation" id="Animation_04g65"]
@@ -93,7 +94,6 @@ libraries = {
 }
 
 [node name="SongData" parent="." instance=ExtResource("1_8j666")]
-visible = false
 custom_minimum_size = Vector2(500, 200)
 layout_mode = 1
 anchors_preset = 8
@@ -292,22 +292,23 @@ mouse_default_cursor_shape = 2
 theme = ExtResource("2_yhcqn")
 text = "Continue"
 
-[node name="Tree" type="Tree" parent="Difficulty/Content"]
+[node name="DiffTree" parent="Difficulty/Content" instance=ExtResource("6_tcdvj")]
+custom_minimum_size = Vector2(450, 258)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.05
-anchor_right = 0.95
-anchor_bottom = 0.8
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -155.0
+offset_right = 225.0
+offset_bottom = 103.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_default_cursor_shape = 2
-theme = ExtResource("2_yhcqn")
-column_titles_visible = true
-select_mode = 2
-metadata/_edit_use_anchors_ = true
 
 [node name="SelectAudio" parent="." instance=ExtResource("1_8j666")]
+visible = false
 custom_minimum_size = Vector2(456, 252)
 layout_mode = 1
 anchors_preset = 8
@@ -392,7 +393,6 @@ text = "Continue"
 [connection signal="continued" from="Difficulty/Content" to="." method="_on_difficulty_continued"]
 [connection signal="button_down" from="Difficulty/Content/DifficultyReturnBtn" to="." method="_on_difficulty_return_btn_button_down"]
 [connection signal="button_down" from="Difficulty/Content/DifficultyContinueBtn" to="Difficulty/Content" method="_on_difficulty_continue_btn_button_down"]
-[connection signal="item_edited" from="Difficulty/Content/Tree" to="Difficulty/Content" method="_on_tree_item_edited"]
 [connection signal="continued" from="SelectAudio/Content" to="." method="_on_audio_continued"]
 [connection signal="changedAudio" from="SelectAudio/Content/AudioVisualizer" to="SelectAudio/Content" method="_on_audio_visualizer_changed_audio"]
 [connection signal="button_down" from="SelectAudio/Content/AudioReturnBtn" to="." method="_on_audio_return_btn_button_down"]

@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdq4grmk73xvj"]
+
+[ext_resource type="PackedScene" uid="uid://b7qqr23jjio6r" path="res://Nodes/Global/NotificationSystem/notificationWarning.tscn" id="1_fxowh"]
+[ext_resource type="PackedScene" uid="uid://688j2en82dlp" path="res://Nodes/Global/window.tscn" id="2_1enr6"]
+[ext_resource type="Script" uid="uid://bkt3kibjbo4q0" path="res://Scripts/Global/NotificationSystem/Warnings/warning_default.gd" id="2_21l32"]
+
+[node name="NotificationWarning" instance=ExtResource("1_fxowh")]
+script = ExtResource("2_21l32")
+borderDown = 50.0
+
+[node name="window" parent="Panel" index="0" instance=ExtResource("2_1enr6")]
+custom_minimum_size = Vector2(600, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -100.0
+offset_right = 300.0
+offset_bottom = 100.0
+pivot_offset = Vector2(300, 300)
+windowTitle = "WARNING"
+canExit = false
+canMinimize = false
+canDrag = false
+deleteAfterClose = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/window" index="3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="warnLabel" type="Label" parent="Panel/window/VBoxContainer" index="0"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+text = "Error text, yo need to chill out. You're probably doing something wrong, maybe i am doing something wrong."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/window/VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="confirmBtn" type="Button" parent="Panel/window/VBoxContainer/HBoxContainer" index="0"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Confirm"
+
+[node name="cancelBtn" type="Button" parent="Panel/window/VBoxContainer/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Cancel"
+
+[connection signal="button_down" from="Panel/window/VBoxContainer/HBoxContainer/confirmBtn" to="." method="_on_confirm_btn_button_down"]
+[connection signal="button_down" from="Panel/window/VBoxContainer/HBoxContainer/cancelBtn" to="." method="_on_cancel_btn_button_down"]

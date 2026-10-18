@@ -34,6 +34,7 @@ var activeWindows:Dictionary = {}
 @onready var editWindow = preload("res://Nodes/GameAssets/ChartEditor/Screens/Windows/edit_window.tscn")
 @onready var songDataWindow = preload("res://Nodes/GameAssets/ChartEditor/Screens/Windows/song_data_window.tscn")
 @onready var audioWindow = preload("res://Nodes/GameAssets/ChartEditor/Screens/Windows/audio_window.tscn")
+@onready var diffWindow = preload("res://Nodes/GameAssets/ChartEditor/Screens/Windows/diff_window.tscn")
 
 var songProject:SongProject = SongProject.new()
 var curDiff = "normal"
@@ -216,6 +217,10 @@ func openWindow(window):
 		setSongDataWindowInfo(windowInstance.contentRef)
 	elif windowInstance.contentRef is AudioWindow:
 		setAudioWindowInfo(windowInstance.contentRef)
+	elif windowInstance.contentRef is DiffWindow:
+		setDiffWindowInfo(windowInstance.contentRef)
+	
+	
 
 func closeWindow(window):
 	if window not in activeWindows:
@@ -313,6 +318,21 @@ func updateAudio(newAudioBytes):
 	rendElements.reloadChart()
 	
 	songTimeLabel.updateSongLen(conductor.songLength)
+
+#DiffWindow
+func setDiffWindowInfo(content:DiffWindow):
+	content.setProjectRef(songProject, self)
+
+func setNewDiffs(diffs:Array):
+	rendElements.sortChart()
+	
+	songProject.data.availableDiffs = diffs
+	
+	loadChart(0)
+	noteGrid.renderGrid()
+	eventGrid.renderGrid()
+	
+	diffSelector.setOptions(songProject.data.availableDiffs)
 
 func _on_rendered_elements_open_edit_window() -> void:
 	openWindow(editWindow)

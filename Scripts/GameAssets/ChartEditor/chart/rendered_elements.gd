@@ -146,12 +146,14 @@ func clearObjects():
 		removeObject(object)
 
 func getChart():
+	sortChart()
+	return renderedChart
+
+func sortChart():
 	renderedChart.unpackEvents()
 	
 	renderedChart.elements.sort_custom(func(a,b): return a.position < b.position)
 	renderedChart.events.sort_custom(func(a,b): return a.position < b.position)
-	
-	return renderedChart
 
 #Add objects to scene
 func addObject(objectType:GDScript, data:ChartObject, creationType:CreationType):
