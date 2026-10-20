@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b116p0wg6r3ij"
+path="res://.godot/imported/songAudio.mp3-c4b079861320a595b050b0d3f76acb59.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/Songs/Thigo gay/songAudio.mp3"
+dest_files=["res://.godot/imported/songAudio.mp3-c4b079861320a595b050b0d3f76acb59.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,5 +1,8 @@
 class_name Difficulty
 
+static var commonDiffs:Array[String] = ["easy", "normal", "hard"]
+static var remixDiffs:Array[String] = ["frenzy"]
+
 enum allDiff {Easy, Normal, Hard}
 
 static func getAllDiffs() -> Array:

@@ -1,0 +1,103 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6l6ne4iiyoef"]
+
+[ext_resource type="Script" uid="uid://ddhufj8dsuh5v" path="res://Scripts/GameAssets/ChartEditor/strum_bar.gd" id="1_qfub7"]
+[ext_resource type="Texture2D" uid="uid://bv8f38wm061ap" path="res://Assets/Images/UI Images/ChartEditor/StrumSign1.png" id="2_jk55r"]
+[ext_resource type="Texture2D" uid="uid://e8mbetj4fdhs" path="res://Assets/Images/UI Images/ChartEditor/noteStrum.png" id="3_jk55r"]
+[ext_resource type="Texture2D" uid="uid://cr7pvpt4bw2mg" path="res://Assets/Images/UI Images/ChartEditor/EventSymbol.png" id="4_m57hn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jk55r"]
+atlas = ExtResource("3_jk55r")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wwsxc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jk55r")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="StrumBar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 14.0
+offset_bottom = 257.0
+script = ExtResource("1_qfub7")
+mouseDragDistanceRight = 300.0
+mouseDragDistanceLeft = 75.0
+minDragInterval = 0.01
+maxDragInterval = 0.8
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 28.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="StrumBarIcon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = -2.76
+offset_right = 29.24
+offset_bottom = 32.0
+texture = ExtResource("2_jk55r")
+
+[node name="StrumBarBtn" type="Button" parent="StrumBarIcon"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+
+[node name="NoteUp" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 71.0
+offset_right = 7.0
+offset_bottom = 71.0
+scale = Vector2(4, 4)
+mouse_filter = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NoteUp"]
+sprite_frames = SubResource("SpriteFrames_wwsxc")
+animation = &"idle"
+
+[node name="NoteDown" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 139.405
+offset_right = 7.0
+offset_bottom = 139.405
+scale = Vector2(4, 4)
+mouse_filter = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NoteDown"]
+sprite_frames = SubResource("SpriteFrames_wwsxc")
+animation = &"idle"
+
+[node name="EventSymbol" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -6.0
+offset_top = 210.0
+offset_right = 26.0
+offset_bottom = 242.0
+texture = ExtResource("4_m57hn")
+
+[connection signal="button_down" from="StrumBarIcon/StrumBarBtn" to="." method="_on_strum_bar_button_down"]
+[connection signal="button_up" from="StrumBarIcon/StrumBarBtn" to="." method="_on_strum_bar_button_up"]
+[connection signal="mouse_entered" from="StrumBarIcon/StrumBarBtn" to="." method="_on_strum_bar_btn_mouse_entered"]
+[connection signal="mouse_exited" from="StrumBarIcon/StrumBarBtn" to="." method="_on_strum_bar_btn_mouse_exited"]

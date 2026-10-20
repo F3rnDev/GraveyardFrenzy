@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfanuqi7vg0gb"]
+
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="1_d4c6l"]
+[ext_resource type="Script" uid="uid://cyyrgx738ktqo" path="res://Scripts/GameAssets/ChartEditor/difficulty_tree.gd" id="2_r6l5v"]
+
+[node name="DiffTree" type="Tree"]
+custom_minimum_size = Vector2(450, 200)
+offset_right = 450.0
+offset_bottom = 200.0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_d4c6l")
+column_titles_visible = true
+select_mode = 2
+script = ExtResource("2_r6l5v")
+
+[connection signal="item_edited" from="." to="." method="_on_item_edited"]

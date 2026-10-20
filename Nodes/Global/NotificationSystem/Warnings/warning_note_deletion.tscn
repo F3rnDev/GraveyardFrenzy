@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmj31a0di5ubf"]
+
+[ext_resource type="PackedScene" uid="uid://b7qqr23jjio6r" path="res://Nodes/Global/NotificationSystem/notificationWarning.tscn" id="1_xqov8"]
+[ext_resource type="PackedScene" uid="uid://688j2en82dlp" path="res://Nodes/Global/window.tscn" id="2_0imxn"]
+[ext_resource type="Script" uid="uid://d37sr3ijux02j" path="res://Scripts/Global/NotificationSystem/Warnings/warning_note_deletion.gd" id="2_k3s85"]
+
+[node name="NotificationWarning" instance=ExtResource("1_xqov8")]
+script = ExtResource("2_k3s85")
+
+[node name="window" parent="Panel" index="0" instance=ExtResource("2_0imxn")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -169.5
+offset_right = 256.0
+offset_bottom = 180.5
+pivot_offset = Vector2(256, 340)
+windowTitle = "WARNING"
+canExit = false
+canMinimize = false
+canDrag = false
+deleteAfterClose = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/window" index="3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Panel/window/VBoxContainer" index="0"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+text = "The new audio file is shorter. Objects beyond the new song length will be deleted:"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Tree" type="Tree" parent="Panel/window/VBoxContainer" index="1"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/v_separation = 20
+columns = 2
+column_titles_visible = true
+hide_root = true
+select_mode = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/window/VBoxContainer" index="2"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ConfirmBtn" type="Button" parent="Panel/window/VBoxContainer/Buttons" index="0"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Change Audio"
+
+[node name="CancelBtn" type="Button" parent="Panel/window/VBoxContainer/Buttons" index="1"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Cancel"
+
+[connection signal="button_down" from="Panel/window/VBoxContainer/Buttons/ConfirmBtn" to="." method="_on_confirm_btn_button_down"]
+[connection signal="button_down" from="Panel/window/VBoxContainer/Buttons/CancelBtn" to="." method="_on_cancel_btn_button_down"]
