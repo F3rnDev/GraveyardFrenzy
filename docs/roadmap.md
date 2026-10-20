@@ -19,7 +19,7 @@
 [roadmap-item]
   [current]
   [title]Building Blocks[title]
-  [date]Fev 2027[date]
+  [date]Feb 2027[date]
   [description]Create the base: Polish gameplay, remake the chart editor, and add/rework the ui and menus.[description]
   [progress]50[progress]
   [version]v0.0.2[version]
