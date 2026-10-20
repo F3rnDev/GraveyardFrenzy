@@ -94,6 +94,7 @@ libraries = {
 }
 
 [node name="SongData" parent="." instance=ExtResource("1_8j666")]
+visible = false
 custom_minimum_size = Vector2(500, 200)
 layout_mode = 1
 anchors_preset = 8
@@ -308,7 +309,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SelectAudio" parent="." instance=ExtResource("1_8j666")]
-visible = false
 custom_minimum_size = Vector2(456, 252)
 layout_mode = 1
 anchors_preset = 8

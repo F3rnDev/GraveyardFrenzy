@@ -15,6 +15,7 @@ func _on_audio_visualizer_changed_audio(newAudioBytes: Variant, path: Variant) -
 
 func _on_audio_continue_btn_button_down() -> void:
 	if commonAudio.is_empty():
+		NotificationManager.popupMessage(NotificationMessage.Types.Error, "Please, select an audio file.")
 		return
 	
 	#Also see the remix version here
