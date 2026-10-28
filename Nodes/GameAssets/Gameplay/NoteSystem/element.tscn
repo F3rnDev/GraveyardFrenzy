@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp48sy8c1wmcj"]
+
+[ext_resource type="Script" uid="uid://ckemyfasdxugr" path="res://Scripts/GameAssets/Gameplay/NoteSystem/element.gd" id="1_u8w3b"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_exia3"]
+
+[node name="Element" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_exia3")
+script = ExtResource("1_u8w3b")

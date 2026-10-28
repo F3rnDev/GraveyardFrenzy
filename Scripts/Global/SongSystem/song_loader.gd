@@ -57,6 +57,8 @@ static func loadSongProject(path:String) -> SongProject:
 	var commonAudioBytes = reader.read_file("songAudio.mp3")
 	project.commonAudio = commonAudioBytes
 	
+	reader.close()
+	
 	return project
 
 static func getFullFilePath(path:String, songName:String = "") -> String:
@@ -67,4 +69,18 @@ static func getFullFilePath(path:String, songName:String = "") -> String:
 
 #LoadChart
 #LoadSongData
+static func getSongData(path:String):
+	var reader:ZIPReader = ZIPReader.new()
+	reader.open(path)
+	
+	var songDataBytes = reader.read_file("data.json").get_string_from_utf8()
+	var songDataJson = JSON.parse_string(songDataBytes)
+	
+	var songData = SongData.new()
+	songData.setNode(songDataJson)
+	
+	reader.close()
+	
+	return songData
+
 #LoadMusic

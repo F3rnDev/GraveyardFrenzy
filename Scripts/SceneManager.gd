@@ -2,14 +2,12 @@ extends Node
 
 class_name SceneManager
 
-static var songDiff
-static var songName
-
 @onready var loadingScene = preload("res://Nodes/Scenes/LoadingScreen.tscn")
 
 @export_file("*.tscn") var firstScene = "res://Nodes/Scenes/intro.tscn"
 
 static var instance = null
+static var passedParams: Dictionary = {}
 
 func _ready():
 	instance = self
@@ -20,7 +18,10 @@ func _process(_delta):
 	if Input.is_key_pressed(KEY_CTRL) and Input.is_key_pressed(KEY_DELETE):
 		SongRating.eraseData()
 
-func switchScene(sceneToAdd):
+func switchScene(sceneToAdd, params:Dictionary = {}):
+	if !params.is_empty():
+		passedParams = params
+	
 	if sceneToAdd == firstScene:
 		loadScene(sceneToAdd)
 		return
@@ -44,20 +45,17 @@ func setNewScene(scenePath):
 	var sceneNode = loadedScene.instantiate()
 	$Scene.add_child(sceneNode)
 	
+	#SetParams
+	if !passedParams.is_empty():
+		if sceneNode.has_method("setParams"): sceneNode.setParams(passedParams)
+		passedParams.clear()
+	
 	for scene in $Scene.get_children():
 		if scene != sceneNode:
 			scene.queue_free()
 	
 	if scenePath != firstScene:
 		$transition.startFadeOut(sceneNode)
-
-#SONG
-func setSongProperties(curSong, curDiff):
-	songName = curSong
-	songDiff = curDiff
-
-func getSongProperties():
-	return [songName, songDiff]
 
 #DiscordRPC
 func updateDiscordRPCInfo(data:DiscordInfo):

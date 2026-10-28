@@ -1,6 +1,6 @@
-extends AnimatedSprite2D
+extends GameElement
 
-class_name Obstacle
+class_name GameObstacle
 
 var obsType = "cactus"
 

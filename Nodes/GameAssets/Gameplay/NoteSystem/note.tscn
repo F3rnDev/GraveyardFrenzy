@@ -2,16 +2,16 @@
 
 [ext_resource type="SpriteFrames" uid="uid://cgk0i6shema3v" path="res://note.tres" id="1_o2biw"]
 [ext_resource type="Texture2D" uid="uid://dqwknxvl1ns6k" path="res://Assets/Images/NoteSkin/noteHold.png" id="2_hovvm"]
-[ext_resource type="Script" uid="uid://c6gwvq45rb7u0" path="res://Scripts/GameAssets/Gameplay/note.gd" id="2_r8e2k"]
+[ext_resource type="Script" uid="uid://c6gwvq45rb7u0" path="res://Scripts/GameAssets/Gameplay/NoteSystem/note.gd" id="2_r8e2k"]
 
 [node name="Note" type="AnimatedSprite2D"]
+z_index = 1
 texture_filter = 1
 scale = Vector2(5, 5)
 sprite_frames = ExtResource("1_o2biw")
 script = ExtResource("2_r8e2k")
 
 [node name="holdEnd" type="AnimatedSprite2D" parent="."]
-visible = false
 sprite_frames = ExtResource("1_o2biw")
 
 [node name="noteJudment" type="ReferenceRect" parent="holdEnd"]
@@ -19,7 +19,7 @@ offset_left = -7.0
 offset_top = -14.0
 offset_right = 7.0
 offset_bottom = 10.0
-border_color = Color(1, 1, 1, 1)
+border_color = Color(0.416448, 0.46143, 1, 1)
 
 [node name="noteHold" type="Line2D" parent="."]
 z_index = -1

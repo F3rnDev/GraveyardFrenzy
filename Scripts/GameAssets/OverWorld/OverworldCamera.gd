@@ -1,5 +1,6 @@
 extends Camera3D
 
+@export var overworldRef:OverworldScene
 @export var playerRef:CharacterBody3D
 @export var minBounds:Vector2
 @export var maxBounds:Vector2
@@ -58,6 +59,7 @@ func _input(event: InputEvent):
 	if Input.is_key_pressed(KEY_F1) and Input.is_key_pressed(KEY_SHIFT) and just_pressed:
 		debugCamera = !debugCamera
 		rotation = camRotation
+		overworldRef.setDebugMode(debugCamera)
 	
 	if Input.is_key_pressed(KEY_F2) and Input.is_key_pressed(KEY_SHIFT) and just_pressed:
 		screenshot()

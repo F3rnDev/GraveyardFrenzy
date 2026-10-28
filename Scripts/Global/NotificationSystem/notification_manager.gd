@@ -25,13 +25,13 @@ func popupWarning(type:WarningTypes, params:Dictionary) -> NotificationWarning:
 	var warningInstance:NotificationWarning = null
 	match type:
 		WarningTypes.Default:
-			var message = params["warningMessage"]
+			var messageStr = params["warningMessage"]
 			var confirmBtn = params["customConfirmBtn"]
 			var cancelBtn = params ["customCancelBtn"]
 			
 			warningInstance = warnDef.instantiate()
 			add_child(warningInstance)
-			warningInstance.setData(message, confirmBtn, cancelBtn)
+			warningInstance.setData(messageStr, confirmBtn, cancelBtn)
 		
 		WarningTypes.ChartNoteDeletion:
 			warningInstance = warnNoteDeletion.instantiate()

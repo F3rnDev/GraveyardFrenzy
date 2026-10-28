@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cjl6p6jbjcm2m"]
 
 [ext_resource type="SpriteFrames" uid="uid://3ifoloak3mav" path="res://obstacle.tres" id="1_txyb2"]
-[ext_resource type="Script" uid="uid://hvybtvh55oun" path="res://Scripts/GameAssets/Gameplay/obstacle.gd" id="2_ty154"]
+[ext_resource type="Script" uid="uid://hvybtvh55oun" path="res://Scripts/GameAssets/Gameplay/NoteSystem/obstacle.gd" id="2_ty154"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j48ch"]
 size = Vector2(17, 20)

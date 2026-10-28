@@ -56,7 +56,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _input(event):
-	if !OverworldRef.instance.inMenu and !stopMovement:
+	if !stopMovement:
 		InputMovement(event)
 
 func InputMovement(_event):
@@ -75,7 +75,7 @@ func InputMovement(_event):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 func setAnimation():
-	if velocity.x != 0 or velocity.z != 0:
+	if abs(velocity.x) > 0 or abs(velocity.z) > 0:
 		$SubViewport/player_2d.play("Walk(Placeholder)")
 		idleTimer.stop()
 		animatingXtra = false

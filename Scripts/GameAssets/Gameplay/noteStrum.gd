@@ -1,12 +1,19 @@
 extends Node2D
 
+@onready var strumUp: StrumSprite = $StrumUp
+@onready var strumDown: StrumSprite = $StrumDown
+@onready var judment: ReferenceRect = $judment
+
 enum notePress {StrumUp, StrumDown}
 
 signal notePressed(note)
 signal noteReleased(note)
 
 func setDebug(active):
-	$judment.editor_only = !active
+	judment.editor_only = !active
+
+func getStrumDownYPosLocal():
+	return strumDown.position.y
 
 func _ready():
 	for curNote in notePress:

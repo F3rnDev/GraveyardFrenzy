@@ -1,0 +1,173 @@
+[gd_scene load_steps=17 format=3 uid="uid://cqvwhcor3x8fp"]
+
+[ext_resource type="Texture2D" uid="uid://cpuu1sj7sgx71" path="res://Assets/Images/UI Images/flag-placeholder.png" id="1_r8kl2"]
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="2_v3uba"]
+[ext_resource type="Script" uid="uid://bp6h1c2v4y603" path="res://Nodes/GameAssets/OverWorld/select_song_ui.gd" id="3_v3uba"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n341x"]
+atlas = ExtResource("1_r8kl2")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n0o5x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n341x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlvpy"]
+atlas = ExtResource("1_r8kl2")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5d4p"]
+atlas = ExtResource("1_r8kl2")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sv4af"]
+atlas = ExtResource("1_r8kl2")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwk36"]
+atlas = ExtResource("1_r8kl2")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsqiv"]
+atlas = ExtResource("1_r8kl2")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ux3ux"]
+atlas = ExtResource("1_r8kl2")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vsla"]
+atlas = ExtResource("1_r8kl2")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fydy4"]
+atlas = ExtResource("1_r8kl2")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgvmo"]
+atlas = ExtResource("1_r8kl2")
+region = Rect2(512, 128, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_85vti"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlvpy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5d4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sv4af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwk36")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qsqiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ux3ux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vsla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fydy4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgvmo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8wouj"]
+
+[node name="Flag" type="Node2D"]
+
+[node name="base" type="AnimatedSprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_n0o5x")
+
+[node name="flag" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_85vti")
+frame_progress = 0.119185
+
+[node name="SelectSongUI" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 464.0
+offset_top = 64.0
+offset_right = 816.0
+offset_bottom = 226.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_v3uba")
+theme_override_constants/separation = 32
+alignment = 2
+script = ExtResource("3_v3uba")
+
+[node name="ExtrasInfo" type="PanelContainer" parent="SelectSongUI"]
+layout_mode = 2
+theme_type_variation = &"WindowPanel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SelectSongUI/ExtrasInfo"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+alignment = 1
+
+[node name="DiffLeftButton" type="Button" parent="SelectSongUI/ExtrasInfo/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "<"
+flat = true
+expand_icon = true
+
+[node name="SongDiff" type="Label" parent="SelectSongUI/ExtrasInfo/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "SongDiff"
+horizontal_alignment = 1
+
+[node name="DiffRightButton" type="Button" parent="SelectSongUI/ExtrasInfo/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8wouj")
+text = ">"
+flat = true
+expand_icon = true
+
+[node name="SongNameContainer" type="PanelContainer" parent="SelectSongUI"]
+layout_mode = 2
+theme = ExtResource("2_v3uba")
+theme_type_variation = &"WindowPanel"
+
+[node name="name" type="Label" parent="SelectSongUI/SongNameContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "NAME SONG"
+horizontal_alignment = 1
+
+[connection signal="button_down" from="SelectSongUI/ExtrasInfo/HBoxContainer/DiffLeftButton" to="SelectSongUI" method="_on_diff_left_button_button_down"]
+[connection signal="button_down" from="SelectSongUI/ExtrasInfo/HBoxContainer/DiffRightButton" to="SelectSongUI" method="_on_diff_right_button_button_down"]
