@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cpuu1sj7sgx71" path="res://Assets/Images/UI Images/flag-placeholder.png" id="1_r8kl2"]
 [ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="2_v3uba"]
-[ext_resource type="Script" uid="uid://bp6h1c2v4y603" path="res://Nodes/GameAssets/OverWorld/select_song_ui.gd" id="3_v3uba"]
+[ext_resource type="Script" uid="uid://bp6h1c2v4y603" path="res://Scripts/GameAssets/OverWorld/select_song_ui.gd" id="3_v3uba"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n341x"]
 atlas = ExtResource("1_r8kl2")
