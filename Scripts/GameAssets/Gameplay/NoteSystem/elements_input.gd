@@ -19,7 +19,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	checkNoteHit()
 	processNoteHold()
 	
-	#Handle other animations and such, if needed
+	#Do this on the player itself, wait a minuto brother, will mudar this crap lol
 	gameplay.playerInputAnimation(justPressed.find(not null))
 
 func _physics_process(delta: float) -> void:
@@ -62,10 +62,9 @@ func noteHit(note:GameNote):
 	
 	if note.elementRef.holdAmount <= 0.0:
 		gameplay.updateOnNoteHit(note)
-		gameplay.noteHit(note, false)
 		elementControl.queueNoteForRemoval(note)
 	else:
-		gameplay.noteHit(note, true)
+		gameplay.updateOnHoldHit(note)
 		beingHold[note.elementRef.lane] = note
 
 #HoldHitAndRelease
@@ -107,4 +106,4 @@ func updateHoldHit(note:GameNote):
 		elementControl.missNote(note)
 		return
 	
-	gameplay.updateOnHoldHit(note)
+	gameplay.updateOnHold(note)

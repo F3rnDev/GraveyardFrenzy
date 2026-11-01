@@ -30,9 +30,9 @@ func _input(event):
 			get_node(curNote).play("idle")
 			emit_signal("noteReleased", curNote)
 
-func spawnHoldParticle(noteData:int, rating:String):
+func spawnHoldParticle(noteData:int, rating:NoteRating.Ratings):
 	var strumHit:StrumSprite = get_child(noteData)
-	strumHit.setHoldActive(rating == "perfect")
+	strumHit.setHoldActive(rating == NoteRating.Ratings.Perfect)
 
 func removeHoldParticle(noteData:int):
 	var strumHit:StrumSprite = get_child(noteData)

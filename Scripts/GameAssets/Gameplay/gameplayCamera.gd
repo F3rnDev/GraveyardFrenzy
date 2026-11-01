@@ -17,8 +17,9 @@ var shakeType = ShakeTypes.DAMAGE
 var maxNoteShake := 6.0
 
 var rng = RandomNumberGenerator.new()
-
 var shakeStr = 0.0
+
+var zoomTween:Tween = null
 
 func shake(type = ShakeTypes.DAMAGE, customFade = 5.0, customRngStr = 20.0):
 	shakeType = type
@@ -30,6 +31,13 @@ func shake(type = ShakeTypes.DAMAGE, customFade = 5.0, customRngStr = 20.0):
 			shakeStr = rngStr
 		ShakeTypes.NOTEHIT:
 			shakeStr = min(shakeStr + customRngStr, maxNoteShake)
+
+func zoomCamera(zoomVal:Vector2 = Vector2(1.01, 1.01), animDur:float = 0.2):
+	if zoomTween != null and (!zoomTween.finished or zoomVal == zoom):
+		return
+	
+	zoomTween = create_tween()
+	zoomTween.tween_property(self, "zoom", zoomVal, animDur)
 
 func _process(delta):
 	if shakeStr > 0:

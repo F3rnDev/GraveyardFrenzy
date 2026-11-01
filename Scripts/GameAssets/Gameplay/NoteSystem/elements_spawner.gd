@@ -51,17 +51,15 @@ func renderElements():
 			break
 
 func spawnElement(element:ChartElement):
-	var instance:GameElement
+	var instance:GameElement = noteObj.instantiate() if element is ChartNote else obstacleObj.instantiate()
 	
 	var xPos = gameplay.getObjectPos(element.position)
 	var yPos = spawnLaneYPosition[element.lane]
+	var offsetX = gameplay.noteStrum.position.x if element is ChartNote else get_viewport_rect().size.x
 	
-	if element is ChartNote:
-		instance = noteObj.instantiate()
-	elif element is ChartObstacle:
-		instance = obstacleObj.instantiate()
+	if element is ChartObstacle:
 		yPos += 10.0 #Put it on the ground
 		instance.setObstacleType("cactus")
 	
-	instance.setup(gameplay, element, xPos, yPos, 1.0, gameplay.noteStrum.position.x)
-	gameplay.renderedElements.addElement(instance)
+	instance.setup(gameplay, element, xPos, yPos, 1.0, offsetX)
+	gameplay.elementControl.addElement(instance)

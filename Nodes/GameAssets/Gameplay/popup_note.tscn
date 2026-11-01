@@ -101,10 +101,10 @@ offset_bottom = 12.0
 script = ExtResource("2_38h3k")
 yOffset = 120
 xOffset = 230.0
-noteTextures = Dictionary[String, Texture]({
-"bad": ExtResource("2_f5imb"),
-"good": ExtResource("3_jnjbt"),
-"perfect": ExtResource("1_4to2p")
+noteTextures = Dictionary[int, Texture]({
+0: ExtResource("1_4to2p"),
+1: ExtResource("3_jnjbt"),
+2: ExtResource("2_f5imb")
 })
 
 [node name="Graphic" type="TextureRect" parent="."]

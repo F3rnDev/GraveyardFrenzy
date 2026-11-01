@@ -9,7 +9,7 @@ class_name PopupScore
 @export var yOffset = 200
 @export var xOffset = 250.0
 
-@export var noteTextures:Dictionary[String, Texture]
+@export var noteTextures:Dictionary[NoteRating.Ratings, Texture]
 
 func setPopup(notePos, rating, timing, canShowTiming):
 	global_position = Vector2(xOffset, notePos.y - yOffset)
@@ -26,12 +26,12 @@ func showTiming(timing, rating):
 	
 	#DEFINE TEXT COLOR
 	match rating:
-		"bad":
-			textColor = Color.RED
-		"good":
-			textColor = Color.YELLOW
-		"perfect":
+		NoteRating.Ratings.Perfect:
 			textColor = Color.GREEN
+		NoteRating.Ratings.Good:
+			textColor = Color.YELLOW
+		NoteRating.Ratings.Bad:
+			textColor = Color.RED
 	
 	#CHECK IF TIMING IS EARLY OR LATE
 	if timing > 60:
@@ -44,7 +44,6 @@ func showTiming(timing, rating):
 	#UPDATE TEXT
 	timingLabel.text = timingText + " ms" + timingDesc
 	timingLabel.set("theme_override_colors/font_color", textColor)
-
 
 func _on_spawn_anim_animation_finished(_anim_name: StringName) -> void:
 	queue_free()
