@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjydm5pf2cg8t"]
+
+[ext_resource type="Script" uid="uid://coowr87ekq2g8" path="res://Scripts/GameAssets/Particles/AfterImage/after_image.gd" id="1_ujnv5"]
+
+[node name="AfterImage" type="Sprite2D"]
+script = ExtResource("1_ujnv5")

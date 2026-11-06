@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctot8oj01g7kt"]
+
+[ext_resource type="Script" uid="uid://qkvv341v4wrh" path="res://Scripts/GameAssets/Particles/AfterImage/after_image_spawner.gd" id="1_5j2sj"]
+
+[node name="AfterImageSpawner" type="Node"]
+script = ExtResource("1_5j2sj")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

@@ -79,7 +79,6 @@ gameplay = NodePath("..")
 
 [node name="player" parent="." instance=ExtResource("2_qsmea")]
 position = Vector2(134.96, 630)
-fastFallMultiplier = 4.5
 
 [node name="UIGrp" type="Control" parent="."]
 layout_mode = 3

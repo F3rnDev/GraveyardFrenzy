@@ -21,7 +21,7 @@
   [title]Building Blocks[title]
   [date]Feb 2027[date]
   [description]Create the base: Polish gameplay, remake the chart editor, and add/rework the ui and menus.[description]
-  [progress]50[progress]
+  [progress]65[progress]
   [version]v0.0.2[version]
   [icon]fa-solid fa-puzzle-piece[icon]
 [roadmap-item]

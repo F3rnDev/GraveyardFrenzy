@@ -222,7 +222,7 @@ func updateOnMiss(note:GameNote):
 	comboCounter.updateCounter(noteCombo)
 	
 	#Player animation
-	player.playMissAnimation()
+	player.setMissAnimation()
 	
 	#Play miss sound
 	noteMissSound.pitch_scale = randf_range(0.8, 1.2)
