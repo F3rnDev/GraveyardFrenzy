@@ -4,6 +4,10 @@
 #### `A rhythm game about skeletons 💀`
 ***
 
+>[!Warning] Licensing
+>* **Source Code:** The source code is licensed under the Apache-2.0 License (see [LICENSE](LICENSE)).
+>* **Game Assets:** All visual art, character designs, animations, music tracks, sound effects, UI layouts, and branding are licensed under a separate custom license for personal, non-commercial use only (see [LICENSE_ASSETS](Assets/LICENSE)).
+
 ## Download
 - [Play the game on itch.io](https://f3rndev.itch.io/graveyard-frenzy)
 - [Download the source code](https://github.com/F3rnDev/GraveyardFrenzy/releases/tag/v0.0.1-01)
