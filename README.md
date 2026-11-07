@@ -4,7 +4,7 @@
 #### `A rhythm game about skeletons 💀`
 ***
 
->[!Warning] Licensing
+>**Licensing**
 >* **Source Code:** The source code is licensed under the Apache-2.0 License (see [LICENSE](LICENSE)).
 >* **Game Assets:** All visual art, character designs, animations, music tracks, sound effects, UI layouts, and branding are licensed under a separate custom license for personal, non-commercial use only (see [LICENSE_ASSETS](Assets/LICENSE)).
 
