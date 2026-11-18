@@ -57,6 +57,7 @@ var isGameOver = false
 @export_file("*.frzp") var debugProjectPath:String
 @export var debugDiff:String = "hard"
 @export var physicsCollDebug = false
+var debugActive = false
 var noteAreaDebug = false
 var debugNoteTiming = false
 
@@ -67,6 +68,7 @@ var debugNoteTiming = false
 var project:SongProject
 var curDiff:String = "normal"
 
+var curSection:SongSection.Types = SongSection.Types.RHYTHM
 var isRunnerSection = false
 var songOver = false
 
@@ -101,6 +103,8 @@ func _ready() -> void:
 	flashScreen(false)
 	
 	pauseMenu.canPause = true
+	
+	setDebug(false)
 
 func loadSong():
 	if project == null:
@@ -140,19 +144,21 @@ func changeScene(scenePath):
 		print("Error changing scene: Scene Manager is not present")
 #END
 
-#RUNNER SECTION
-#Will change this (new section type)
-func setRunnerSection(isRunner:bool):
-	isRunnerSection = isRunner
+#Change Section Type
+func setSection(section:SongSection.Types):
+	curSection = section
 	
-	if isRunnerSection:
-		var tween = create_tween()
-		tween.tween_property(noteStrum, "modulate:a", 0, 0.2)
-	else:
-		var tween = create_tween()
-		tween.tween_property(noteStrum, "modulate:a", 1, 0.2)
+	match curSection:
+		SongSection.Types.RHYTHM:
+			var tween = create_tween()
+			tween.tween_property(noteStrum, "modulate:a", 1, 0.2)
+		SongSection.Types.RUNNER:
+			var tween = create_tween()
+			tween.tween_property(noteStrum, "modulate:a", 0, 0.2)
 	
-	player.setRunnin(isRunnerSection)
+	player.setSection(section)
+	#Change This later
+	isRunnerSection = curSection == SongSection.Types.RUNNER
 	comboCounter.setRunnerSection(isRunnerSection)
 
 #Input
@@ -170,8 +176,7 @@ func debugInput(event):
 	#Show judgement
 	var justPressed = event.is_pressed() and not event.is_echo()
 	if Input.is_physical_key_pressed(KEY_F1) and justPressed:
-		debugCollision()
-		debugNoteTiming = !debugNoteTiming
+		setDebug(!debugActive)
 	
 	#gameOver
 	if Input.is_physical_key_pressed(KEY_R):
@@ -320,8 +325,15 @@ func endSong():
 	#SET THE NEW RATING
 #END
 
+func setDebug(value:bool):
+	debugActive = value
+	
+	debugCollision()
+	player.setDebugDisplay(debugActive)
+	debugNoteTiming = debugActive
+
 func debugCollision():
-	noteAreaDebug = !noteAreaDebug
+	noteAreaDebug = debugActive
 	
 	noteStrum.setDebug(noteAreaDebug)
 	

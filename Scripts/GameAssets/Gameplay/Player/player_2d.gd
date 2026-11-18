@@ -3,20 +3,23 @@ extends CharacterBody2D
 class_name Player
 
 #Components
+@onready var stateMachine: PlayerStateMachine = $PlayerStateMachine
 @onready var playerPhysics: Node = $PlayerPhysics
 @onready var playerAnimation: Node = $PlayerAnimation
 @onready var audio: Node = $Audio
 
 #Objects
 @onready var IFrames: Timer = $IFrames
-@onready var sprite: AnimatedSprite2D = $player_2d
+@onready var sprite: AnimatedSprite2D = $PlayerSprite
 @onready var healthContainer: Node2D = $Health
+@onready var debugDisplay:Label = $DebugStateDisplay
 
 #Trying to figure out how to sync animations to the rhythm
 #@export var conductor:Conductor
+const PlayerStates = PlayerStateMachine.States
+const SectionTypes = SongSection.Types
 
-#Transition between runner and rhythm sections
-var isRunnin = false
+var curSection:SectionTypes = SectionTypes.RHYTHM
 
 #Health and Hurt mechanic
 @export var health:int = 3
@@ -24,14 +27,13 @@ signal hurt
 var flashTimer = Timer.new()
 var healthFlash = Timer.new()
 
-#gameOver
-var dead = false
+#Get press
+var lastHitPress = null
+var curHitPress = null
 
-var deadRotateTween
-@export var deadFriction = 1000
-
-#SoundSfx
-var jumpedPlayed = false
+#Debug
+func setDebugDisplay(canDisplay:bool):
+	debugDisplay.visible = canDisplay
 
 #Initial setup
 func _ready():
@@ -47,32 +49,26 @@ func setupTimers():
 	healthFlash.connect("timeout", flashHealth)
 	add_child(healthFlash)
 
-func setRunnin(run):
-	if isRunnin == run:
-		return
-	
-	isRunnin = run
-	
-	playerAnimation.runnerRhythmTransition()
+func setSection(section:SectionTypes):
+	curSection = section
+	stateMachine.setState(PlayerStates.TRANSITION)
 
 func _physics_process(delta):
 	move_and_slide()
 
-#Colliding and player hurt/health logic
+#Player hurt/health logic
 func canBeHurt():
-	#check if the player is in the runner section (WILL CHANGE)
-	#check if hes not dead
-	#check if he has IFrames :O
-	if isRunnin and IFrames.is_stopped() and !dead:
+	if curSection == SectionTypes.RUNNER and IFrames.is_stopped() and stateMachine.curState != PlayerStates.DEAD:
 		playerHurt()
 
 func playerHurt():
+	stateMachine.setState(PlayerStates.HURT)
+	
 	addOrSubHealth(-1)
 	hurt.emit()
 	IFrames.start()	
 	flashTimer.start(0.1)
 	
-	playerAnimation.playHurtAnimation()
 	audio.playHurtSound()
 
 func flashPlayer():
@@ -119,19 +115,41 @@ func setHealthGraph():
 
 #GameOver
 func killPlayer():
-	dead = true
+	stateMachine.setState(PlayerStates.DEAD)
 	playerPhysics.playerKilled()
-	playerAnimation.playerKilled()
-	
 	healthContainer.visible = false
 
 #PLAYER HIT ANIMATION
 func setNoHitAnim(note, strumLine):
-	playerAnimation.playNoHitAnim(note, strumLine)
+	if shouldBlockNoHit(note):
+		return
+	
+	curHitPress = note
+	
+	stateMachine.setState(PlayerStates.NOHIT)
+	playerAnimation.movePlayerToStrumPos(note, strumLine)
 	audio.playNoHitSound(note)
 
+func shouldBlockNoHit(note):
+	var sameNote = lastHitPress == note
+	var isFall = stateMachine.curState == PlayerStates.FALL
+	var strumDownHit = is_on_floor() and note == 1
+	
+	return (sameNote or isFall or strumDownHit)
+
 func setHitAnim(note, strumLine, hold=false):
-	playerAnimation.playHitAnim(note, strumLine, hold)
+	curHitPress = note
+	
+	stateMachine.setState(PlayerStates.HITHOLD if hold else PlayerStates.HITNORMAL)
+	playerAnimation.movePlayerToStrumPos(note, strumLine)
 
 func setMissAnimation():
-	playerAnimation.playMissAnimation()
+	stateMachine.setState(PlayerStates.MISS)
+
+#signals
+func _on_player_state_machine_state_changed(newState: PlayerStates) -> void:
+	if curSection == SectionTypes.RUNNER: return
+	
+	if newState == PlayerStates.LAND or newState == PlayerStates.IDLEWALK:
+		curHitPress = null
+		lastHitPress = null

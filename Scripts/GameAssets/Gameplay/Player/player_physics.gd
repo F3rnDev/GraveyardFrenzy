@@ -2,6 +2,19 @@ extends Node
 
 @onready var player: Player = $".."
 @onready var animComponent: Node = $"../PlayerAnimation"
+@onready var stateMachine: PlayerStateMachine = $"../PlayerStateMachine"
+
+const PlayerStates = PlayerStateMachine.States
+const SectionTypes = SongSection.Types
+
+#PlayerStates where the gravity does not apply
+var noGravityStates:Array[PlayerStates] = [
+	PlayerStates.TRANSITION,
+	PlayerStates.HITNORMAL,
+	PlayerStates.HITHOLD,
+	PlayerStates.NOHIT,
+	PlayerStates.MISS
+]
 
 #Movement
 const SPEED = 500.0
@@ -12,6 +25,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var jumpBufferTime = 0.15
 var jumpBufferTimer = 0
 
+var moveDirection:Vector2
+
 #GameOver
 @export var deadFriction = 1000
 var deathJumped = false
@@ -21,11 +36,14 @@ var deathSlid = false
 func _physics_process(delta):
 	applyGravity(delta)
 	
-	if player.dead:
+	if stateMachine.curState == PlayerStates.DEAD: #Change this if to account the state
 		deathPhysics(delta)
 		return
 	
-	if !player.isRunnin:
+	processPlayerMovement(delta)
+
+func processPlayerMovement(delta):
+	if player.curSection != SectionTypes.RUNNER:
 		player.velocity = Vector2(0, player.velocity.y)
 		return
 	
@@ -34,7 +52,19 @@ func _physics_process(delta):
 
 #INPUT
 func _input(event: InputEvent) -> void:
+	#Block input if not on runner section
+	if player.curSection != SectionTypes.RUNNER: return
+	
+	getMovementInputs()
 	getJumpInputs(event)
+
+func getMovementInputs():
+	var inputDir = Input.get_vector(
+		CInput.getInput("Left"), CInput.getInput("Right"), 
+		CInput.getInput("Up"), CInput.getInput("Down")
+	)
+	
+	moveDirection = inputDir.normalized()
 
 func getJumpInputs(event: InputEvent):
 	#Set the jumpTimerBuffer (player jumps even if you've pressed it before touching the ground)
@@ -51,7 +81,7 @@ func applyGravity(delta):
 	if player.velocity.y > 0:
 		fastFall = fastFallMultiplier
 	
-	var canApplyGravity = ((animComponent.animated or player.dead or player.isRunnin) and !player.is_on_floor())
+	var canApplyGravity = (!noGravityStates.has(stateMachine.curState) and !player.is_on_floor())
 	if !canApplyGravity:
 		player.velocity.y = 0
 		return
@@ -60,14 +90,8 @@ func applyGravity(delta):
 
 #PLAYER MOVEMENT
 func runnerMovement():
-	var input_dir = Input.get_vector(
-		CInput.getInput("Left"), CInput.getInput("Right"), 
-		CInput.getInput("Up"), CInput.getInput("Down")
-	)
-	
-	var direction = (Vector2(input_dir.x, input_dir.y)).normalized()
-	if direction:
-		player.velocity.x = direction.x * SPEED
+	if moveDirection:
+		player.velocity.x = moveDirection.x * SPEED
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, SPEED)
 

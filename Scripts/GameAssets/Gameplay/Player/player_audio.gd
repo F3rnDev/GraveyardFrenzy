@@ -1,8 +1,10 @@
 extends Node
 
+const SectionTypes = SongSection.Types
+
 #Dependencies
 @onready var player: Player = $".."
-@onready var sprite: AnimatedSprite2D = $"../player_2d"
+@onready var sprite: AnimatedSprite2D = $"../PlayerSprite"
 
 #Sounds
 @onready var noHitAndJumpSound: AudioStreamPlayer = $NoHitAndJumpSound
@@ -12,12 +14,11 @@ extends Node
 
 var jumpedSndPlayed = false
 
-func _on_player_2d_animation_changed() -> void:
+func _on_player_sprite_animation_changed() -> void:
 	playSfx()
 
 func playSfx():
-	if sprite == null:
-		return
+	if sprite == null: return
 	
 	var stopAnim = sprite.animation != "Hold" and sprite.animation != "deathSlide"
 	if stopAnim and stopSound.playing:
@@ -29,18 +30,14 @@ func playSfx():
 	if sprite.animation != "jump":
 		jumpedSndPlayed = false
 	
-	if !player.isRunnin:
+	if player.curSection == SectionTypes.RUNNER:
 		return
 	
 	match sprite.animation:
-		"jump":
-			playJumpSound()
-		"Hold":
-			playHoldSound()
-		"Run":
-			playRunSound()
-		"deathSlide":
-			playHoldSound()
+		"jump": playJumpSound()
+		"Hold": playHoldSound()
+		"Run": playRunSound()
+		"deathSlide": playHoldSound()
 
 func playRunSound():
 	if runSound.playing:

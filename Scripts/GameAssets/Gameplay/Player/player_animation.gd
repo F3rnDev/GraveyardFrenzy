@@ -1,18 +1,19 @@
 extends Node
+
+const PlayerStates = PlayerStateMachine.States
+const SectionTypes = SongSection.Types
+
 #Dependencies
 @onready var player: Player = $".."
-@onready var sprite: AnimatedSprite2D = $"../player_2d"
+@onready var sprite: AnimatedSprite2D = $"../PlayerSprite"
 @onready var afterImageSpawner: AfterImageSpawner = $"../AfterImageSpawner"
+@onready var stateMachine: PlayerStateMachine = $"../PlayerStateMachine"
 
 #Transition between runner and rhythm sections
 var initPos:Vector2 #Player start position, go to this position when runner section is over
 var runninTransitionTween: Tween
 
 #Player animations
-var animated:bool = true #When playing a animation that ends, set this to false
-var canNoHitAnimate:bool = true
-var lastPressNote = null
-var isHoldingNote:bool = false
 var rythmMovementTween:Tween
 
 var missAnimations = []
@@ -24,7 +25,7 @@ var deadRotateTween:Tween
 
 ##SETUP
 func _ready():
-	sprite.play("Walk(Placeholder)")
+	sprite.play("Walk")
 	initPos = player.global_position
 	
 	setupAnimations()
@@ -38,130 +39,108 @@ func setupAnimations():
 
 ##RUNNER/RHYTHM TRANSITION
 func runnerRhythmTransition():
-	if player.global_position != initPos and !player.isRunnin and !player.dead:
+	var rhythmAndUndead = (player.curSection == SectionTypes.RHYTHM and
+	stateMachine.curState != stateMachine.States.DEAD)
+	
+	if player.global_position != initPos and rhythmAndUndead:
 		runninTransitionTween = create_tween()
 		runninTransitionTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 		runninTransitionTween.tween_property(player, "global_position", initPos, 0.5)
 		
 		#Animate While tweening
-		if player.is_on_floor(): sprite.play("Hold")
-		else: sprite.play("Hurt") #Change animation
+		if player.is_on_floor():
+			if player.global_position.x >= initPos.x:
+				sprite.play("Hold")
+			elif player.global_position.x < initPos.x:
+				sprite.play("Run")
+			
+		else: sprite.play("transitionToRhythm")
 		
 		afterImageSpawner.setActive(true)
-		animated = false
 		
 		await runninTransitionTween.finished
 		
-		animated = true
 		afterImageSpawner.setActive(false)
+		stateMachine.setState(PlayerStates.LAND)
 
-##PLAYER NORMAL ANIMATIONS (IDLE/RUN)
-func _process(_delta):
-	playAnimations()
-
-func playAnimations():
-	if !animated or player.dead:
-		sprite.speed_scale = 1.0
-		return
-	
-	lastPressNote = null
-	canNoHitAnimate = true
-	
-	if player.is_on_floor():
-		playGroundAnimation()
-	else:
-		playAerialAnimation()
-
-func playGroundAnimation():
-	var curAnim = "Walk(Placeholder)"
-	
-	if player.velocity.x > 0:
-		curAnim = "Run"
-	elif player.velocity.x < 0:
-		curAnim = "Hold"
-	
-	if sprite.animation != curAnim:
-		sprite.play(curAnim)
-
-func playAerialAnimation():
-	var curAnimation = "jump" if player.isRunnin else "fall"
-	
-	if player.velocity.y > 0:
-		curAnimation = "fall"
-	
-	if curAnimation != sprite.animation:
-		sprite.play(curAnimation)
+##PLAYER ANIMATIONS
+func _on_player_state_machine_state_changed(newState: PlayerStates) -> void:
+	startAnimation(newState)
+func startAnimation(newState: PlayerStates):
+	match newState:
+		PlayerStates.IDLEWALK: sprite.play("Walk")
+		PlayerStates.RUN: sprite.play("Run")
+		PlayerStates.STOP: sprite.play("Hold")
+		
+		PlayerStates.JUMP: sprite.play("jump")
+		PlayerStates.FALL: sprite.play("fall")
+		PlayerStates.LAND: sprite.play("land")
+		
+		PlayerStates.NOHIT:
+			playNoHitAnim(player.curHitPress)
+			player.lastHitPress = player.curHitPress
+		PlayerStates.HITNORMAL:
+			playNormalHitAnim(player.curHitPress)
+			player.lastHitPress = player.curHitPress
+		PlayerStates.HITHOLD:
+			playHoldHitAnim()
+			player.lastHitPress = player.curHitPress
+		
+		PlayerStates.TRANSITION: runnerRhythmTransition()
+		
+		PlayerStates.HURT: sprite.play("Hurt")
+		PlayerStates.MISS: playMissAnimation()
+		PlayerStates.DEAD: playerKilled()
 
 ##PLAYER HIT/NOHIT ANIMATIONS
-func playNoHitAnim(note, strumLine):
-	if !canNoHitAnimate or validateNoHitAnim(note):
-		return
-	
-	var strumPos = strumLine.get_child(note).global_position
-	var downHit = (note == 1 and player.global_position.y < strumPos.y)
-	
-	setPlayerStrumPos(strumPos)
-	
-	animated = false
-	lastPressNote = note
+func playNoHitAnim(note):
 	sprite.stop()
+	sprite.frame = 0
 	
-	#PLAY ANIMATION
+	var downHit = (note == 1 and player.lastHitPress == 0)
+	
 	if downHit:
 		sprite.play("AttackDown")
 	else:
 		sprite.play("jump")
 
-func playHitAnim(note, strumLine, hold=false):
-	canNoHitAnimate = false
-	
-	var strumPos = strumLine.get_child(note).global_position
-	var downHit = (note == 1 and player.global_position.y < strumPos.y)
-	
-	setPlayerStrumPos(strumPos)
-	
-	animated = false
-	lastPressNote = note
-	
-	if hold:
-		if !isHoldingNote:
-			isHoldingNote = true
-			sprite.play("AttackHold")
-		
-		return
-	
+func playNormalHitAnim(note):
 	sprite.stop()
+	sprite.frame = 0
 	
-	if isHoldingNote:
-		isHoldingNote = false
-		sprite.play("Attack01") #PlayHoldEndAnimation
-		return
+	var downHit = (note == 1 and player.lastHitPress == 0)
 	
-	#PLAY ANIMATION
 	if downHit:
 		sprite.play("AttackDown")
+		return
+	
+	if sprite.animation == "AttackHold":
+		sprite.play("Attack01")
 	else:
-		playHitAnimation()
+		sprite.play(getRandomHitOrMissAnimation())
 
-func playHitAnimation():
-	sprite.play(getRandomHitOrMissAnimation())
+func playHoldHitAnim():
+	sprite.play("AttackHold")
+
+func movePlayerToStrumPos(note, strumLine):
+	var strumPos = strumLine.get_child(note).global_position
+	
+	rythmMovementTween = create_tween()
+	rythmMovementTween.set_ease(Tween.EASE_OUT)
+	rythmMovementTween.set_trans(Tween.TRANS_BACK)
+
+	rythmMovementTween.tween_property(player, "global_position:y", strumPos.y, 0.1)
 
 ##PLAYER MISS ANIMATIONS
 func playMissAnimation():
-	animated = false
-	isHoldingNote = false
 	sprite.stop()
+	sprite.frame = 0
 	
 	var animationToPlay = "Miss01"
 	if sprite.animation != "AttackHold":
 		animationToPlay = getRandomHitOrMissAnimation("Miss")
 	
 	sprite.play(animationToPlay)
-
-##PLAYER HURT ANIMATIONS
-func playHurtAnimation():
-	animated = false
-	sprite.play("Hurt")
 
 ##PLAYER KILL ANIMATION
 func playerKilled():
@@ -179,28 +158,6 @@ func playDeathSlideAnimation():
 func playDeathFallAnimation():
 	sprite.play("deathFall")
 
-##HELPER FUNCTIONS
-func setPlayerStrumPos(pos):
-	rythmMovementTween = create_tween()
-	rythmMovementTween.set_ease(Tween.EASE_OUT)
-	rythmMovementTween.set_trans(Tween.TRANS_BACK)
-
-	rythmMovementTween.tween_property(player, "global_position:y", pos.y, 0.1)
-
-func validateNoHitAnim(note):
-	#Main Validations
-	var sameNote = (note == lastPressNote)
-	var downHit = (note == 1 and lastPressNote == 0)
-	var jumpUp = (note == 0 and lastPressNote == 1)
-	
-	# if on ground and not attacking down
-	var onGround = note == 1 and not downHit and not jumpUp
-	# if on air and not attacking down
-	var onAir = not player.is_on_floor() and not downHit and not jumpUp
-	
-	#Validate
-	return (sameNote or onGround or onAir)
-
 func getRandomHitOrMissAnimation(animType: String = "Hit") -> String:
 	var curAnimations = hitAnimations if animType == "Hit" else missAnimations
 	var count = curAnimations.size()
@@ -212,7 +169,3 @@ func getRandomHitOrMissAnimation(animType: String = "Hit") -> String:
 
 	lastHitOrMissIndex = index
 	return curAnimations[index]
-
-##SIGNALS
-func _on_player_2d_animation_finished() -> void:
-	animated = true

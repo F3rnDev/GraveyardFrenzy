@@ -43,4 +43,4 @@ func tgrSetSection(event:ChartEvent):
 	var sectionType = EventParams.getParam(event, EventParams.ParameterKey.SECTION_ID)
 	
 	#Change in the future, after adding other types of sections
-	gameplay.setRunnerSection(sectionType == 1.0)
+	gameplay.setSection(sectionType)

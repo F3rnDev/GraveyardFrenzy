@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://cfxo2wixq1d5j"]
+[gd_scene load_steps=19 format=3 uid="uid://cfxo2wixq1d5j"]
 
 [ext_resource type="Script" uid="uid://galgq4ogijvi" path="res://Scripts/GameAssets/Gameplay/Player/player_2d.gd" id="1_wpa7j"]
 [ext_resource type="PackedScene" uid="uid://ctot8oj01g7kt" path="res://Nodes/GameAssets/Particles/AfterImage/AfterImageSpawner.tscn" id="2_0jstd"]
-[ext_resource type="PackedScene" uid="uid://cfkurp5csl4do" path="res://Nodes/GameAssets/player_spr.tscn" id="2_iy8gb"]
+[ext_resource type="Script" uid="uid://drciedujgw7h8" path="res://Scripts/GameAssets/Gameplay/Player/player_state_machine.gd" id="3_1i6qf"]
+[ext_resource type="SpriteFrames" uid="uid://bfjly6rovm1m2" path="res://Assets/Images/Characters/Skelly/skelly_gameplay.tres" id="3_spgfq"]
 [ext_resource type="AudioStream" uid="uid://hid6fa2ql1ye" path="res://Assets/Audio/Sounds/noHit_JumpSound.wav" id="4_hwcms"]
 [ext_resource type="Script" uid="uid://lun53vcy4lx5" path="res://Scripts/GameAssets/Gameplay/Player/player_physics.gd" id="4_p2qqe"]
 [ext_resource type="Texture2D" uid="uid://bdsvdtnbu728u" path="res://Assets/Images/UI Images/Life.png" id="4_ui7l3"]
@@ -11,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://b540airf0od2u" path="res://Assets/Audio/Sounds/walkSound.wav" id="6_0m876"]
 [ext_resource type="Script" uid="uid://pi7fqpst07c6" path="res://Scripts/GameAssets/Gameplay/Player/player_audio.gd" id="6_wgerv"]
 [ext_resource type="AudioStream" uid="uid://tarn1r1qvrfq" path="res://Assets/Audio/Sounds/playerHurt.wav" id="7_lkxj8"]
+[ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="13_1i6qf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d05o4"]
 size = Vector2(91, 146.125)
@@ -48,19 +50,51 @@ animations = [{
 [node name="player" type="CharacterBody2D" groups=["player"]]
 texture_filter = 1
 script = ExtResource("1_wpa7j")
-deadFriction = 300
 
 [node name="AfterImageSpawner" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("2_0jstd")]
-sprite = NodePath("../player_2d")
+sprite = NodePath("../PlayerSprite")
 spawnTime = 0.1
 fadeTime = 0.5
 fadeColor = Color(1, 0, 0, 1)
 
-[node name="player_2d" parent="." instance=ExtResource("2_iy8gb")]
-z_index = 1
+[node name="PlayerStateMachine" type="Node" parent="."]
+script = ExtResource("3_1i6qf")
+
+[node name="PlayerPhysics" type="Node" parent="."]
+script = ExtResource("4_p2qqe")
+fastFallMultiplier = 4.5
+deadFriction = 300
+
+[node name="PlayerAnimation" type="Node" parent="."]
+script = ExtResource("5_fxfri")
+
+[node name="Audio" type="Node" parent="."]
+script = ExtResource("6_wgerv")
+
+[node name="NoHitAndJumpSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("4_hwcms")
+bus = &"Sound Effects"
+
+[node name="Stop" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("5_hwcms")
+volume_db = -10.0
+pitch_scale = 0.7
+bus = &"Sound Effects"
+
+[node name="Run" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("6_0m876")
+pitch_scale = 2.0
+bus = &"Sound Effects"
+
+[node name="Hurt" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("7_lkxj8")
+pitch_scale = 0.8
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -20)
-animation = &"idle"
-frame_progress = 0.401371
+scale = Vector2(5, 5)
+sprite_frames = ExtResource("3_spgfq")
+animation = &"Walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4.0625)
@@ -97,36 +131,67 @@ position = Vector2(10, 0)
 sprite_frames = SubResource("SpriteFrames_0m876")
 animation = &"Life"
 
-[node name="PlayerPhysics" type="Node" parent="."]
-script = ExtResource("4_p2qqe")
-fastFallMultiplier = 4.5
-deadFriction = 300
+[node name="DebugStateDisplay" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.5
+offset_top = -11.5
+offset_right = 38.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("13_1i6qf")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 8
+text = "State Test"
 
-[node name="PlayerAnimation" type="Node" parent="."]
-script = ExtResource("5_fxfri")
+[node name="NewHealth(WIP)" type="HBoxContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -134.0
+offset_right = -32.0
+offset_bottom = -132.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5, 5)
+theme_override_constants/separation = 10
+alignment = 1
 
-[node name="Audio" type="Node" parent="."]
-script = ExtResource("6_wgerv")
+[node name="CenterContainer" type="CenterContainer" parent="NewHealth(WIP)"]
+layout_mode = 2
 
-[node name="NoHitAndJumpSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("4_hwcms")
-bus = &"Sound Effects"
+[node name="Heart 0" type="AnimatedSprite2D" parent="NewHealth(WIP)/CenterContainer"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_0m876")
+animation = &"NoLife"
 
-[node name="Stop" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("5_hwcms")
-volume_db = -10.0
-pitch_scale = 0.7
-bus = &"Sound Effects"
+[node name="CenterContainer2" type="CenterContainer" parent="NewHealth(WIP)"]
+layout_mode = 2
 
-[node name="Run" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("6_0m876")
-pitch_scale = 2.0
-bus = &"Sound Effects"
+[node name="Heart 0" type="AnimatedSprite2D" parent="NewHealth(WIP)/CenterContainer2"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_0m876")
+animation = &"NoLife"
 
-[node name="Hurt" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("7_lkxj8")
-pitch_scale = 0.8
+[node name="CenterContainer3" type="CenterContainer" parent="NewHealth(WIP)"]
+layout_mode = 2
 
-[connection signal="animation_changed" from="player_2d" to="Audio" method="_on_player_2d_animation_changed"]
-[connection signal="animation_finished" from="player_2d" to="." method="_on_player_2d_animation_finished"]
-[connection signal="animation_finished" from="player_2d" to="PlayerAnimation" method="_on_player_2d_animation_finished"]
+[node name="Heart 0" type="AnimatedSprite2D" parent="NewHealth(WIP)/CenterContainer3"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_0m876")
+animation = &"NoLife"
+
+[connection signal="stateChanged" from="PlayerStateMachine" to="." method="_on_player_state_machine_state_changed"]
+[connection signal="stateChanged" from="PlayerStateMachine" to="PlayerAnimation" method="_on_player_state_machine_state_changed"]
+[connection signal="animation_changed" from="PlayerSprite" to="Audio" method="_on_player_sprite_animation_changed"]
+[connection signal="animation_finished" from="PlayerSprite" to="PlayerStateMachine" method="_on_player_sprite_animation_finished"]
+[connection signal="animation_finished" from="PlayerSprite" to="PlayerAnimation" method="_on_player_sprite_animation_finished"]
