@@ -81,9 +81,7 @@ func processAerialStates():
 #SIGNALS
 func _on_player_sprite_animation_finished() -> void:
 	match curState:
-		States.LAND: 
+		States.LAND, States.HURT: 
 			curState = States.IDLEWALK
 		States.HITNORMAL, States.HITHOLD, States.NOHIT, States.MISS:
 			curState = States.FALL
-		States.HURT:
-			curState = States.IDLEWALK

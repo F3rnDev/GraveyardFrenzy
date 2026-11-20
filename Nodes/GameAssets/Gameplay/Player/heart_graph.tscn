@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqhcubeuoyxn8"]
+
+[ext_resource type="Texture2D" uid="uid://bdsvdtnbu728u" path="res://Assets/Images/UI Images/Life.png" id="1_l4e46"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ui7l3"]
+atlas = ExtResource("1_l4e46")
+region = Rect2(0, 0, 9, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwcms"]
+atlas = ExtResource("1_l4e46")
+region = Rect2(10, 0, 9, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0m876"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ui7l3")
+}],
+"loop": true,
+"name": &"Life",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwcms")
+}],
+"loop": true,
+"name": &"NoLife",
+"speed": 5.0
+}]
+
+[node name="HeartGraph" type="MarginContainer"]
+custom_minimum_size = Vector2(9, 8)
+
+[node name="HeartSprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(4.5, 4)
+sprite_frames = SubResource("SpriteFrames_0m876")
+animation = &"NoLife"

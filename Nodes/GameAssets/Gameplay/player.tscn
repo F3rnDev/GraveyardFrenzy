@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cfxo2wixq1d5j"]
+[gd_scene load_steps=16 format=3 uid="uid://cfxo2wixq1d5j"]
 
 [ext_resource type="Script" uid="uid://galgq4ogijvi" path="res://Scripts/GameAssets/Gameplay/Player/player_2d.gd" id="1_wpa7j"]
 [ext_resource type="PackedScene" uid="uid://ctot8oj01g7kt" path="res://Nodes/GameAssets/Particles/AfterImage/AfterImageSpawner.tscn" id="2_0jstd"]
@@ -6,46 +6,19 @@
 [ext_resource type="SpriteFrames" uid="uid://bfjly6rovm1m2" path="res://Assets/Images/Characters/Skelly/skelly_gameplay.tres" id="3_spgfq"]
 [ext_resource type="AudioStream" uid="uid://hid6fa2ql1ye" path="res://Assets/Audio/Sounds/noHit_JumpSound.wav" id="4_hwcms"]
 [ext_resource type="Script" uid="uid://lun53vcy4lx5" path="res://Scripts/GameAssets/Gameplay/Player/player_physics.gd" id="4_p2qqe"]
-[ext_resource type="Texture2D" uid="uid://bdsvdtnbu728u" path="res://Assets/Images/UI Images/Life.png" id="4_ui7l3"]
 [ext_resource type="Script" uid="uid://brbovlsbhx258" path="res://Scripts/GameAssets/Gameplay/Player/player_animation.gd" id="5_fxfri"]
 [ext_resource type="AudioStream" uid="uid://cl4g8w1kjxghg" path="res://Assets/Audio/Sounds/hitHoldSound.wav" id="5_hwcms"]
 [ext_resource type="AudioStream" uid="uid://b540airf0od2u" path="res://Assets/Audio/Sounds/walkSound.wav" id="6_0m876"]
 [ext_resource type="Script" uid="uid://pi7fqpst07c6" path="res://Scripts/GameAssets/Gameplay/Player/player_audio.gd" id="6_wgerv"]
 [ext_resource type="AudioStream" uid="uid://tarn1r1qvrfq" path="res://Assets/Audio/Sounds/playerHurt.wav" id="7_lkxj8"]
 [ext_resource type="Theme" uid="uid://cyb8ixl8b0jtt" path="res://Assets/GameTheme.tres" id="13_1i6qf"]
+[ext_resource type="Script" uid="uid://cda5xcjvb2l2s" path="res://Scripts/GameAssets/Gameplay/Player/player_health.gd" id="14_0hpbr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d05o4"]
 size = Vector2(91, 146.125)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lkxj8"]
 size = Vector2(56, 71)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ui7l3"]
-atlas = ExtResource("4_ui7l3")
-region = Rect2(0, 0, 9, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hwcms"]
-atlas = ExtResource("4_ui7l3")
-region = Rect2(10, 0, 9, 8)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_0m876"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ui7l3")
-}],
-"loop": true,
-"name": &"Life",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hwcms")
-}],
-"loop": true,
-"name": &"NoLife",
-"speed": 5.0
-}]
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
 texture_filter = 1
@@ -110,26 +83,36 @@ debug_color = Color(0.957321, 0.197166, 0.169435, 0.42)
 [node name="IFrames" type="Timer" parent="."]
 one_shot = true
 
-[node name="Health" type="Node2D" parent="."]
-position = Vector2(-3.11, -143.8)
-scale = Vector2(6, 6)
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.1
 
-[node name="Heart 0" type="AnimatedSprite2D" parent="Health"]
-texture_filter = 1
-position = Vector2(-10, 0)
-sprite_frames = SubResource("SpriteFrames_0m876")
-animation = &"NoLife"
+[node name="Health" type="BoxContainer" parent="."]
+custom_minimum_size = Vector2(9, 8)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -9.0
+offset_top = -135.0
+offset_bottom = -127.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5, 5)
+pivot_offset = Vector2(4.5, 4)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("14_0hpbr")
 
-[node name="Heart 1" type="AnimatedSprite2D" parent="Health"]
-texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_0m876")
-animation = &"Life"
+[node name="HeartContainer" type="HBoxContainer" parent="Health"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 1
+alignment = 1
 
-[node name="Heart 2" type="AnimatedSprite2D" parent="Health"]
-texture_filter = 1
-position = Vector2(10, 0)
-sprite_frames = SubResource("SpriteFrames_0m876")
-animation = &"Life"
+[node name="HealthFlash" type="Timer" parent="Health"]
+wait_time = 0.5
 
 [node name="DebugStateDisplay" type="Label" parent="."]
 anchors_preset = 8
@@ -149,49 +132,10 @@ theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
 theme_override_constants/outline_size = 8
 text = "State Test"
 
-[node name="NewHealth(WIP)" type="HBoxContainer" parent="."]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -52.0
-offset_top = -134.0
-offset_right = -32.0
-offset_bottom = -132.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(5, 5)
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="CenterContainer" type="CenterContainer" parent="NewHealth(WIP)"]
-layout_mode = 2
-
-[node name="Heart 0" type="AnimatedSprite2D" parent="NewHealth(WIP)/CenterContainer"]
-texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_0m876")
-animation = &"NoLife"
-
-[node name="CenterContainer2" type="CenterContainer" parent="NewHealth(WIP)"]
-layout_mode = 2
-
-[node name="Heart 0" type="AnimatedSprite2D" parent="NewHealth(WIP)/CenterContainer2"]
-texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_0m876")
-animation = &"NoLife"
-
-[node name="CenterContainer3" type="CenterContainer" parent="NewHealth(WIP)"]
-layout_mode = 2
-
-[node name="Heart 0" type="AnimatedSprite2D" parent="NewHealth(WIP)/CenterContainer3"]
-texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_0m876")
-animation = &"NoLife"
-
 [connection signal="stateChanged" from="PlayerStateMachine" to="." method="_on_player_state_machine_state_changed"]
 [connection signal="stateChanged" from="PlayerStateMachine" to="PlayerAnimation" method="_on_player_state_machine_state_changed"]
 [connection signal="animation_changed" from="PlayerSprite" to="Audio" method="_on_player_sprite_animation_changed"]
 [connection signal="animation_finished" from="PlayerSprite" to="PlayerStateMachine" method="_on_player_sprite_animation_finished"]
 [connection signal="animation_finished" from="PlayerSprite" to="PlayerAnimation" method="_on_player_sprite_animation_finished"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
+[connection signal="timeout" from="Health/HealthFlash" to="Health" method="_on_health_flash_timeout"]

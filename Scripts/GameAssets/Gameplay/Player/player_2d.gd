@@ -7,11 +7,12 @@ class_name Player
 @onready var playerPhysics: Node = $PlayerPhysics
 @onready var playerAnimation: Node = $PlayerAnimation
 @onready var audio: Node = $Audio
+@onready var healthComponent: PlayerHealth = $Health
 
 #Objects
 @onready var IFrames: Timer = $IFrames
+@onready var flashTimer: Timer = $FlashTimer
 @onready var sprite: AnimatedSprite2D = $PlayerSprite
-@onready var healthContainer: Node2D = $Health
 @onready var debugDisplay:Label = $DebugStateDisplay
 
 #Trying to figure out how to sync animations to the rhythm
@@ -24,8 +25,6 @@ var curSection:SectionTypes = SectionTypes.RHYTHM
 #Health and Hurt mechanic
 @export var health:int = 3
 signal hurt
-var flashTimer = Timer.new()
-var healthFlash = Timer.new()
 
 #Get press
 var lastHitPress = null
@@ -37,19 +36,12 @@ func setDebugDisplay(canDisplay:bool):
 
 #Initial setup
 func _ready():
-	healthContainer.modulate.a = 0
-	setupTimers()
-
-func setupTimers():
-	flashTimer.one_shot = false
-	flashTimer.connect("timeout", flashPlayer)
-	add_child(flashTimer)
-	
-	healthFlash.one_shot = false
-	healthFlash.connect("timeout", flashHealth)
-	add_child(healthFlash)
+	healthComponent.modulate.a = 0
+	healthComponent.createHearts(health)
 
 func setSection(section:SectionTypes):
+	if stateMachine.curState == PlayerStates.DEAD: return
+	
 	curSection = section
 	stateMachine.setState(PlayerStates.TRANSITION)
 
@@ -67,7 +59,7 @@ func playerHurt():
 	addOrSubHealth(-1)
 	hurt.emit()
 	IFrames.start()	
-	flashTimer.start(0.1)
+	flashTimer.start()
 	
 	audio.playHurtSound()
 
@@ -77,47 +69,23 @@ func flashPlayer():
 		flashTimer.stop()
 	else:
 		sprite.visible = !sprite.visible
-		flashTimer.start(0.1)
-
-func flashHealth():
-	if health > 1:
-		healthContainer.modulate = Color.WHITE
-		healthFlash.stop()
-	else:
-		healthContainer.modulate = Color.RED if healthContainer.modulate == Color.WHITE else Color.WHITE
-		healthFlash.start(0.5)
+		flashTimer.start()
 
 func setHealth(setTo):
 	health = setTo
 
 func addOrSubHealth(setTo):
 	health += setTo
-	setHealthGraph()
-
-func setHealthGraph():
-	healthContainer.modulate.a = 1
-	
-	for i in range(healthContainer.get_child_count()):
-		var heartSprite = healthContainer.get_child(i)
-		
-		if health <= i:
-			heartSprite.play("NoLife")
-		else:
-			heartSprite.play("Life")
-	
-	var tween = create_tween()
+	healthComponent.setHealthGraph(health)
 	
 	if health == 1:
-		healthFlash.start(0.5)
-		tween.tween_property(healthContainer, "modulate:a", 1, 1.5)
-	else:
-		tween.tween_property(healthContainer, "modulate:a", 0, 2.5)
+		healthComponent.startFlash()
 
 #GameOver
 func killPlayer():
 	stateMachine.setState(PlayerStates.DEAD)
 	playerPhysics.playerKilled()
-	healthContainer.visible = false
+	healthComponent.visible = false
 
 #PLAYER HIT ANIMATION
 func setNoHitAnim(note, strumLine):
@@ -153,3 +121,6 @@ func _on_player_state_machine_state_changed(newState: PlayerStates) -> void:
 	if newState == PlayerStates.LAND or newState == PlayerStates.IDLEWALK:
 		curHitPress = null
 		lastHitPress = null
+
+func _on_flash_timer_timeout() -> void:
+	flashPlayer()
